@@ -636,15 +636,14 @@ function togglePlay() {
 /* VIDEO PLAYLIST 헬퍼 */
 function makePlaylist(videoEl, srcs) {
   let idx = 0;
-  function loadAndPlay(i) {
-    videoEl.src = srcs[i];
-    videoEl.load();
-    videoEl.play().catch(()=>{});
-  }
-  loadAndPlay(0);
+  // src만 세팅, 재생은 enterSite에서
+  videoEl.src = srcs[0];
+  videoEl.load();
   videoEl.addEventListener('ended', () => {
     idx = (idx + 1) % srcs.length;
-    loadAndPlay(idx);
+    videoEl.src = srcs[idx];
+    videoEl.load();
+    videoEl.play().catch(()=>{});
   });
 }
 
@@ -665,18 +664,15 @@ const obs = new IntersectionObserver(es => {
 }, { threshold: .15 });
 document.querySelectorAll('.rv').forEach(el => obs.observe(el));
 
-/* 스크롤시 영상 자동재생 (모바일 대응) */
+/* 스크롤시 섹션 진입하면 영상 재생 */
 const vidObs = new IntersectionObserver(es => {
   es.forEach(e => {
-    const v = e.target;
     if (e.isIntersecting) {
-      v.muted = true;
-      v.play().catch(()=>{});
-    } else {
-      v.pause();
+      e.target.muted = true;
+      e.target.play().catch(()=>{});
     }
   });
-}, { threshold: .3 });
+}, { threshold: .2 });
 document.querySelectorAll('video').forEach(v => vidObs.observe(v));
 </script>
 </body>
