@@ -1,0 +1,763 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>KD CREW</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Bebas+Neue&family=Noto+Sans+KR:wght@300;700;900&display=swap');
+
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --gold: #c9a84c;
+      --gold2: #ffe066;
+      --dark: #0a0a0a;
+      --red: #e63946;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--dark);
+      color: #fff;
+      font-family: 'Noto Sans KR', sans-serif;
+      overflow-x: hidden;
+    }
+
+    /* ── CANVAS PARTICLES ── */
+    #particles { position: fixed; inset: 0; z-index: 0; pointer-events: none; }
+
+    /* ── HERO ── */
+    #hero {
+      position: relative;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    #bg-video {
+      position: absolute;
+      inset: 0;
+      width: 100%; height: 100%;
+      object-fit: cover;
+      opacity: 0.35;
+      z-index: 1;
+    }
+
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to bottom, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.8) 100%);
+      z-index: 2;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 3;
+      text-align: center;
+    }
+
+    .hero-label {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(12px, 2vw, 16px);
+      letter-spacing: 8px;
+      color: var(--gold);
+      margin-bottom: 12px;
+      opacity: 0;
+      animation: fadeUp 1s 0.5s forwards;
+    }
+
+    .hero-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(72px, 16vw, 200px);
+      line-height: 0.9;
+      letter-spacing: -2px;
+      color: #fff;
+      position: relative;
+      opacity: 0;
+      animation: fadeUp 1s 0.8s forwards;
+    }
+
+    .hero-title .glitch {
+      position: relative;
+      display: inline-block;
+    }
+    .hero-title .glitch::before,
+    .hero-title .glitch::after {
+      content: attr(data-text);
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%;
+    }
+    .hero-title .glitch::before {
+      color: var(--red);
+      animation: glitch1 3s infinite;
+      clip-path: polygon(0 0, 100% 0, 100% 33%, 0 33%);
+    }
+    .hero-title .glitch::after {
+      color: var(--gold);
+      animation: glitch2 3s infinite;
+      clip-path: polygon(0 66%, 100% 66%, 100% 100%, 0 100%);
+    }
+
+    .hero-sub {
+      font-size: clamp(12px, 2vw, 15px);
+      letter-spacing: 6px;
+      color: rgba(255,255,255,0.5);
+      margin-top: 24px;
+      opacity: 0;
+      animation: fadeUp 1s 1.1s forwards;
+    }
+
+    .scroll-hint {
+      position: absolute;
+      bottom: 40px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 3;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      opacity: 0;
+      animation: fadeUp 1s 1.8s forwards;
+    }
+    .scroll-hint span {
+      font-size: 10px;
+      letter-spacing: 4px;
+      color: var(--gold);
+    }
+    .scroll-hint .bar {
+      width: 1px;
+      height: 50px;
+      background: linear-gradient(to bottom, var(--gold), transparent);
+      animation: scrollBar 1.5s infinite;
+    }
+
+    /* ── MUSIC PLAYER ── */
+    #player {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      background: rgba(10,10,10,0.85);
+      border: 1px solid rgba(201,168,76,0.3);
+      backdrop-filter: blur(12px);
+      padding: 14px 20px;
+      border-radius: 50px;
+      cursor: pointer;
+      transition: border-color 0.3s;
+    }
+    #player:hover { border-color: var(--gold); }
+
+    .player-btn {
+      width: 38px; height: 38px;
+      background: var(--gold);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+      transition: transform 0.2s;
+    }
+    #player:hover .player-btn { transform: scale(1.1); }
+
+    .player-icon { width: 14px; height: 14px; fill: #000; }
+
+    .player-info { line-height: 1.3; }
+    .player-track {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 13px;
+      letter-spacing: 2px;
+      color: var(--gold);
+    }
+    .player-status {
+      font-size: 10px;
+      color: rgba(255,255,255,0.4);
+      letter-spacing: 2px;
+    }
+
+    .equalizer {
+      display: flex;
+      align-items: flex-end;
+      gap: 3px;
+      height: 20px;
+    }
+    .eq-bar {
+      width: 3px;
+      background: var(--gold);
+      border-radius: 2px;
+      animation: eq 0.8s ease-in-out infinite alternate;
+    }
+    .eq-bar:nth-child(1) { animation-duration: 0.6s; }
+    .eq-bar:nth-child(2) { animation-duration: 0.9s; }
+    .eq-bar:nth-child(3) { animation-duration: 0.5s; }
+    .eq-bar:nth-child(4) { animation-duration: 0.7s; }
+    .eq-bar.paused { animation-play-state: paused; height: 4px !important; }
+
+    /* ── SECTION COMMON ── */
+    section { position: relative; z-index: 5; }
+
+    .section-tag {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 11px;
+      letter-spacing: 6px;
+      color: var(--gold);
+      margin-bottom: 16px;
+    }
+
+    /* ── ARTISTS ── */
+    #artists {
+      padding: 120px 40px;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    .artists-header {
+      margin-bottom: 80px;
+      overflow: hidden;
+    }
+
+    .artists-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(48px, 8vw, 100px);
+      line-height: 1;
+      letter-spacing: -1px;
+    }
+    .artists-title em {
+      color: var(--gold);
+      font-style: normal;
+    }
+
+    .artists-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2px;
+    }
+
+    .artist-card {
+      position: relative;
+      aspect-ratio: 3/4;
+      overflow: hidden;
+      cursor: pointer;
+      background: #111;
+    }
+
+    .artist-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.1) 60%);
+      z-index: 2;
+      transition: opacity 0.4s;
+    }
+    .artist-card:hover::before { opacity: 0.6; }
+
+    .artist-placeholder {
+      width: 100%; height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 80px;
+      color: rgba(255,255,255,0.05);
+      background: #111;
+      transition: transform 0.6s ease;
+    }
+    .artist-card:hover .artist-placeholder { transform: scale(1.05); }
+    .artist-card:hover img { transform: scale(1.05); }
+
+    .artist-card img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.6s ease;
+    }
+
+    .artist-info {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      z-index: 3;
+      padding: 30px;
+      transform: translateY(20px);
+      transition: transform 0.4s ease;
+    }
+    .artist-card:hover .artist-info { transform: translateY(0); }
+
+    .artist-number {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 11px;
+      letter-spacing: 4px;
+      color: var(--gold);
+      margin-bottom: 8px;
+    }
+    .artist-name {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(32px, 4vw, 52px);
+      line-height: 1;
+      letter-spacing: -0.5px;
+    }
+    .artist-genre {
+      font-size: 11px;
+      letter-spacing: 3px;
+      color: rgba(255,255,255,0.5);
+      margin-top: 8px;
+      opacity: 0;
+      transition: opacity 0.4s 0.1s;
+    }
+    .artist-card:hover .artist-genre { opacity: 1; }
+
+    .artist-line {
+      width: 0;
+      height: 1px;
+      background: var(--gold);
+      margin-top: 12px;
+      transition: width 0.5s ease;
+    }
+    .artist-card:hover .artist-line { width: 40px; }
+
+    /* ── MARQUEE ── */
+    .marquee-wrap {
+      overflow: hidden;
+      border-top: 1px solid rgba(255,255,255,0.06);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      padding: 18px 0;
+      background: #0d0d0d;
+    }
+    .marquee-inner {
+      display: flex;
+      white-space: nowrap;
+      animation: marquee 18s linear infinite;
+    }
+    .marquee-item {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(28px, 4vw, 48px);
+      letter-spacing: 4px;
+      padding: 0 40px;
+      color: transparent;
+      -webkit-text-stroke: 1px rgba(255,255,255,0.15);
+    }
+    .marquee-item.gold {
+      color: var(--gold);
+      -webkit-text-stroke: 0;
+    }
+
+    /* ── BEAT SECTION ── */
+    #beats {
+      padding: 120px 40px;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    .beats-header { margin-bottom: 60px; }
+    .beats-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(40px, 6vw, 80px);
+      line-height: 1;
+    }
+
+    .waveform-display {
+      width: 100%;
+      height: 100px;
+      display: flex;
+      align-items: center;
+      gap: 3px;
+      margin-bottom: 40px;
+    }
+    .wave-bar {
+      flex: 1;
+      background: rgba(201,168,76,0.2);
+      border-radius: 2px;
+      transition: background 0.3s;
+    }
+    .wave-bar.active { background: var(--gold); }
+
+    /* ── FOOTER ── */
+    footer {
+      border-top: 1px solid rgba(255,255,255,0.06);
+      padding: 60px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: relative;
+      z-index: 5;
+    }
+
+    .footer-logo {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 48px;
+      letter-spacing: 4px;
+      color: var(--gold);
+    }
+
+    .footer-copy {
+      font-size: 11px;
+      letter-spacing: 3px;
+      color: rgba(255,255,255,0.2);
+    }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes glitch1 {
+      0%, 90%, 100% { transform: translate(0); opacity: 0; }
+      92% { transform: translate(-4px, 1px); opacity: 0.8; }
+      94% { transform: translate(4px, -1px); opacity: 0.8; }
+      96% { transform: translate(-2px, 0); opacity: 0.8; }
+      98% { transform: translate(2px, 1px); opacity: 0.8; }
+    }
+
+    @keyframes glitch2 {
+      0%, 85%, 100% { transform: translate(0); opacity: 0; }
+      87% { transform: translate(4px, 2px); opacity: 0.7; }
+      89% { transform: translate(-4px, -2px); opacity: 0.7; }
+      91% { transform: translate(2px, 0); opacity: 0.7; }
+    }
+
+    @keyframes scrollBar {
+      0% { opacity: 1; transform: scaleY(1) translateY(0); }
+      100% { opacity: 0; transform: scaleY(0.5) translateY(20px); }
+    }
+
+    @keyframes marquee {
+      from { transform: translateX(0); }
+      to   { transform: translateX(-50%); }
+    }
+
+    @keyframes eq {
+      from { height: 4px; }
+      to   { height: 20px; }
+    }
+
+    /* ── REVEAL ON SCROLL ── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .reveal-delay-1 { transition-delay: 0.1s; }
+    .reveal-delay-2 { transition-delay: 0.2s; }
+    .reveal-delay-3 { transition-delay: 0.3s; }
+
+    /* ── CURSOR ── */
+    .cursor {
+      position: fixed;
+      width: 10px; height: 10px;
+      background: var(--gold);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 9999;
+      transform: translate(-50%, -50%);
+      transition: transform 0.1s, width 0.3s, height 0.3s, opacity 0.3s;
+      mix-blend-mode: difference;
+    }
+    .cursor-ring {
+      position: fixed;
+      width: 36px; height: 36px;
+      border: 1px solid rgba(201,168,76,0.5);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 9998;
+      transform: translate(-50%, -50%);
+      transition: transform 0.15s ease, width 0.3s, height 0.3s, border-color 0.3s;
+    }
+
+    @media (max-width: 768px) {
+      .artists-grid { grid-template-columns: 1fr; }
+      footer { flex-direction: column; gap: 20px; text-align: center; }
+      .cursor, .cursor-ring { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<canvas id="particles"></canvas>
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<!-- MUSIC -->
+<audio id="audio" loop>
+  <source src="RAGE TYPE BEAT ＂DA GOAT＂ ｜ HARD BOUNCY.mp3" type="audio/mpeg" />
+</audio>
+
+<!-- MUSIC PLAYER UI -->
+<div id="player" onclick="togglePlay()">
+  <div class="player-btn">
+    <svg class="player-icon" id="playIcon" viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg>
+  </div>
+  <div class="player-info">
+    <div class="player-track">DA GOAT</div>
+    <div class="player-status" id="playerStatus">CLICK TO PLAY</div>
+  </div>
+  <div class="equalizer" id="equalizer">
+    <div class="eq-bar paused" style="height:8px"></div>
+    <div class="eq-bar paused" style="height:14px"></div>
+    <div class="eq-bar paused" style="height:6px"></div>
+    <div class="eq-bar paused" style="height:18px"></div>
+  </div>
+</div>
+
+<!-- HERO -->
+<section id="hero">
+  <video id="bg-video" autoplay muted loop playsinline>
+    <source src="hf_20260409_180125_cb4da553-be48-4c13-ba53-e6e592c5268e.mp4" type="video/mp4" />
+  </video>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <div class="hero-label">UNDERGROUND HIP-HOP COLLECTIVE</div>
+    <h1 class="hero-title">
+      <span class="glitch" data-text="KD">KD</span>
+    </h1>
+    <div class="hero-sub">CREW &nbsp;·&nbsp; EST. 2024 &nbsp;·&nbsp; KOREA</div>
+  </div>
+  <div class="scroll-hint">
+    <span>SCROLL</span>
+    <div class="bar"></div>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-wrap">
+  <div class="marquee-inner">
+    <span class="marquee-item gold">KD CREW</span>
+    <span class="marquee-item">UNDERGROUND</span>
+    <span class="marquee-item gold">힙합</span>
+    <span class="marquee-item">NO LIMIT</span>
+    <span class="marquee-item gold">AUTHENTIC</span>
+    <span class="marquee-item">REAL TALK</span>
+    <span class="marquee-item gold">KD CREW</span>
+    <span class="marquee-item">UNDERGROUND</span>
+    <span class="marquee-item gold">힙합</span>
+    <span class="marquee-item">NO LIMIT</span>
+    <span class="marquee-item gold">AUTHENTIC</span>
+    <span class="marquee-item">REAL TALK</span>
+  </div>
+</div>
+
+<!-- ARTISTS -->
+<section id="artists">
+  <div class="artists-header reveal">
+    <div class="section-tag">// THE ARTISTS</div>
+    <h2 class="artists-title">MEET THE<br /><em>CREW</em></h2>
+  </div>
+
+  <div class="artists-grid">
+
+    <!-- ARTIST 1 -->
+    <div class="artist-card reveal reveal-delay-1">
+      <div class="artist-placeholder">01</div>
+      <div class="artist-info">
+        <div class="artist-number">ARTIST 01</div>
+        <div class="artist-name">NAME</div>
+        <div class="artist-genre">RAPPER · SONGWRITER</div>
+        <div class="artist-line"></div>
+      </div>
+    </div>
+
+    <!-- ARTIST 2 -->
+    <div class="artist-card reveal reveal-delay-2">
+      <div class="artist-placeholder">02</div>
+      <div class="artist-info">
+        <div class="artist-number">ARTIST 02</div>
+        <div class="artist-name">NAME</div>
+        <div class="artist-genre">RAPPER · PRODUCER</div>
+        <div class="artist-line"></div>
+      </div>
+    </div>
+
+    <!-- ARTIST 3 -->
+    <div class="artist-card reveal reveal-delay-3">
+      <div class="artist-placeholder">03</div>
+      <div class="artist-info">
+        <div class="artist-number">ARTIST 03</div>
+        <div class="artist-name">NAME</div>
+        <div class="artist-genre">RAPPER · DIRECTOR</div>
+        <div class="artist-line"></div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- MARQUEE 2 -->
+<div class="marquee-wrap">
+  <div class="marquee-inner" style="animation-direction: reverse; animation-duration: 22s;">
+    <span class="marquee-item">BARS</span>
+    <span class="marquee-item gold">FLOW</span>
+    <span class="marquee-item">DRIP</span>
+    <span class="marquee-item gold">GRIND</span>
+    <span class="marquee-item">HUSTLE</span>
+    <span class="marquee-item gold">REAL</span>
+    <span class="marquee-item">BARS</span>
+    <span class="marquee-item gold">FLOW</span>
+    <span class="marquee-item">DRIP</span>
+    <span class="marquee-item gold">GRIND</span>
+    <span class="marquee-item">HUSTLE</span>
+    <span class="marquee-item gold">REAL</span>
+  </div>
+</div>
+
+<!-- BEATS -->
+<section id="beats">
+  <div class="beats-header reveal">
+    <div class="section-tag">// NOW PLAYING</div>
+    <h2 class="beats-title">DA GOAT<br />RAGE TYPE BEAT</h2>
+  </div>
+  <div class="waveform-display reveal" id="waveform"></div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">KD</div>
+  <div class="footer-copy">© 2024 KD CREW. ALL RIGHTS RESERVED.</div>
+</footer>
+
+<script>
+  /* ── PARTICLES ── */
+  const canvas = document.getElementById('particles');
+  const ctx = canvas.getContext('2d');
+  let W, H, particles = [];
+
+  function resize() {
+    W = canvas.width = window.innerWidth;
+    H = canvas.height = window.innerHeight;
+  }
+  resize();
+  window.addEventListener('resize', resize);
+
+  class Particle {
+    constructor() { this.reset(); }
+    reset() {
+      this.x = Math.random() * W;
+      this.y = Math.random() * H;
+      this.size = Math.random() * 1.5 + 0.3;
+      this.speedX = (Math.random() - 0.5) * 0.4;
+      this.speedY = -Math.random() * 0.6 - 0.2;
+      this.opacity = Math.random() * 0.5 + 0.1;
+      this.color = Math.random() > 0.7 ? '#c9a84c' : '#ffffff';
+    }
+    update() {
+      this.x += this.speedX;
+      this.y += this.speedY;
+      this.opacity -= 0.002;
+      if (this.opacity <= 0 || this.y < -10) this.reset();
+    }
+    draw() {
+      ctx.save();
+      ctx.globalAlpha = this.opacity;
+      ctx.fillStyle = this.color;
+      ctx.beginPath();
+      ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.restore();
+    }
+  }
+
+  for (let i = 0; i < 120; i++) particles.push(new Particle());
+
+  function animateParticles() {
+    ctx.clearRect(0, 0, W, H);
+    particles.forEach(p => { p.update(); p.draw(); });
+    requestAnimationFrame(animateParticles);
+  }
+  animateParticles();
+
+  /* ── CUSTOM CURSOR ── */
+  const cursor = document.getElementById('cursor');
+  const ring = document.getElementById('cursorRing');
+  let mx = 0, my = 0, rx = 0, ry = 0;
+
+  document.addEventListener('mousemove', e => {
+    mx = e.clientX; my = e.clientY;
+    cursor.style.left = mx + 'px';
+    cursor.style.top = my + 'px';
+  });
+
+  function animateCursor() {
+    rx += (mx - rx) * 0.12;
+    ry += (my - ry) * 0.12;
+    ring.style.left = rx + 'px';
+    ring.style.top = ry + 'px';
+    requestAnimationFrame(animateCursor);
+  }
+  animateCursor();
+
+  document.querySelectorAll('a, .artist-card, #player').forEach(el => {
+    el.addEventListener('mouseenter', () => {
+      cursor.style.width = '20px';
+      cursor.style.height = '20px';
+      ring.style.width = '56px';
+      ring.style.height = '56px';
+      ring.style.borderColor = 'rgba(201,168,76,0.8)';
+    });
+    el.addEventListener('mouseleave', () => {
+      cursor.style.width = '10px';
+      cursor.style.height = '10px';
+      ring.style.width = '36px';
+      ring.style.height = '36px';
+      ring.style.borderColor = 'rgba(201,168,76,0.5)';
+    });
+  });
+
+  /* ── SCROLL REVEAL ── */
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.15 });
+  reveals.forEach(el => observer.observe(el));
+
+  /* ── WAVEFORM ── */
+  const wf = document.getElementById('waveform');
+  for (let i = 0; i < 80; i++) {
+    const bar = document.createElement('div');
+    bar.className = 'wave-bar';
+    const h = Math.random() * 80 + 10;
+    bar.style.height = h + 'px';
+    wf.appendChild(bar);
+  }
+
+  let waveIndex = 0;
+  setInterval(() => {
+    const bars = wf.querySelectorAll('.wave-bar');
+    bars.forEach(b => b.classList.remove('active'));
+    bars[waveIndex % bars.length].classList.add('active');
+    waveIndex++;
+  }, 80);
+
+  /* ── MUSIC PLAYER ── */
+  const audio = document.getElementById('audio');
+  const playIcon = document.getElementById('playIcon');
+  const playerStatus = document.getElementById('playerStatus');
+  const eqBars = document.querySelectorAll('.eq-bar');
+  let playing = false;
+
+  function togglePlay() {
+    if (playing) {
+      audio.pause();
+      playIcon.innerHTML = '<polygon points="5,3 19,12 5,21"/>';
+      playerStatus.textContent = 'PAUSED';
+      eqBars.forEach(b => b.classList.add('paused'));
+    } else {
+      audio.play().catch(() => {});
+      playIcon.innerHTML = '<rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/>';
+      playerStatus.textContent = 'NOW PLAYING';
+      eqBars.forEach(b => b.classList.remove('paused'));
+    }
+    playing = !playing;
+  }
+</script>
+
+</body>
+</html>
