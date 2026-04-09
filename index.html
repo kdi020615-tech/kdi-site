@@ -328,7 +328,47 @@ footer {
 @keyframes scrollPulse { 0%,100%{opacity:1;} 50%{opacity:.2;} }
 @keyframes eqAnim { from{height:2px;} to{height:14px;} }
 
+/* MOBILE BLOCK */
+#mobile-block {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: #080808;
+  z-index: 99999;
+  align-items: center;
+  justify-content: center;
+}
+.mb-inner {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+}
+.mb-logo {
+  font-family: 'Splash', cursive;
+  font-size: 72px;
+  letter-spacing: 6px;
+  color: #f0ece4;
+}
+.mb-line {
+  width: 40px; height: 1px;
+  background: #b8a882;
+}
+.mb-text {
+  font-size: 14px;
+  letter-spacing: 2px;
+  color: rgba(240,236,228,.5);
+}
+.mb-sub {
+  font-family: 'Bebas Neue';
+  font-size: 11px;
+  letter-spacing: 6px;
+  color: #b8a882;
+}
+
 @media (max-width:768px) {
+  #mobile-block { display: flex; }
   nav { padding:24px; }
   .nav-links { display:none; }
   .ah-content { padding:0 24px 40px; flex-direction:column; align-items:flex-start; gap:8px; }
@@ -342,6 +382,16 @@ footer {
 </style>
 </head>
 <body>
+
+<!-- MOBILE BLOCK -->
+<div id="mobile-block">
+  <div class="mb-inner">
+    <div class="mb-logo">KDI</div>
+    <div class="mb-line"></div>
+    <div class="mb-text">PC에서 접속해주세요</div>
+    <div class="mb-sub">DESKTOP ONLY</div>
+  </div>
+</div>
 
 <div id="cur"></div>
 <div id="cur-ring"></div>
