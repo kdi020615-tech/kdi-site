@@ -664,6 +664,20 @@ const obs = new IntersectionObserver(es => {
   es.forEach(e => { if(e.isIntersecting) e.target.classList.add('on'); });
 }, { threshold: .15 });
 document.querySelectorAll('.rv').forEach(el => obs.observe(el));
+
+/* 스크롤시 영상 자동재생 (모바일 대응) */
+const vidObs = new IntersectionObserver(es => {
+  es.forEach(e => {
+    const v = e.target;
+    if (e.isIntersecting) {
+      v.muted = true;
+      v.play().catch(()=>{});
+    } else {
+      v.pause();
+    }
+  });
+}, { threshold: .3 });
+document.querySelectorAll('video').forEach(v => vidObs.observe(v));
 </script>
 </body>
 </html>
