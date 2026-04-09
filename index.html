@@ -328,70 +328,62 @@ footer {
 @keyframes scrollPulse { 0%,100%{opacity:1;} 50%{opacity:.2;} }
 @keyframes eqAnim { from{height:2px;} to{height:14px;} }
 
-/* MOBILE BLOCK */
-#mobile-block {
-  display: none;
-  position: fixed;
-  inset: 0;
-  background: #080808;
-  z-index: 99999;
-  align-items: center;
-  justify-content: center;
-}
-.mb-inner {
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 24px;
-}
-.mb-logo {
-  font-family: 'Splash', cursive;
-  font-size: 72px;
-  letter-spacing: 6px;
-  color: #f0ece4;
-}
-.mb-line {
-  width: 40px; height: 1px;
-  background: #b8a882;
-}
-.mb-text {
-  font-size: 14px;
-  letter-spacing: 2px;
-  color: rgba(240,236,228,.5);
-}
-.mb-sub {
-  font-family: 'Bebas Neue';
-  font-size: 11px;
-  letter-spacing: 6px;
-  color: #b8a882;
-}
-
 @media (max-width:768px) {
-  #mobile-block { display: flex; }
-  nav { padding:24px; }
-  .nav-links { display:none; }
-  .ah-content { padding:0 24px 40px; flex-direction:column; align-items:flex-start; gap:8px; }
-  .ah-num { display:none; }
-  .artist-bio { grid-template-columns:1fr; gap:40px; padding:80px 24px; }
-  #myr { padding:80px 24px; }
-  footer { padding:40px 24px; flex-direction:column; gap:20px; align-items:flex-start; }
-  #player { left:24px; bottom:24px; }
+  body { cursor: auto; }
   #cur, #cur-ring { display:none; }
+
+  nav { padding:20px 24px; }
+  .nav-links { display:none; }
+  .nav-logo { font-size:22px; }
+
+  .enter-logo { font-size: clamp(60px, 18vw, 90px); }
+
+  .artist-hero { height: 100svh; }
+  .ah-content {
+    padding: 0 24px 44px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+  }
+  .ah-name { font-size: clamp(52px, 16vw, 80px); }
+  .ah-num { display:none; }
+  .ah-role { font-size: 9px; letter-spacing:3px; }
+  .ah-scroll { display:none; }
+
+  .artist-bio {
+    grid-template-columns: 1fr;
+    gap: 28px;
+    padding: 60px 24px;
+  }
+  .bio-title { font-size: clamp(36px, 10vw, 52px); margin-bottom:20px; }
+  .bio-text { font-size: 13px; line-height: 1.85; }
+
+  .mq-item { font-size: clamp(18px, 5vw, 28px); padding: 0 20px; }
+
+  #myr-bio .artist-bio { padding: 40px 24px; }
+
+  #player {
+    left: 16px;
+    bottom: 20px;
+    gap: 10px;
+  }
+  .pl-btn { width:36px; height:36px; }
+  .pl-track { font-size:9px; }
+  .pl-status { font-size:8px; }
+  .eq { display:none; }
+
+  footer {
+    padding: 40px 24px;
+    flex-direction: column;
+    gap: 16px;
+    align-items: flex-start;
+  }
+  .ft-logo { font-size:30px; }
+  .ft-copy { text-align:left; font-size:8px; }
 }
 </style>
 </head>
 <body>
-
-<!-- MOBILE BLOCK -->
-<div id="mobile-block">
-  <div class="mb-inner">
-    <div class="mb-logo">KDI</div>
-    <div class="mb-line"></div>
-    <div class="mb-text">PC에서 접속해주세요</div>
-    <div class="mb-sub">DESKTOP ONLY</div>
-  </div>
-</div>
 
 <div id="cur"></div>
 <div id="cur-ring"></div>
@@ -664,17 +656,6 @@ jysVid.addEventListener('ended', () => {
   jysVid.src = jysVideos[jysIdx];
   jysVid.play();
 });
-
-/* MOBILE BLOCK */
-function checkMobile() {
-  const isMobile = /Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || window.innerWidth <= 768;
-  if (isMobile) {
-    document.getElementById('mobile-block').style.display = 'flex';
-    document.body.style.overflow = 'hidden';
-  }
-}
-checkMobile();
-window.addEventListener('resize', checkMobile);
 
 /* SCROLL REVEAL */
 const obs = new IntersectionObserver(es => {
