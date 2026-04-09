@@ -626,36 +626,31 @@ function togglePlay() {
   playing = !playing;
 }
 
-/* MYR VIDEO PLAYLIST (3개 순서대로 루프) */
-const myrVideos = [
+/* VIDEO PLAYLIST 헬퍼 */
+function makePlaylist(videoEl, srcs) {
+  let idx = 0;
+  function loadAndPlay(i) {
+    videoEl.src = srcs[i];
+    videoEl.load();
+    videoEl.play().catch(()=>{});
+  }
+  loadAndPlay(0);
+  videoEl.addEventListener('ended', () => {
+    idx = (idx + 1) % srcs.length;
+    loadAndPlay(idx);
+  });
+}
+
+makePlaylist(document.getElementById('myr-video'), [
   "인물사진 /Myr/1.mp4",
   "인물사진 /Myr/2.mp4",
   "인물사진 /Myr/3.mp4"
-];
-let myrIdx = 0;
-const myrVid = document.getElementById('myr-video');
-myrVid.src = myrVideos[0];
-myrVid.play().catch(()=>{});
-myrVid.addEventListener('ended', () => {
-  myrIdx = (myrIdx + 1) % myrVideos.length;
-  myrVid.src = myrVideos[myrIdx];
-  myrVid.play();
-});
+]);
 
-/* JYS VIDEO PLAYLIST (두 영상 이어서 루프) */
-const jysVideos = [
+makePlaylist(document.getElementById('jys-video'), [
   "인물사진 /JYS(정윤상)/hf_20260409_201709_cc577aa1-60da-4374-80fc-7917fdd3c1ad.mp4",
   "인물사진 /JYS(정윤상)/제목 없음.mp4"
-];
-let jysIdx = 0;
-const jysVid = document.getElementById('jys-video');
-jysVid.src = jysVideos[0];
-jysVid.play().catch(()=>{});
-jysVid.addEventListener('ended', () => {
-  jysIdx = (jysIdx + 1) % jysVideos.length;
-  jysVid.src = jysVideos[jysIdx];
-  jysVid.play();
-});
+]);
 
 /* SCROLL REVEAL */
 const obs = new IntersectionObserver(es => {
