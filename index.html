@@ -463,7 +463,7 @@ footer {
 
 <!-- ═══ JYS HERO ═══ -->
 <section class="artist-hero" id="jys">
-  <video id="jys-video" autoplay muted playsinline></video>
+  <video id="jys-video" autoplay muted playsinline webkit-playsinline></video>
   <div class="ah-overlay"></div>
   <div class="ah-content">
     <div class="ah-name">JYS</div>
@@ -512,7 +512,7 @@ footer {
 
 <!-- ═══ MYR HERO ═══ -->
 <section class="artist-hero" id="myr">
-  <video id="myr-video" autoplay muted playsinline></video>
+  <video id="myr-video" autoplay muted playsinline webkit-playsinline></video>
   <div class="ah-overlay"></div>
   <div class="ah-content">
     <div class="ah-name">MYR</div>
@@ -603,6 +603,13 @@ let playing = false;
 
 function enterSite() {
   document.getElementById('enter-screen').classList.add('hide');
+
+  // 모든 video 태그 일괄 재생 (iOS 유저 제스처 필요)
+  document.querySelectorAll('video').forEach(v => {
+    v.muted = true;
+    v.play().catch(()=>{});
+  });
+
   audio.play().then(() => {
     playing = true;
     plStatus.textContent = 'NOW PLAYING';
