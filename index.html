@@ -665,6 +665,17 @@ jysVid.addEventListener('ended', () => {
   jysVid.play();
 });
 
+/* MOBILE BLOCK */
+function checkMobile() {
+  const isMobile = /Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || window.innerWidth <= 768;
+  if (isMobile) {
+    document.getElementById('mobile-block').style.display = 'flex';
+    document.body.style.overflow = 'hidden';
+  }
+}
+checkMobile();
+window.addEventListener('resize', checkMobile);
+
 /* SCROLL REVEAL */
 const obs = new IntersectionObserver(es => {
   es.forEach(e => { if(e.isIntersecting) e.target.classList.add('on'); });
