@@ -1,763 +1,625 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>KD CREW</title>
-  <style>
-    @import url('https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Bebas+Neue&family=Noto+Sans+KR:wght@300;700;900&display=swap');
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>KDI</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400&display=swap');
 
-    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+@font-face {
+  font-family: 'Splash';
+  src: url('Splash-Regular.ttf') format('truetype');
+}
 
-    :root {
-      --gold: #c9a84c;
-      --gold2: #ffe066;
-      --dark: #0a0a0a;
-      --red: #e63946;
-    }
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
 
-    html { scroll-behavior: smooth; }
+:root {
+  --w: #f0ece4;
+  --g: #b8a882;
+  --b: #080808;
+}
 
-    body {
-      background: var(--dark);
-      color: #fff;
-      font-family: 'Noto Sans KR', sans-serif;
-      overflow-x: hidden;
-    }
+html { scroll-behavior: smooth; }
 
-    /* ── CANVAS PARTICLES ── */
-    #particles { position: fixed; inset: 0; z-index: 0; pointer-events: none; }
+body {
+  background: var(--b);
+  color: var(--w);
+  font-family: 'Inter', sans-serif;
+  font-weight: 300;
+  overflow-x: hidden;
+  cursor: none;
+}
 
-    /* ── HERO ── */
-    #hero {
-      position: relative;
-      height: 100vh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      overflow: hidden;
-    }
+/* GRAIN */
+body::after {
+  content:'';
+  position:fixed; inset:0;
+  z-index:9000;
+  pointer-events:none;
+  opacity:.04;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size:160px;
+}
 
-    #bg-video {
-      position: absolute;
-      inset: 0;
-      width: 100%; height: 100%;
-      object-fit: cover;
-      opacity: 0.35;
-      z-index: 1;
-    }
+/* CURSOR */
+#cur {
+  position:fixed; width:8px; height:8px;
+  background:var(--w); border-radius:50%;
+  pointer-events:none; z-index:9999;
+  transform:translate(-50%,-50%);
+  mix-blend-mode:difference;
+  transition:width .2s, height .2s;
+}
+#cur-ring {
+  position:fixed; width:30px; height:30px;
+  border:1px solid rgba(240,236,228,.35); border-radius:50%;
+  pointer-events:none; z-index:9998;
+  transform:translate(-50%,-50%);
+  transition:width .3s, height .3s;
+}
 
-    .hero-overlay {
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(to bottom, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.8) 100%);
-      z-index: 2;
-    }
+/* ── ENTER SCREEN ── */
+#enter-screen {
+  position:fixed; inset:0;
+  background:var(--b);
+  z-index:8000;
+  display:flex; flex-direction:column;
+  align-items:center; justify-content:center;
+  gap:48px;
+  transition:opacity .8s ease, visibility .8s ease;
+}
+#enter-screen.hide { opacity:0; visibility:hidden; }
 
-    .hero-content {
-      position: relative;
-      z-index: 3;
-      text-align: center;
-    }
+.enter-logo {
+  font-family:'Splash', cursive;
+  font-size:clamp(80px, 14vw, 160px);
+  letter-spacing:8px;
+  color:var(--w);
+  overflow:hidden;
+}
+.enter-logo span {
+  display:inline-block;
+  animation:slideUp .9s cubic-bezier(.16,1,.3,1) both;
+}
+.enter-logo span:nth-child(2) { animation-delay:.07s; }
+.enter-logo span:nth-child(3) { animation-delay:.14s; }
 
-    .hero-label {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: clamp(12px, 2vw, 16px);
-      letter-spacing: 8px;
-      color: var(--gold);
-      margin-bottom: 12px;
-      opacity: 0;
-      animation: fadeUp 1s 0.5s forwards;
-    }
+.enter-line {
+  width:1px; height:80px;
+  background:linear-gradient(to bottom, var(--g), transparent);
+  animation:fadeIn .6s .5s both;
+}
 
-    .hero-title {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: clamp(72px, 16vw, 200px);
-      line-height: 0.9;
-      letter-spacing: -2px;
-      color: #fff;
-      position: relative;
-      opacity: 0;
-      animation: fadeUp 1s 0.8s forwards;
-    }
+.enter-btn {
+  font-size:10px;
+  letter-spacing:7px;
+  color:var(--g);
+  cursor:pointer;
+  padding:16px 40px;
+  border:1px solid rgba(184,168,130,.3);
+  background:transparent;
+  color:var(--g);
+  text-transform:uppercase;
+  transition:border-color .3s, color .3s, background .3s;
+  animation:fadeIn .6s .8s both;
+}
+.enter-btn:hover {
+  border-color:var(--g);
+  color:var(--w);
+  background:rgba(184,168,130,.05);
+}
 
-    .hero-title .glitch {
-      position: relative;
-      display: inline-block;
-    }
-    .hero-title .glitch::before,
-    .hero-title .glitch::after {
-      content: attr(data-text);
-      position: absolute;
-      top: 0; left: 0;
-      width: 100%;
-    }
-    .hero-title .glitch::before {
-      color: var(--red);
-      animation: glitch1 3s infinite;
-      clip-path: polygon(0 0, 100% 0, 100% 33%, 0 33%);
-    }
-    .hero-title .glitch::after {
-      color: var(--gold);
-      animation: glitch2 3s infinite;
-      clip-path: polygon(0 66%, 100% 66%, 100% 100%, 0 100%);
-    }
+/* ── NAV ── */
+nav {
+  position:fixed; top:0; left:0; right:0;
+  z-index:500;
+  padding:28px 48px;
+  display:flex; justify-content:space-between; align-items:center;
+  mix-blend-mode:difference;
+}
+.nav-logo {
+  font-family:'Splash', cursive;
+  font-size:26px; letter-spacing:3px;
+  color:var(--w);
+}
+.nav-links { display:flex; gap:40px; list-style:none; }
+.nav-links a {
+  font-size:10px; letter-spacing:4px;
+  color:rgba(240,236,228,.5);
+  text-decoration:none; text-transform:uppercase;
+  transition:color .3s;
+}
+.nav-links a:hover { color:var(--w); }
 
-    .hero-sub {
-      font-size: clamp(12px, 2vw, 15px);
-      letter-spacing: 6px;
-      color: rgba(255,255,255,0.5);
-      margin-top: 24px;
-      opacity: 0;
-      animation: fadeUp 1s 1.1s forwards;
-    }
+/* ── ARTIST HERO (fullscreen video) ── */
+.artist-hero {
+  position:relative;
+  height:100vh;
+  overflow:hidden;
+  display:flex; align-items:flex-end;
+}
 
-    .scroll-hint {
-      position: absolute;
-      bottom: 40px;
-      left: 50%;
-      transform: translateX(-50%);
-      z-index: 3;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 8px;
-      opacity: 0;
-      animation: fadeUp 1s 1.8s forwards;
-    }
-    .scroll-hint span {
-      font-size: 10px;
-      letter-spacing: 4px;
-      color: var(--gold);
-    }
-    .scroll-hint .bar {
-      width: 1px;
-      height: 50px;
-      background: linear-gradient(to bottom, var(--gold), transparent);
-      animation: scrollBar 1.5s infinite;
-    }
+.artist-hero video {
+  position:absolute; inset:0;
+  width:100%; height:100%;
+  object-fit:cover;
+  filter:grayscale(25%) contrast(1.08);
+}
 
-    /* ── MUSIC PLAYER ── */
-    #player {
-      position: fixed;
-      bottom: 30px;
-      right: 30px;
-      z-index: 100;
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      background: rgba(10,10,10,0.85);
-      border: 1px solid rgba(201,168,76,0.3);
-      backdrop-filter: blur(12px);
-      padding: 14px 20px;
-      border-radius: 50px;
-      cursor: pointer;
-      transition: border-color 0.3s;
-    }
-    #player:hover { border-color: var(--gold); }
+.ah-overlay {
+  position:absolute; inset:0;
+  background:linear-gradient(
+    to top,
+    rgba(8,8,8,.95) 0%,
+    rgba(8,8,8,.3) 50%,
+    rgba(8,8,8,.1) 100%
+  );
+}
 
-    .player-btn {
-      width: 38px; height: 38px;
-      background: var(--gold);
-      border-radius: 50%;
-      display: flex; align-items: center; justify-content: center;
-      flex-shrink: 0;
-      transition: transform 0.2s;
-    }
-    #player:hover .player-btn { transform: scale(1.1); }
+.ah-content {
+  position:relative; z-index:2;
+  padding:0 48px 56px;
+  width:100%;
+  display:flex; justify-content:space-between; align-items:flex-end;
+}
 
-    .player-icon { width: 14px; height: 14px; fill: #000; }
+.ah-name {
+  font-family:'Bebas Neue';
+  font-size:clamp(64px, 12vw, 160px);
+  line-height:.9;
+  letter-spacing:-1px;
+}
 
-    .player-info { line-height: 1.3; }
-    .player-track {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 13px;
-      letter-spacing: 2px;
-      color: var(--gold);
-    }
-    .player-status {
-      font-size: 10px;
-      color: rgba(255,255,255,0.4);
-      letter-spacing: 2px;
-    }
+.ah-meta {
+  text-align:right;
+  padding-bottom:8px;
+}
+.ah-role {
+  font-size:10px; letter-spacing:4px;
+  color:var(--g); line-height:2;
+  text-transform:uppercase;
+}
+.ah-num {
+  font-family:'Bebas Neue';
+  font-size:clamp(48px, 6vw, 80px);
+  color:rgba(240,236,228,.08);
+  line-height:1;
+}
 
-    .equalizer {
-      display: flex;
-      align-items: flex-end;
-      gap: 3px;
-      height: 20px;
-    }
-    .eq-bar {
-      width: 3px;
-      background: var(--gold);
-      border-radius: 2px;
-      animation: eq 0.8s ease-in-out infinite alternate;
-    }
-    .eq-bar:nth-child(1) { animation-duration: 0.6s; }
-    .eq-bar:nth-child(2) { animation-duration: 0.9s; }
-    .eq-bar:nth-child(3) { animation-duration: 0.5s; }
-    .eq-bar:nth-child(4) { animation-duration: 0.7s; }
-    .eq-bar.paused { animation-play-state: paused; height: 4px !important; }
+/* scroll hint on hero */
+.ah-scroll {
+  position:absolute;
+  bottom:56px; right:48px;
+  z-index:3;
+  writing-mode:vertical-rl;
+  font-size:9px; letter-spacing:4px;
+  color:rgba(240,236,228,.3);
+  display:flex; align-items:center; gap:12px;
+}
+.ah-scroll::before {
+  content:'';
+  width:1px; height:50px;
+  background:linear-gradient(to bottom, var(--g), transparent);
+  animation:scrollPulse 2s infinite;
+}
 
-    /* ── SECTION COMMON ── */
-    section { position: relative; z-index: 5; }
+/* ── ARTIST BIO ── */
+.artist-bio {
+  padding:120px 48px;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:80px;
+  align-items:start;
+  border-bottom:1px solid rgba(240,236,228,.06);
+}
 
-    .section-tag {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 11px;
-      letter-spacing: 6px;
-      color: var(--gold);
-      margin-bottom: 16px;
-    }
+.bio-left {}
+.bio-tag {
+  font-size:9px; letter-spacing:5px;
+  color:var(--g); margin-bottom:24px;
+}
+.bio-title {
+  font-family:'Bebas Neue';
+  font-size:clamp(40px, 5vw, 64px);
+  line-height:1; letter-spacing:-.5px;
+  margin-bottom:32px;
+}
 
-    /* ── ARTISTS ── */
-    #artists {
-      padding: 120px 40px;
-      max-width: 1400px;
-      margin: 0 auto;
-    }
+.bio-right {}
+.bio-text {
+  font-size:14px; line-height:2;
+  color:rgba(240,236,228,.5);
+  max-width:480px;
+}
+.bio-text p + p { margin-top:16px; }
 
-    .artists-header {
-      margin-bottom: 80px;
-      overflow: hidden;
-    }
+/* ── MARQUEE ── */
+.mq {
+  overflow:hidden;
+  padding:18px 0;
+  border-top:1px solid rgba(240,236,228,.05);
+  border-bottom:1px solid rgba(240,236,228,.05);
+}
+.mq-inner {
+  display:flex; white-space:nowrap;
+  animation:mq 22s linear infinite;
+}
+.mq-item {
+  font-family:'Bebas Neue';
+  font-size:clamp(22px, 3vw, 40px);
+  letter-spacing:3px;
+  padding:0 36px;
+  color:transparent;
+  -webkit-text-stroke:1px rgba(240,236,228,.1);
+}
+.mq-item.lit { -webkit-text-stroke:0; color:var(--g); }
 
-    .artists-title {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: clamp(48px, 8vw, 100px);
-      line-height: 1;
-      letter-spacing: -1px;
-    }
-    .artists-title em {
-      color: var(--gold);
-      font-style: normal;
-    }
+/* ── MYR PLACEHOLDER ── */
+#myr {
+  padding:140px 48px;
+  border-bottom:1px solid rgba(240,236,228,.06);
+}
+.myr-inner {
+  display:flex; justify-content:space-between; align-items:flex-end;
+}
+.myr-name {
+  font-family:'Bebas Neue';
+  font-size:clamp(80px, 14vw, 180px);
+  line-height:.9;
+  color:rgba(240,236,228,.06);
+  letter-spacing:-2px;
+}
+.myr-label {
+  font-size:10px; letter-spacing:5px;
+  color:rgba(240,236,228,.2);
+  padding-bottom:16px;
+}
 
-    .artists-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 2px;
-    }
+/* ── PLAYER ── */
+#player {
+  position:fixed; bottom:32px; left:48px;
+  z-index:600;
+  display:flex; align-items:center; gap:14px;
+  cursor:pointer;
+}
+.pl-btn {
+  width:42px; height:42px;
+  border:1px solid rgba(240,236,228,.15); border-radius:50%;
+  display:flex; align-items:center; justify-content:center;
+  transition:border-color .3s, background .3s;
+}
+#player:hover .pl-btn {
+  border-color:rgba(240,236,228,.5);
+  background:rgba(240,236,228,.04);
+}
+.pl-icon { width:12px; height:12px; fill:var(--w); }
+.pl-info { line-height:1.5; }
+.pl-track { font-size:10px; letter-spacing:3px; color:var(--g); }
+.pl-status { font-size:9px; letter-spacing:2px; color:rgba(240,236,228,.2); }
+.eq { display:flex; align-items:flex-end; gap:2px; height:14px; margin-left:4px; }
+.eq-b {
+  width:2px; background:var(--g); border-radius:1px;
+  animation:eqAnim .7s ease-in-out infinite alternate;
+}
+.eq-b:nth-child(1){animation-duration:.5s;}
+.eq-b:nth-child(2){animation-duration:.8s;}
+.eq-b:nth-child(3){animation-duration:.45s;}
+.eq-b:nth-child(4){animation-duration:.65s;}
+.eq-b.off { animation-play-state:paused; height:2px !important; }
 
-    .artist-card {
-      position: relative;
-      aspect-ratio: 3/4;
-      overflow: hidden;
-      cursor: pointer;
-      background: #111;
-    }
+/* ── FOOTER ── */
+footer {
+  padding:56px 48px;
+  display:flex; justify-content:space-between; align-items:center;
+}
+.ft-logo { font-family:'Splash', cursive; font-size:36px; letter-spacing:4px; color:var(--g); }
+.ft-copy { font-size:9px; letter-spacing:3px; color:rgba(240,236,228,.12); text-align:right; line-height:2; }
 
-    .artist-card::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(to top, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.1) 60%);
-      z-index: 2;
-      transition: opacity 0.4s;
-    }
-    .artist-card:hover::before { opacity: 0.6; }
+/* ── REVEAL ── */
+.rv { opacity:0; transform:translateY(28px); transition:opacity .9s ease, transform .9s cubic-bezier(.16,1,.3,1); }
+.rv.on { opacity:1; transform:translateY(0); }
+.rv.d1{transition-delay:.1s;} .rv.d2{transition-delay:.2s;} .rv.d3{transition-delay:.3s;}
 
-    .artist-placeholder {
-      width: 100%; height: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 80px;
-      color: rgba(255,255,255,0.05);
-      background: #111;
-      transition: transform 0.6s ease;
-    }
-    .artist-card:hover .artist-placeholder { transform: scale(1.05); }
-    .artist-card:hover img { transform: scale(1.05); }
+/* ── KEYFRAMES ── */
+@keyframes slideUp { to { transform:translateY(0); } }
+@keyframes fadeIn  { to { opacity:1; } }
+@keyframes mq { from{transform:translateX(0);} to{transform:translateX(-50%);} }
+@keyframes scrollPulse { 0%,100%{opacity:1;} 50%{opacity:.2;} }
+@keyframes eqAnim { from{height:2px;} to{height:14px;} }
 
-    .artist-card img {
-      width: 100%; height: 100%;
-      object-fit: cover;
-      display: block;
-      transition: transform 0.6s ease;
-    }
-
-    .artist-info {
-      position: absolute;
-      bottom: 0; left: 0; right: 0;
-      z-index: 3;
-      padding: 30px;
-      transform: translateY(20px);
-      transition: transform 0.4s ease;
-    }
-    .artist-card:hover .artist-info { transform: translateY(0); }
-
-    .artist-number {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 11px;
-      letter-spacing: 4px;
-      color: var(--gold);
-      margin-bottom: 8px;
-    }
-    .artist-name {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: clamp(32px, 4vw, 52px);
-      line-height: 1;
-      letter-spacing: -0.5px;
-    }
-    .artist-genre {
-      font-size: 11px;
-      letter-spacing: 3px;
-      color: rgba(255,255,255,0.5);
-      margin-top: 8px;
-      opacity: 0;
-      transition: opacity 0.4s 0.1s;
-    }
-    .artist-card:hover .artist-genre { opacity: 1; }
-
-    .artist-line {
-      width: 0;
-      height: 1px;
-      background: var(--gold);
-      margin-top: 12px;
-      transition: width 0.5s ease;
-    }
-    .artist-card:hover .artist-line { width: 40px; }
-
-    /* ── MARQUEE ── */
-    .marquee-wrap {
-      overflow: hidden;
-      border-top: 1px solid rgba(255,255,255,0.06);
-      border-bottom: 1px solid rgba(255,255,255,0.06);
-      padding: 18px 0;
-      background: #0d0d0d;
-    }
-    .marquee-inner {
-      display: flex;
-      white-space: nowrap;
-      animation: marquee 18s linear infinite;
-    }
-    .marquee-item {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: clamp(28px, 4vw, 48px);
-      letter-spacing: 4px;
-      padding: 0 40px;
-      color: transparent;
-      -webkit-text-stroke: 1px rgba(255,255,255,0.15);
-    }
-    .marquee-item.gold {
-      color: var(--gold);
-      -webkit-text-stroke: 0;
-    }
-
-    /* ── BEAT SECTION ── */
-    #beats {
-      padding: 120px 40px;
-      max-width: 1400px;
-      margin: 0 auto;
-    }
-
-    .beats-header { margin-bottom: 60px; }
-    .beats-title {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: clamp(40px, 6vw, 80px);
-      line-height: 1;
-    }
-
-    .waveform-display {
-      width: 100%;
-      height: 100px;
-      display: flex;
-      align-items: center;
-      gap: 3px;
-      margin-bottom: 40px;
-    }
-    .wave-bar {
-      flex: 1;
-      background: rgba(201,168,76,0.2);
-      border-radius: 2px;
-      transition: background 0.3s;
-    }
-    .wave-bar.active { background: var(--gold); }
-
-    /* ── FOOTER ── */
-    footer {
-      border-top: 1px solid rgba(255,255,255,0.06);
-      padding: 60px 40px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      position: relative;
-      z-index: 5;
-    }
-
-    .footer-logo {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 48px;
-      letter-spacing: 4px;
-      color: var(--gold);
-    }
-
-    .footer-copy {
-      font-size: 11px;
-      letter-spacing: 3px;
-      color: rgba(255,255,255,0.2);
-    }
-
-    /* ── ANIMATIONS ── */
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(30px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
-
-    @keyframes glitch1 {
-      0%, 90%, 100% { transform: translate(0); opacity: 0; }
-      92% { transform: translate(-4px, 1px); opacity: 0.8; }
-      94% { transform: translate(4px, -1px); opacity: 0.8; }
-      96% { transform: translate(-2px, 0); opacity: 0.8; }
-      98% { transform: translate(2px, 1px); opacity: 0.8; }
-    }
-
-    @keyframes glitch2 {
-      0%, 85%, 100% { transform: translate(0); opacity: 0; }
-      87% { transform: translate(4px, 2px); opacity: 0.7; }
-      89% { transform: translate(-4px, -2px); opacity: 0.7; }
-      91% { transform: translate(2px, 0); opacity: 0.7; }
-    }
-
-    @keyframes scrollBar {
-      0% { opacity: 1; transform: scaleY(1) translateY(0); }
-      100% { opacity: 0; transform: scaleY(0.5) translateY(20px); }
-    }
-
-    @keyframes marquee {
-      from { transform: translateX(0); }
-      to   { transform: translateX(-50%); }
-    }
-
-    @keyframes eq {
-      from { height: 4px; }
-      to   { height: 20px; }
-    }
-
-    /* ── REVEAL ON SCROLL ── */
-    .reveal {
-      opacity: 0;
-      transform: translateY(40px);
-      transition: opacity 0.8s ease, transform 0.8s ease;
-    }
-    .reveal.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-    .reveal-delay-1 { transition-delay: 0.1s; }
-    .reveal-delay-2 { transition-delay: 0.2s; }
-    .reveal-delay-3 { transition-delay: 0.3s; }
-
-    /* ── CURSOR ── */
-    .cursor {
-      position: fixed;
-      width: 10px; height: 10px;
-      background: var(--gold);
-      border-radius: 50%;
-      pointer-events: none;
-      z-index: 9999;
-      transform: translate(-50%, -50%);
-      transition: transform 0.1s, width 0.3s, height 0.3s, opacity 0.3s;
-      mix-blend-mode: difference;
-    }
-    .cursor-ring {
-      position: fixed;
-      width: 36px; height: 36px;
-      border: 1px solid rgba(201,168,76,0.5);
-      border-radius: 50%;
-      pointer-events: none;
-      z-index: 9998;
-      transform: translate(-50%, -50%);
-      transition: transform 0.15s ease, width 0.3s, height 0.3s, border-color 0.3s;
-    }
-
-    @media (max-width: 768px) {
-      .artists-grid { grid-template-columns: 1fr; }
-      footer { flex-direction: column; gap: 20px; text-align: center; }
-      .cursor, .cursor-ring { display: none; }
-    }
-  </style>
+@media (max-width:768px) {
+  nav { padding:24px; }
+  .nav-links { display:none; }
+  .ah-content { padding:0 24px 40px; flex-direction:column; align-items:flex-start; gap:8px; }
+  .ah-num { display:none; }
+  .artist-bio { grid-template-columns:1fr; gap:40px; padding:80px 24px; }
+  #myr { padding:80px 24px; }
+  footer { padding:40px 24px; flex-direction:column; gap:20px; align-items:flex-start; }
+  #player { left:24px; bottom:24px; }
+  #cur, #cur-ring { display:none; }
+}
+</style>
 </head>
 <body>
 
-<canvas id="particles"></canvas>
-<div class="cursor" id="cursor"></div>
-<div class="cursor-ring" id="cursorRing"></div>
+<div id="cur"></div>
+<div id="cur-ring"></div>
 
-<!-- MUSIC -->
 <audio id="audio" loop>
-  <source src="RAGE TYPE BEAT ＂DA GOAT＂ ｜ HARD BOUNCY.mp3" type="audio/mpeg" />
+  <source src="OITS_121_Amin_@Magnum77Chase_@Myr (1).mp3" type="audio/mpeg"/>
 </audio>
 
-<!-- MUSIC PLAYER UI -->
-<div id="player" onclick="togglePlay()">
-  <div class="player-btn">
-    <svg class="player-icon" id="playIcon" viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg>
+<!-- ENTER SCREEN -->
+<div id="enter-screen">
+  <div class="enter-logo">
+    <span>K</span><span>D</span><span>I</span>
   </div>
-  <div class="player-info">
-    <div class="player-track">DA GOAT</div>
-    <div class="player-status" id="playerStatus">CLICK TO PLAY</div>
-  </div>
-  <div class="equalizer" id="equalizer">
-    <div class="eq-bar paused" style="height:8px"></div>
-    <div class="eq-bar paused" style="height:14px"></div>
-    <div class="eq-bar paused" style="height:6px"></div>
-    <div class="eq-bar paused" style="height:18px"></div>
-  </div>
+  <div class="enter-line"></div>
+  <button class="enter-btn" onclick="enterSite()">ENTER</button>
 </div>
 
-<!-- HERO -->
-<section id="hero">
-  <video id="bg-video" autoplay muted loop playsinline>
-    <source src="hf_20260409_180125_cb4da553-be48-4c13-ba53-e6e592c5268e.mp4" type="video/mp4" />
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">KDI</div>
+  <ul class="nav-links">
+    <li><a href="#kdi">KDI</a></li>
+    <li><a href="#jys">JYS</a></li>
+    <li><a href="#myr">MYR</a></li>
+  </ul>
+</nav>
+
+<!-- ═══ KDI HERO ═══ -->
+<section class="artist-hero" id="kdi">
+  <video autoplay muted loop playsinline>
+    <source src="hf_20260409_180125_cb4da553-be48-4c13-ba53-e6e592c5268e.mp4" type="video/mp4"/>
   </video>
-  <div class="hero-overlay"></div>
-  <div class="hero-content">
-    <div class="hero-label">UNDERGROUND HIP-HOP COLLECTIVE</div>
-    <h1 class="hero-title">
-      <span class="glitch" data-text="KD">KD</span>
-    </h1>
-    <div class="hero-sub">CREW &nbsp;·&nbsp; EST. 2024 &nbsp;·&nbsp; KOREA</div>
+  <div class="ah-overlay"></div>
+  <div class="ah-content">
+    <div class="ah-name">KDI</div>
+    <div class="ah-meta">
+      <div class="ah-num">01</div>
+      <div class="ah-role">Rapper<br/>Director<br/>Founder</div>
+    </div>
   </div>
-  <div class="scroll-hint">
-    <span>SCROLL</span>
-    <div class="bar"></div>
-  </div>
+  <div class="ah-scroll">SCROLL</div>
 </section>
+
+<!-- KDI BIO -->
+<div class="artist-bio">
+  <div class="bio-left rv">
+    <div class="bio-tag">// 01 — KDI</div>
+    <h2 class="bio-title">케이디아이</h2>
+  </div>
+  <div class="bio-right rv d1">
+    <div class="bio-text">
+      <p>2002년생이라는 어린 나이에 힙합 씬에 도전장을 내민 KDI는 2019년, 자신의 정체성을 투영한 첫 앨범 <em>[mostkiller]</em>를 통해 대담한 출사표를 던졌다. 비록 당시 대중의 즉각적인 선택을 받지는 못했으나, 이는 훗날 그가 구축할 거대한 음악 세계의 단단한 밑거름이 되었다. 이후 발표한 <em>[Blah Blah]</em>와 <em>[바름바이오랩]</em>을 통해 그는 끊임없는 사운드 실험과 장르적 변주를 시도했으며, 이러한 '성장통'의 과정은 그를 단순한 래퍼를 넘어선 완성형 아티스트로 진화시켰다.</p>
+      <p>KDI의 음악적 잠재력은 싱글 <em>[KDI FLOW]</em>에서 폭발했다. 청각을 압도하는 특유의 그루브와 독창적인 플로우는 리스너들의 시선을 단숨에 사로잡았으며, 이때부터 그의 커리어는 유례없는 급상승 곡선을 그리기 시작했다. 특히 세계적인 스트리머 <em>아이쇼스피드(IShowSpeed)</em>의 라이브 방송에 출연, <em>20만 명의 실시간 시청자</em> 앞에서 압도적인 아우라를 뿜어내며 글로벌 팬덤에게 자신의 존재감을 각인시켰다. 이를 계기로 그는 즉흥적인 가사 전달력과 순발력을 겸비한 '프리스타일의 정점'으로 거듭났다.</p>
+      <p>2024년, KDI는 자신의 커리어를 집대성한 명반 <em>[KDI WORLD]</em>를 발표하며 힙합 씬의 판도를 완전히 바꿨다. 이 앨범은 평단과 대중으로부터 "KDI가 구축한 완벽한 음악적 유토피아"라는 극찬을 이끌어냈으며, 전곡 프로듀싱과 디렉팅을 진두지휘한 그의 역량은 그를 '사장'이자 '아티스트'로서 완벽한 위치에 올려놓았다.</p>
+      <p>현재 KDI는 자신의 크루를 이끄는 경영자로서의 냉철함과, 마이크 앞에서의 뜨거운 예술성을 동시에 보유한 대체 불가능한 아이콘으로 자리매김했다. 그는 이제 국내를 넘어 글로벌 시장이 주목하는 <em>'차세대 힙합 엠파이어의 설계자'</em>로서 한 발 더 나아갈 준비를 마쳤다.</p>
+    </div>
+  </div>
+</div>
 
 <!-- MARQUEE -->
-<div class="marquee-wrap">
-  <div class="marquee-inner">
-    <span class="marquee-item gold">KD CREW</span>
-    <span class="marquee-item">UNDERGROUND</span>
-    <span class="marquee-item gold">힙합</span>
-    <span class="marquee-item">NO LIMIT</span>
-    <span class="marquee-item gold">AUTHENTIC</span>
-    <span class="marquee-item">REAL TALK</span>
-    <span class="marquee-item gold">KD CREW</span>
-    <span class="marquee-item">UNDERGROUND</span>
-    <span class="marquee-item gold">힙합</span>
-    <span class="marquee-item">NO LIMIT</span>
-    <span class="marquee-item gold">AUTHENTIC</span>
-    <span class="marquee-item">REAL TALK</span>
+<div class="mq">
+  <div class="mq-inner">
+    <span class="mq-item lit">KDI</span>
+    <span class="mq-item">JYS</span>
+    <span class="mq-item lit">MYR</span>
+    <span class="mq-item">KDI</span>
+    <span class="mq-item lit">JYS</span>
+    <span class="mq-item">MYR</span>
+    <span class="mq-item lit">KDI</span>
+    <span class="mq-item">JYS</span>
+    <span class="mq-item lit">MYR</span>
+    <span class="mq-item">KDI</span>
+    <span class="mq-item lit">JYS</span>
+    <span class="mq-item">MYR</span>
   </div>
 </div>
 
-<!-- ARTISTS -->
-<section id="artists">
-  <div class="artists-header reveal">
-    <div class="section-tag">// THE ARTISTS</div>
-    <h2 class="artists-title">MEET THE<br /><em>CREW</em></h2>
+<!-- ═══ JYS HERO ═══ -->
+<section class="artist-hero" id="jys">
+  <video id="jys-video" autoplay muted playsinline></video>
+  <div class="ah-overlay"></div>
+  <div class="ah-content">
+    <div class="ah-name">JYS</div>
+    <div class="ah-meta">
+      <div class="ah-num">02</div>
+      <div class="ah-role">Rapper<br/>Songwriter</div>
+    </div>
   </div>
-
-  <div class="artists-grid">
-
-    <!-- ARTIST 1 -->
-    <div class="artist-card reveal reveal-delay-1">
-      <div class="artist-placeholder">01</div>
-      <div class="artist-info">
-        <div class="artist-number">ARTIST 01</div>
-        <div class="artist-name">NAME</div>
-        <div class="artist-genre">RAPPER · SONGWRITER</div>
-        <div class="artist-line"></div>
-      </div>
-    </div>
-
-    <!-- ARTIST 2 -->
-    <div class="artist-card reveal reveal-delay-2">
-      <div class="artist-placeholder">02</div>
-      <div class="artist-info">
-        <div class="artist-number">ARTIST 02</div>
-        <div class="artist-name">NAME</div>
-        <div class="artist-genre">RAPPER · PRODUCER</div>
-        <div class="artist-line"></div>
-      </div>
-    </div>
-
-    <!-- ARTIST 3 -->
-    <div class="artist-card reveal reveal-delay-3">
-      <div class="artist-placeholder">03</div>
-      <div class="artist-info">
-        <div class="artist-number">ARTIST 03</div>
-        <div class="artist-name">NAME</div>
-        <div class="artist-genre">RAPPER · DIRECTOR</div>
-        <div class="artist-line"></div>
-      </div>
-    </div>
-
-  </div>
+  <div class="ah-scroll">SCROLL</div>
 </section>
+
+<!-- JYS BIO -->
+<div class="artist-bio">
+  <div class="bio-left rv">
+    <div class="bio-tag">// 02 — JYS</div>
+    <h2 class="bio-title">정윤상</h2>
+  </div>
+  <div class="bio-right rv d1">
+    <div class="bio-text">
+      <p>2002년생 무브먼트 아티스트. 독보적인 댄스 메커니즘과 시대를 앞서가는 비주얼 디렉팅을 통해 스트릿 씬과 하이패션계를 동시에 뒤흔들고 있는 독보적인 아이콘이다.</p>
+      <p>남서울대학교(NSU)에서 시각 예술과 신체 미학을 전공하고 있는 그는, 단순한 퍼포먼스를 넘어 <em>'신체적 언어의 극단적 확장'</em>을 탐구하며 캠퍼스와 거리를 자신의 런웨이로 탈바꿈시켰다. 특히 그만의 감각적인 스타일링은 '포스트-스트릿(Post-Street)'의 새로운 정점이라는 찬사를 받으며 차세대 패션 리더로서의 입지를 굳혔다.</p>
+      <p>2023년, JYS는 인간의 본능과 사회적 관습 사이의 경계를 무너뜨리는 파격적인 퍼포먼스 <em>[The Forbidden Touch]</em>를 선보이며 예술계와 법적 담론의 중심에 섰다. 당시 발생한 공권력과의 충돌 사건은 오히려 그의 예술적 광기와 타협하지 않는 반항 정신을 증명하는 결정적 계기가 되었으며, 이는 현대 미술계에서 <em>'제도권에 대한 가장 스타일리시한 저항'</em>으로 회자되고 있다.</p>
+      <p>단독 퍼포먼스 프로젝트 <em>&lt;NSU RAW 2023&gt;</em>과 비주얼 필름 <em>[SINS &amp; SENSE]</em>를 통해 장르를 넘나드는 예술적 스펙트럼을 증명한 JYS는, 최근 글로벌 패션 브랜드들과의 협업 제안을 뒤로하고 자신만의 고유한 무브먼트 아카이브 구축에 집중하고 있다.</p>
+      <p>2026년, 첫 번째 비주얼 앨범 <em>[LEGAL ADDICT]</em> 발매를 앞두고 있다. 정교한 안무 설계와 전곡 비주얼 디렉팅에 직접 참여한 이번 프로젝트를 통해, 그는 단순한 댄서를 넘어 시대를 관통하는 <em>'컬처럴 아이콘(Cultural Icon)'</em>으로서 한 발 더 도약할 준비를 마쳤다.</p>
+    </div>
+  </div>
+</div>
 
 <!-- MARQUEE 2 -->
-<div class="marquee-wrap">
-  <div class="marquee-inner" style="animation-direction: reverse; animation-duration: 22s;">
-    <span class="marquee-item">BARS</span>
-    <span class="marquee-item gold">FLOW</span>
-    <span class="marquee-item">DRIP</span>
-    <span class="marquee-item gold">GRIND</span>
-    <span class="marquee-item">HUSTLE</span>
-    <span class="marquee-item gold">REAL</span>
-    <span class="marquee-item">BARS</span>
-    <span class="marquee-item gold">FLOW</span>
-    <span class="marquee-item">DRIP</span>
-    <span class="marquee-item gold">GRIND</span>
-    <span class="marquee-item">HUSTLE</span>
-    <span class="marquee-item gold">REAL</span>
+<div class="mq">
+  <div class="mq-inner" style="animation-direction:reverse; animation-duration:28s;">
+    <span class="mq-item lit">KDI</span>
+    <span class="mq-item">JYS</span>
+    <span class="mq-item lit">MYR</span>
+    <span class="mq-item">KDI</span>
+    <span class="mq-item lit">JYS</span>
+    <span class="mq-item">MYR</span>
+    <span class="mq-item lit">KDI</span>
+    <span class="mq-item">JYS</span>
+    <span class="mq-item lit">MYR</span>
+    <span class="mq-item">KDI</span>
+    <span class="mq-item lit">JYS</span>
+    <span class="mq-item">MYR</span>
   </div>
 </div>
 
-<!-- BEATS -->
-<section id="beats">
-  <div class="beats-header reveal">
-    <div class="section-tag">// NOW PLAYING</div>
-    <h2 class="beats-title">DA GOAT<br />RAGE TYPE BEAT</h2>
+<!-- ═══ MYR HERO ═══ -->
+<section class="artist-hero" id="myr">
+  <video id="myr-video" autoplay muted playsinline></video>
+  <div class="ah-overlay"></div>
+  <div class="ah-content">
+    <div class="ah-name">MYR</div>
+    <div class="ah-meta">
+      <div class="ah-num">03</div>
+      <div class="ah-role">Producer<br/>Artist</div>
+    </div>
   </div>
-  <div class="waveform-display reveal" id="waveform"></div>
+  <div class="ah-scroll">SCROLL</div>
 </section>
+
+<!-- MYR BIO -->
+<section id="myr-bio">
+  <div class="artist-bio" style="border-bottom:none;">
+    <div class="bio-left rv">
+      <div class="bio-tag">// 03 — MYR</div>
+      <h2 class="bio-title">최지성</h2>
+    </div>
+    <div class="bio-right rv d1">
+      <div class="bio-text">
+        <p><em>myr</em>은 2002년생의 젊은 감각을 지닌 메인 프로듀서이자, 독보적인 예술가적 기질로 새로운 사운드 문법을 제시하고 있는 <em>'차세대 뮤직 아키텍트'</em>다.</p>
+        <p>타고난 예술가적 아우라와 트렌디한 감각을 겸비한 myr은 데뷔 전부터 특정 세대와 성별을 불문하고 압도적인 팬덤을 형성하며 '아이코닉한 프로듀서'의 탄생을 알렸다. 현재 국내 최고의 예술 인재들이 모이는 <em>동아방송예술대학교(DIMA)</em>에서 사운드 메커니즘을 연마하고 있는 그는, 학술적인 깊이와 스트릿한 본능을 동시에 보유한 보기 드문 재원이다.</p>
+        <p>아직 정식으로 메이저 씬의 '픽'을 거치지 않은 신인임에도 불구하고, myr의 음악성은 이미 대중들에 의해 먼저 발견되었다. 유튜브를 비롯한 각종 소셜 미디어 플랫폼에서 그의 작업물은 <em>'나만 알고 싶은 천재'</em>, <em>'씬의 판도를 바꿀 게임 체인저'</em>라는 찬사와 함께 수많은 리스너들의 자발적인 지지를 이끌어냈다. 특히 정형화되지 않은 틀 안에서 뿜어내는 프리스타일 퍼포먼스는 그의 음악적 순발력과 천부적인 리듬감을 증명하는 시그니처로 자리 잡았다.</p>
+        <p>myr은 단순한 비트 메이킹을 넘어, 곡 전체의 서사를 설계하는 메인 프로듀서로서 탁월한 디렉팅 능력을 보여준다. 예술가 특유의 예민한 감각으로 소리의 질감을 조각하는 그의 작업 방식은 기존 프로듀서들과는 궤를 달리한다.</p>
+        <p>2026년, 본격적인 활동 기지개를 켜는 myr은 장르의 경계를 허무는 실험적인 프로젝트들을 통해 자신의 음악적 스펙트럼을 증명할 예정이다. 대중의 열광적인 '리퀘스트'를 기반으로 성장을 거듭하고 있는 그는, 이제 '기대주'를 넘어 씬의 정점에 서기 위한 예술적 도약을 준비하고 있다.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PLAYER -->
+<div id="player" onclick="togglePlay()">
+  <div class="pl-btn">
+    <svg class="pl-icon" id="plIcon" viewBox="0 0 24 24">
+      <rect x="6" y="4" width="4" height="16"/>
+      <rect x="14" y="4" width="4" height="16"/>
+    </svg>
+  </div>
+  <div class="pl-info">
+    <div class="pl-track">OITS 121</div>
+    <div class="pl-status" id="plStatus">NOW PLAYING</div>
+  </div>
+  <div class="eq" id="eq">
+    <div class="eq-b" style="height:6px"></div>
+    <div class="eq-b" style="height:10px"></div>
+    <div class="eq-b" style="height:4px"></div>
+    <div class="eq-b" style="height:12px"></div>
+  </div>
+</div>
 
 <!-- FOOTER -->
 <footer>
-  <div class="footer-logo">KD</div>
-  <div class="footer-copy">© 2024 KD CREW. ALL RIGHTS RESERVED.</div>
+  <div class="ft-logo">KDI</div>
+  <div class="ft-copy">© 2024 KDI. ALL RIGHTS RESERVED.<br/>KOREA · UNDERGROUND HIP-HOP</div>
 </footer>
 
 <script>
-  /* ── PARTICLES ── */
-  const canvas = document.getElementById('particles');
-  const ctx = canvas.getContext('2d');
-  let W, H, particles = [];
-
-  function resize() {
-    W = canvas.width = window.innerWidth;
-    H = canvas.height = window.innerHeight;
-  }
-  resize();
-  window.addEventListener('resize', resize);
-
-  class Particle {
-    constructor() { this.reset(); }
-    reset() {
-      this.x = Math.random() * W;
-      this.y = Math.random() * H;
-      this.size = Math.random() * 1.5 + 0.3;
-      this.speedX = (Math.random() - 0.5) * 0.4;
-      this.speedY = -Math.random() * 0.6 - 0.2;
-      this.opacity = Math.random() * 0.5 + 0.1;
-      this.color = Math.random() > 0.7 ? '#c9a84c' : '#ffffff';
-    }
-    update() {
-      this.x += this.speedX;
-      this.y += this.speedY;
-      this.opacity -= 0.002;
-      if (this.opacity <= 0 || this.y < -10) this.reset();
-    }
-    draw() {
-      ctx.save();
-      ctx.globalAlpha = this.opacity;
-      ctx.fillStyle = this.color;
-      ctx.beginPath();
-      ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-      ctx.fill();
-      ctx.restore();
-    }
-  }
-
-  for (let i = 0; i < 120; i++) particles.push(new Particle());
-
-  function animateParticles() {
-    ctx.clearRect(0, 0, W, H);
-    particles.forEach(p => { p.update(); p.draw(); });
-    requestAnimationFrame(animateParticles);
-  }
-  animateParticles();
-
-  /* ── CUSTOM CURSOR ── */
-  const cursor = document.getElementById('cursor');
-  const ring = document.getElementById('cursorRing');
-  let mx = 0, my = 0, rx = 0, ry = 0;
-
-  document.addEventListener('mousemove', e => {
-    mx = e.clientX; my = e.clientY;
-    cursor.style.left = mx + 'px';
-    cursor.style.top = my + 'px';
+/* CURSOR */
+const cur = document.getElementById('cur');
+const ring = document.getElementById('cur-ring');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove', e => {
+  mx=e.clientX; my=e.clientY;
+  cur.style.left=mx+'px'; cur.style.top=my+'px';
+});
+(function tick(){
+  rx+=(mx-rx)*.1; ry+=(my-ry)*.1;
+  ring.style.left=rx+'px'; ring.style.top=ry+'px';
+  requestAnimationFrame(tick);
+})();
+document.querySelectorAll('a,.artist-hero,#player,.enter-btn').forEach(el=>{
+  el.addEventListener('mouseenter',()=>{
+    cur.style.width='16px'; cur.style.height='16px';
+    ring.style.width='46px'; ring.style.height='46px';
   });
-
-  function animateCursor() {
-    rx += (mx - rx) * 0.12;
-    ry += (my - ry) * 0.12;
-    ring.style.left = rx + 'px';
-    ring.style.top = ry + 'px';
-    requestAnimationFrame(animateCursor);
-  }
-  animateCursor();
-
-  document.querySelectorAll('a, .artist-card, #player').forEach(el => {
-    el.addEventListener('mouseenter', () => {
-      cursor.style.width = '20px';
-      cursor.style.height = '20px';
-      ring.style.width = '56px';
-      ring.style.height = '56px';
-      ring.style.borderColor = 'rgba(201,168,76,0.8)';
-    });
-    el.addEventListener('mouseleave', () => {
-      cursor.style.width = '10px';
-      cursor.style.height = '10px';
-      ring.style.width = '36px';
-      ring.style.height = '36px';
-      ring.style.borderColor = 'rgba(201,168,76,0.5)';
-    });
+  el.addEventListener('mouseleave',()=>{
+    cur.style.width='8px'; cur.style.height='8px';
+    ring.style.width='30px'; ring.style.height='30px';
   });
+});
 
-  /* ── SCROLL REVEAL ── */
-  const reveals = document.querySelectorAll('.reveal');
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
-  }, { threshold: 0.15 });
-  reveals.forEach(el => observer.observe(el));
+/* ENTER */
+const audio = document.getElementById('audio');
+const plIcon = document.getElementById('plIcon');
+const plStatus = document.getElementById('plStatus');
+const eqBars = document.querySelectorAll('.eq-b');
+let playing = false;
 
-  /* ── WAVEFORM ── */
-  const wf = document.getElementById('waveform');
-  for (let i = 0; i < 80; i++) {
-    const bar = document.createElement('div');
-    bar.className = 'wave-bar';
-    const h = Math.random() * 80 + 10;
-    bar.style.height = h + 'px';
-    wf.appendChild(bar);
+function enterSite() {
+  document.getElementById('enter-screen').classList.add('hide');
+  audio.play().then(() => {
+    playing = true;
+    plStatus.textContent = 'NOW PLAYING';
+    plIcon.innerHTML = '<rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/>';
+    eqBars.forEach(b => b.classList.remove('off'));
+  }).catch(() => {});
+}
+
+function togglePlay() {
+  if (playing) {
+    audio.pause();
+    plIcon.innerHTML = '<polygon points="5,3 19,12 5,21"/>';
+    plStatus.textContent = 'PAUSED';
+    eqBars.forEach(b => b.classList.add('off'));
+  } else {
+    audio.play();
+    plIcon.innerHTML = '<rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/>';
+    plStatus.textContent = 'NOW PLAYING';
+    eqBars.forEach(b => b.classList.remove('off'));
   }
+  playing = !playing;
+}
 
-  let waveIndex = 0;
-  setInterval(() => {
-    const bars = wf.querySelectorAll('.wave-bar');
-    bars.forEach(b => b.classList.remove('active'));
-    bars[waveIndex % bars.length].classList.add('active');
-    waveIndex++;
-  }, 80);
+/* MYR VIDEO PLAYLIST (3개 순서대로 루프) */
+const myrVideos = [
+  "인물사진 /Myr/1.mp4",
+  "인물사진 /Myr/2.mp4",
+  "인물사진 /Myr/3.mp4"
+];
+let myrIdx = 0;
+const myrVid = document.getElementById('myr-video');
+myrVid.src = myrVideos[0];
+myrVid.play().catch(()=>{});
+myrVid.addEventListener('ended', () => {
+  myrIdx = (myrIdx + 1) % myrVideos.length;
+  myrVid.src = myrVideos[myrIdx];
+  myrVid.play();
+});
 
-  /* ── MUSIC PLAYER ── */
-  const audio = document.getElementById('audio');
-  const playIcon = document.getElementById('playIcon');
-  const playerStatus = document.getElementById('playerStatus');
-  const eqBars = document.querySelectorAll('.eq-bar');
-  let playing = false;
+/* JYS VIDEO PLAYLIST (두 영상 이어서 루프) */
+const jysVideos = [
+  "인물사진 /JYS(정윤상)/hf_20260409_201709_cc577aa1-60da-4374-80fc-7917fdd3c1ad.mp4",
+  "인물사진 /JYS(정윤상)/제목 없음.mp4"
+];
+let jysIdx = 0;
+const jysVid = document.getElementById('jys-video');
+jysVid.src = jysVideos[0];
+jysVid.play().catch(()=>{});
+jysVid.addEventListener('ended', () => {
+  jysIdx = (jysIdx + 1) % jysVideos.length;
+  jysVid.src = jysVideos[jysIdx];
+  jysVid.play();
+});
 
-  function togglePlay() {
-    if (playing) {
-      audio.pause();
-      playIcon.innerHTML = '<polygon points="5,3 19,12 5,21"/>';
-      playerStatus.textContent = 'PAUSED';
-      eqBars.forEach(b => b.classList.add('paused'));
-    } else {
-      audio.play().catch(() => {});
-      playIcon.innerHTML = '<rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/>';
-      playerStatus.textContent = 'NOW PLAYING';
-      eqBars.forEach(b => b.classList.remove('paused'));
-    }
-    playing = !playing;
-  }
+/* SCROLL REVEAL */
+const obs = new IntersectionObserver(es => {
+  es.forEach(e => { if(e.isIntersecting) e.target.classList.add('on'); });
+}, { threshold: .15 });
+document.querySelectorAll('.rv').forEach(el => obs.observe(el));
 </script>
-
 </body>
 </html>
