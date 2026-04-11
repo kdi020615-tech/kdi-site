@@ -361,6 +361,17 @@ footer {
 @keyframes scrollPulse { 0%,100%{opacity:1;} 50%{opacity:.2;} }
 @keyframes eqAnim { from{height:2px;} to{height:14px;} }
 
+/* HAMBURGER */
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;z-index:600;padding:8px;}
+.hamburger span{width:22px;height:1.5px;background:var(--w);transition:transform .3s,opacity .3s;}
+.hamburger.open span:nth-child(1){transform:translateY(6.5px) rotate(45deg);}
+.hamburger.open span:nth-child(2){opacity:0;}
+.hamburger.open span:nth-child(3){transform:translateY(-6.5px) rotate(-45deg);}
+.mobile-menu{display:none;position:fixed;inset:0;z-index:550;background:rgba(13,8,18,.97);flex-direction:column;align-items:center;justify-content:center;gap:32px;}
+.mobile-menu.open{display:flex;}
+.mobile-menu a{font-size:14px;letter-spacing:6px;color:rgba(255,255,255,.7);text-decoration:none;text-transform:uppercase;transition:color .3s;}
+.mobile-menu a:hover,.mobile-menu a.active{color:var(--w);}
+
 /* MOBILE */
 @media (max-width:768px) {
   body { cursor: auto; }
@@ -368,6 +379,7 @@ footer {
 
   nav { padding:20px 24px; }
   .nav-links { display:none; }
+  .hamburger{display:flex;}
   .nav-logo { font-size:22px; }
 
   .artist-hero { height: 100svh; }
@@ -422,13 +434,25 @@ footer {
 <nav>
   <a href="index.html" class="nav-logo">KDI</a>
   <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
     <li><a href="kdi.html" class="active">KDI</a></li>
     <li><a href="jys.html">JYS</a></li>
     <li><a href="myr.html">MYR</a></li>
     <li><a href="shop.html">Shop</a></li>
     <li><a href="contact.html">Contact</a></li>
   </ul>
+  <div class="hamburger" id="hamburger" onclick="document.getElementById('hamburger').classList.toggle('open');document.getElementById('mobileMenu').classList.toggle('open');">
+    <span></span><span></span><span></span>
+  </div>
 </nav>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="index.html">Home</a>
+  <a href="kdi.html" class="active">KDI</a>
+  <a href="jys.html">JYS</a>
+  <a href="myr.html">MYR</a>
+  <a href="shop.html">Shop</a>
+  <a href="contact.html">Contact</a>
+</div>
 
 <!-- HERO -->
 <section class="artist-hero">
@@ -490,7 +514,7 @@ footer {
   <div class="track-list">
     <div class="track-row" onclick="playTrack(this, '인물사진 /케이디아이/음악/스컷 리마스터링.wav')">
       <div class="track-num">01</div>
-      <div class="track-name">스컷 (Remastered)</div>
+      <div class="track-name">BOSS</div>
       <div class="track-play">▶</div>
     </div>
   </div>

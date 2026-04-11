@@ -24,9 +24,21 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;padding:28px 48px;display:fl
 .page-tag{font-size:9px;letter-spacing:6px;color:var(--g);margin-bottom:16px;}
 .page-title{font-family:'Bebas Neue';font-size:clamp(64px,12vw,140px);line-height:.9;letter-spacing:-1px;text-align:center;}
 .page-content{padding:80px 48px;max-width:1200px;margin:0 auto;}
-.placeholder{text-align:center;padding:120px 0;}
-.placeholder-icon{font-size:48px;color:rgba(255,255,255,.15);margin-bottom:24px;}
-.placeholder-text{font-size:13px;letter-spacing:3px;color:rgba(255,255,255,.4);line-height:2;}
+.account-box{margin-bottom:60px;padding:32px;border:1px solid rgba(184,168,130,.25);background:rgba(184,168,130,.04);text-align:center;}
+.account-label{font-size:9px;letter-spacing:5px;color:var(--g);margin-bottom:12px;text-transform:uppercase;}
+.account-num{font-family:'Bebas Neue';font-size:clamp(24px,4vw,36px);letter-spacing:3px;margin-bottom:6px;}
+.account-holder{font-size:12px;letter-spacing:3px;color:rgba(255,255,255,.5);}
+.shop-grid{display:grid;grid-template-columns:repeat(auto-fill, minmax(300px, 1fr));gap:32px;}
+.shop-card{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);overflow:hidden;transition:border-color .3s, transform .3s;}
+.shop-card:hover{border-color:rgba(184,168,130,.3);transform:translateY(-4px);}
+.shop-img{width:100%;aspect-ratio:1/1;object-fit:cover;filter:grayscale(20%);transition:filter .5s;}
+.shop-card:hover .shop-img{filter:grayscale(0%);}
+.shop-info{padding:24px;}
+.shop-artist{font-size:9px;letter-spacing:4px;color:var(--g);text-transform:uppercase;margin-bottom:8px;}
+.shop-name{font-family:'Bebas Neue';font-size:28px;letter-spacing:1px;margin-bottom:4px;}
+.shop-price{font-size:14px;letter-spacing:2px;color:rgba(255,255,255,.6);}
+.shop-inquire{display:inline-block;margin-top:16px;font-size:9px;letter-spacing:4px;color:var(--g);text-decoration:none;padding:10px 24px;border:1px solid rgba(184,168,130,.3);transition:background .3s,color .3s;}
+.shop-inquire:hover{background:var(--g);color:var(--b);}
 footer{border-top:1px solid rgba(255,255,255,.1);padding:48px;display:flex;justify-content:space-between;align-items:center;}
 .ft-logo{font-family:'Splash',cursive;font-size:36px;letter-spacing:4px;color:var(--g);text-decoration:none;}
 .ft-copy{font-size:9px;letter-spacing:3px;color:rgba(255,255,255,.25);text-align:right;line-height:2;}
@@ -63,9 +75,26 @@ footer{border-top:1px solid rgba(255,255,255,.1);padding:48px;display:flex;justi
 .eq-b.off { animation-play-state:paused; height:2px !important; }
 @keyframes eqAnim { from{height:2px;} to{height:14px;} }
 
+/* HAMBURGER */
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;z-index:600;padding:8px;}
+.hamburger span{width:22px;height:1.5px;background:var(--w);transition:transform .3s,opacity .3s;}
+.hamburger.open span:nth-child(1){transform:translateY(6.5px) rotate(45deg);}
+.hamburger.open span:nth-child(2){opacity:0;}
+.hamburger.open span:nth-child(3){transform:translateY(-6.5px) rotate(-45deg);}
+.mobile-menu{display:none;position:fixed;inset:0;z-index:550;background:rgba(13,8,18,.97);flex-direction:column;align-items:center;justify-content:center;gap:32px;}
+.mobile-menu.open{display:flex;}
+.mobile-menu a{font-size:14px;letter-spacing:6px;color:rgba(255,255,255,.7);text-decoration:none;text-transform:uppercase;transition:color .3s;}
+.mobile-menu a:hover,.mobile-menu a.active{color:var(--w);}
+
 @media(max-width:768px){
-  nav{padding:20px 24px;} .nav-links{display:none;}
+  nav{padding:20px 24px;}
+  .nav-links{display:none;}
+  .hamburger{display:flex;}
   .page-content{padding:60px 24px;}
+  .page-hero{height:40vh;padding-bottom:40px;}
+  .account-box{padding:24px 16px;margin-bottom:40px;}
+  .account-num{font-size:22px;letter-spacing:2px;}
+  .shop-grid{grid-template-columns:1fr;gap:24px;}
   footer{padding:40px 24px;flex-direction:column;gap:16px;align-items:flex-start;}
   #player { left:16px; bottom:20px; gap:10px; }
   .pl-btn { width:36px; height:36px; }
@@ -86,15 +115,37 @@ footer{border-top:1px solid rgba(255,255,255,.1);padding:48px;display:flex;justi
     <li><a href="shop.html" class="active">Shop</a></li>
     <li><a href="contact.html">Contact</a></li>
   </ul>
+  <div class="hamburger" id="hamburger" onclick="document.getElementById('hamburger').classList.toggle('open');document.getElementById('mobileMenu').classList.toggle('open');">
+    <span></span><span></span><span></span>
+  </div>
 </nav>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="index.html">Home</a>
+  <a href="kdi.html">KDI</a>
+  <a href="jys.html">JYS</a>
+  <a href="myr.html">MYR</a>
+  <a href="shop.html" class="active">Shop</a>
+  <a href="contact.html">Contact</a>
+</div>
 <div class="page-hero">
   <div class="page-tag">// MERCHANDISE</div>
   <h1 class="page-title">SHOP</h1>
 </div>
 <div class="page-content">
-  <div class="placeholder">
-    <div class="placeholder-icon">◈</div>
-    <div class="placeholder-text">COMING SOON<br/>굿즈 · 의류 · 액세서리</div>
+  <div class="account-box">
+    <div class="account-label">카카오뱅크</div>
+    <div class="account-num">3333-12-8665707</div>
+    <div class="account-holder">김도일</div>
+  </div>
+  <div class="shop-grid">
+    <div class="shop-card">
+      <img class="shop-img" src="인물사진 /케이디아이/KakaoTalk_Photo_2026-04-12-08-32-01.jpeg" alt="KDI BAG"/>
+      <div class="shop-info">
+        <div class="shop-artist">KDI</div>
+        <div class="shop-name">BAG</div>
+        <div class="shop-price">₩35,000</div>
+      </div>
+    </div>
   </div>
 </div>
 <!-- AUDIO -->
