@@ -579,11 +579,53 @@ function togglePlay() {
   playing = !playing;
 }
 
+/* YOUTUBE API - 배경음악 자동 제어 */
+var ytPlayers = [];
+function onYouTubeIframeAPIReady() {
+  document.querySelectorAll('.vid-card iframe').forEach(function(iframe, i) {
+    iframe.id = 'yt-' + i;
+    ytPlayers.push(new YT.Player('yt-' + i, {
+      events: {
+        onStateChange: function(e) {
+          if (e.data === YT.PlayerState.PLAYING) {
+            // 다른 유튜브 영상 정지
+            ytPlayers.forEach(function(p, j) {
+              if (j !== i && p.getPlayerState && p.getPlayerState() === YT.PlayerState.PLAYING) {
+                p.pauseVideo();
+              }
+            });
+            // 배경 음악 끄기
+            audio.pause();
+            playing = false;
+            plIcon.innerHTML = '<polygon points="5,3 19,12 5,21"/>';
+            plStatus.textContent = 'PAUSED';
+            eqBars.forEach(function(b) { b.classList.add('off'); });
+          } else if (e.data === YT.PlayerState.PAUSED || e.data === YT.PlayerState.ENDED) {
+            // 다른 유튜브가 재생중이면 음악 복귀하지 않음
+            var anyPlaying = ytPlayers.some(function(p) {
+              return p.getPlayerState && p.getPlayerState() === YT.PlayerState.PLAYING;
+            });
+            if (!anyPlaying) {
+              audio.play().then(function() {
+                playing = true;
+                plIcon.innerHTML = '<rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/>';
+                plStatus.textContent = 'NOW PLAYING';
+                eqBars.forEach(function(b) { b.classList.remove('off'); });
+              }).catch(function(){});
+            }
+          }
+        }
+      }
+    }));
+  });
+}
+
 /* SCROLL REVEAL */
 const obs = new IntersectionObserver(es => {
   es.forEach(e => { if(e.isIntersecting) e.target.classList.add('on'); });
 }, { threshold: .15 });
 document.querySelectorAll('.rv').forEach(el => obs.observe(el));
 </script>
+<script src="https://www.youtube.com/iframe_api"></script>
 </body>
 </html>
