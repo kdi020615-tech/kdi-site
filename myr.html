@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>MYR — KDI</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400&display=swap');
+
+@font-face {
+  font-family: 'Splash';
+  src: url('Splash-Regular.ttf') format('truetype');
+}
+
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+
+:root {
+  --w: #f0ece4;
+  --g: #b8a882;
+  --b: #080808;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--b);
+  color: var(--w);
+  font-family: 'Inter', sans-serif;
+  font-weight: 300;
+  overflow-x: hidden;
+  cursor: none;
+}
+
+/* GRAIN */
+body::after {
+  content:'';
+  position:fixed; inset:0;
+  z-index:9000;
+  pointer-events:none;
+  opacity:.04;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size:160px;
+}
+
+/* CURSOR */
+#cur {
+  position:fixed; width:8px; height:8px;
+  background:var(--w); border-radius:50%;
+  pointer-events:none; z-index:9999;
+  transform:translate(-50%,-50%);
+  mix-blend-mode:difference;
+  transition:width .2s, height .2s;
+}
+#cur-ring {
+  position:fixed; width:30px; height:30px;
+  border:1px solid rgba(240,236,228,.35); border-radius:50%;
+  pointer-events:none; z-index:9998;
+  transform:translate(-50%,-50%);
+  transition:width .3s, height .3s;
+}
+
+/* ── NAV ── */
+nav {
+  position:fixed; top:0; left:0; right:0;
+  z-index:500;
+  padding:28px 48px;
+  display:flex; justify-content:space-between; align-items:center;
+  mix-blend-mode:difference;
+}
+.nav-logo {
+  font-family:'Splash', cursive;
+  font-size:26px; letter-spacing:3px;
+  color:var(--w);
+  text-decoration:none;
+}
+.nav-links { display:flex; gap:40px; list-style:none; }
+.nav-links a {
+  font-size:10px; letter-spacing:4px;
+  color:rgba(240,236,228,.5);
+  text-decoration:none; text-transform:uppercase;
+  transition:color .3s;
+}
+.nav-links a:hover { color:var(--w); }
+.nav-links a.active { color:var(--w); }
+
+/* ── ARTIST HERO (fullscreen video) ── */
+.artist-hero {
+  position:relative;
+  height:100vh;
+  overflow:hidden;
+  display:flex; align-items:flex-end;
+}
+
+.artist-hero video {
+  position:absolute; inset:0;
+  width:100%; height:100%;
+  object-fit:cover;
+  filter:grayscale(25%) contrast(1.08);
+}
+
+.ah-overlay {
+  position:absolute; inset:0;
+  background:linear-gradient(
+    to top,
+    rgba(8,8,8,.95) 0%,
+    rgba(8,8,8,.3) 50%,
+    rgba(8,8,8,.1) 100%
+  );
+}
+
+.ah-content {
+  position:relative; z-index:2;
+  padding:0 48px 56px;
+  width:100%;
+  display:flex; justify-content:space-between; align-items:flex-end;
+}
+
+.ah-name {
+  font-family:'Bebas Neue';
+  font-size:clamp(64px, 12vw, 160px);
+  line-height:.9;
+  letter-spacing:-1px;
+}
+
+.ah-meta {
+  text-align:right;
+  padding-bottom:8px;
+}
+.ah-role {
+  font-size:10px; letter-spacing:4px;
+  color:var(--g); line-height:2;
+  text-transform:uppercase;
+}
+.ah-num {
+  font-family:'Bebas Neue';
+  font-size:clamp(48px, 6vw, 80px);
+  color:rgba(240,236,228,.08);
+  line-height:1;
+}
+
+.ah-scroll {
+  position:absolute;
+  bottom:56px; right:48px;
+  z-index:3;
+  writing-mode:vertical-rl;
+  font-size:9px; letter-spacing:4px;
+  color:rgba(240,236,228,.3);
+  display:flex; align-items:center; gap:12px;
+}
+.ah-scroll::before {
+  content:'';
+  width:1px; height:50px;
+  background:linear-gradient(to bottom, var(--g), transparent);
+  animation:scrollPulse 2s infinite;
+}
+
+/* ── ARTIST BIO ── */
+.artist-bio {
+  padding:120px 48px;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:80px;
+  align-items:start;
+  border-bottom:1px solid rgba(240,236,228,.06);
+}
+
+.bio-tag {
+  font-size:9px; letter-spacing:5px;
+  color:var(--g); margin-bottom:24px;
+}
+.bio-title {
+  font-family:'Bebas Neue';
+  font-size:clamp(40px, 5vw, 64px);
+  line-height:1; letter-spacing:-.5px;
+  margin-bottom:32px;
+}
+
+.bio-text {
+  font-size:14px; line-height:2;
+  color:rgba(240,236,228,.5);
+  max-width:480px;
+}
+.bio-text p + p { margin-top:16px; }
+
+/* ── SECTION PLACEHOLDER ── */
+.section-placeholder {
+  padding:120px 48px;
+  border-bottom:1px solid rgba(240,236,228,.06);
+}
+.sp-tag {
+  font-size:9px; letter-spacing:5px;
+  color:var(--g); margin-bottom:24px;
+}
+.sp-title {
+  font-family:'Bebas Neue';
+  font-size:clamp(48px, 7vw, 88px);
+  line-height:1;
+  margin-bottom:48px;
+}
+.sp-coming {
+  display:inline-block;
+  font-size:10px;
+  letter-spacing:7px;
+  color:rgba(240,236,228,.2);
+  padding:16px 40px;
+  border:1px solid rgba(240,236,228,.06);
+  text-transform:uppercase;
+}
+
+/* ── FOOTER ── */
+footer {
+  padding:56px 48px;
+  display:flex; justify-content:space-between; align-items:center;
+}
+.ft-logo { font-family:'Splash', cursive; font-size:36px; letter-spacing:4px; color:var(--g); }
+.ft-copy { font-size:9px; letter-spacing:3px; color:rgba(240,236,228,.12); text-align:right; line-height:2; }
+
+/* ── REVEAL ── */
+.rv { opacity:0; transform:translateY(28px); transition:opacity .9s ease, transform .9s cubic-bezier(.16,1,.3,1); }
+.rv.on { opacity:1; transform:translateY(0); }
+.rv.d1{transition-delay:.1s;} .rv.d2{transition-delay:.2s;} .rv.d3{transition-delay:.3s;}
+
+/* ── KEYFRAMES ── */
+@keyframes scrollPulse { 0%,100%{opacity:1;} 50%{opacity:.2;} }
+
+/* ── RESPONSIVE ── */
+@media (max-width:768px) {
+  body { cursor: auto; }
+  #cur, #cur-ring { display:none; }
+
+  nav { padding:20px 24px; }
+  .nav-links { display:none; }
+  .nav-logo { font-size:22px; }
+
+  .artist-hero { height: 100svh; }
+  .ah-content {
+    padding: 0 24px 44px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+  }
+  .ah-name { font-size: clamp(52px, 16vw, 80px); }
+  .ah-num { display:none; }
+  .ah-role { font-size: 9px; letter-spacing:3px; }
+  .ah-scroll { display:none; }
+
+  .artist-bio {
+    grid-template-columns: 1fr;
+    gap: 28px;
+    padding: 60px 24px;
+  }
+  .bio-title { font-size: clamp(36px, 10vw, 52px); margin-bottom:20px; }
+  .bio-text { font-size: 13px; line-height: 1.85; }
+
+  .section-placeholder { padding: 60px 24px; }
+  .sp-title { font-size: clamp(36px, 10vw, 52px); margin-bottom:32px; }
+
+  footer {
+    padding: 40px 24px;
+    flex-direction: column;
+    gap: 16px;
+    align-items: flex-start;
+  }
+  .ft-logo { font-size:30px; }
+  .ft-copy { text-align:left; font-size:8px; }
+}
+</style>
+</head>
+<body>
+
+<div id="cur"></div>
+<div id="cur-ring"></div>
+
+<!-- NAV -->
+<nav>
+  <a href="index.html" class="nav-logo">KDI</a>
+  <ul class="nav-links">
+    <li><a href="kdi.html">KDI</a></li>
+    <li><a href="jys.html">JYS</a></li>
+    <li><a href="myr.html" class="active">MYR</a></li>
+    <li><a href="shop.html">Shop</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- ═══ MYR HERO ═══ -->
+<section class="artist-hero">
+  <video id="myr-video" autoplay muted playsinline webkit-playsinline></video>
+  <div class="ah-overlay"></div>
+  <div class="ah-content">
+    <div class="ah-name">MYR</div>
+    <div class="ah-meta">
+      <div class="ah-num">03</div>
+      <div class="ah-role">Producer<br/>Artist</div>
+    </div>
+  </div>
+  <div class="ah-scroll">SCROLL</div>
+</section>
+
+<!-- MYR BIO -->
+<div class="artist-bio">
+  <div class="bio-left rv">
+    <div class="bio-tag">// 03 — MYR</div>
+    <h2 class="bio-title">최지성</h2>
+  </div>
+  <div class="bio-right rv d1">
+    <div class="bio-text">
+      <p><em>myr</em>은 2002년생의 젊은 감각을 지닌 메인 프로듀서이자, 독보적인 예술가적 기질로 새로운 사운드 문법을 제시하고 있는 <em>'차세대 뮤직 아키텍트'</em>다.</p>
+      <p>타고난 예술가적 아우라와 트렌디한 감각을 겸비한 myr은 데뷔 전부터 특정 세대와 성별을 불문하고 압도적인 팬덤을 형성하며 '아이코닉한 프로듀서'의 탄생을 알렸다. 현재 국내 최고의 예술 인재들이 모이는 <em>동아방송예술대학교(DIMA)</em>에서 사운드 메커니즘을 연마하고 있는 그는, 학술적인 깊이와 스트릿한 본능을 동시에 보유한 보기 드문 재원이다.</p>
+      <p>아직 정식으로 메이저 씬의 '픽'을 거치지 않은 신인임에도 불구하고, myr의 음악성은 이미 대중들에 의해 먼저 발견되었다. 유튜브를 비롯한 각종 소셜 미디어 플랫폼에서 그의 작업물은 <em>'나만 알고 싶은 천재'</em>, <em>'씬의 판도를 바꿀 게임 체인저'</em>라는 찬사와 함께 수많은 리스너들의 자발적인 지지를 이끌어냈다. 특히 정형화되지 않은 틀 안에서 뿜어내는 프리스타일 퍼포먼스는 그의 음악적 순발력과 천부적인 리듬감을 증명하는 시그니처로 자리 잡았다.</p>
+      <p>myr은 단순한 비트 메이킹을 넘어, 곡 전체의 서사를 설계하는 메인 프로듀서로서 탁월한 디렉팅 능력을 보여준다. 예술가 특유의 예민한 감각으로 소리의 질감을 조각하는 그의 작업 방식은 기존 프로듀서들과는 궤를 달리한다.</p>
+      <p>2026년, 본격적인 활동 기지개를 켜는 myr은 장르의 경계를 허무는 실험적인 프로젝트들을 통해 자신의 음악적 스펙트럼을 증명할 예정이다. 대중의 열광적인 '리퀘스트'를 기반으로 성장을 거듭하고 있는 그는, 이제 '기대주'를 넘어 씬의 정점에 서기 위한 예술적 도약을 준비하고 있다.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ MUSIC ═══ -->
+<section class="section-placeholder rv">
+  <div class="sp-tag">// MUSIC</div>
+  <h2 class="sp-title">MUSIC</h2>
+  <div class="sp-coming">COMING SOON</div>
+</section>
+
+<!-- ═══ GALLERY ═══ -->
+<section class="section-placeholder rv">
+  <div class="sp-tag">// GALLERY</div>
+  <h2 class="sp-title">GALLERY</h2>
+  <div class="sp-coming">COMING SOON</div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="ft-logo">KDI</div>
+  <div class="ft-copy">&copy; 2026 KDI. ALL RIGHTS RESERVED.<br/>KOREA &middot; OMOKCHEON-DONG &middot; JOWON-DONG &middot; SERYU-DONG</div>
+</footer>
+
+<script>
+/* CURSOR */
+const cur = document.getElementById('cur');
+const ring = document.getElementById('cur-ring');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove', e => {
+  mx=e.clientX; my=e.clientY;
+  cur.style.left=mx+'px'; cur.style.top=my+'px';
+});
+(function tick(){
+  rx+=(mx-rx)*.1; ry+=(my-ry)*.1;
+  ring.style.left=rx+'px'; ring.style.top=ry+'px';
+  requestAnimationFrame(tick);
+})();
+document.querySelectorAll('a,.artist-hero').forEach(el=>{
+  el.addEventListener('mouseenter',()=>{
+    cur.style.width='16px'; cur.style.height='16px';
+    ring.style.width='46px'; ring.style.height='46px';
+  });
+  el.addEventListener('mouseleave',()=>{
+    cur.style.width='8px'; cur.style.height='8px';
+    ring.style.width='30px'; ring.style.height='30px';
+  });
+});
+
+/* VIDEO PLAYLIST */
+function makePlaylist(videoEl, srcs) {
+  let idx = 0;
+  videoEl.src = srcs[0];
+  videoEl.load();
+  videoEl.play().catch(()=>{});
+  videoEl.addEventListener('ended', () => {
+    idx = (idx + 1) % srcs.length;
+    videoEl.src = srcs[idx];
+    videoEl.load();
+    videoEl.play().catch(()=>{});
+  });
+}
+
+makePlaylist(document.getElementById('myr-video'), [
+  "인물사진 /Myr/1.mp4",
+  "인물사진 /Myr/2.mp4",
+  "인물사진 /Myr/3.mp4"
+]);
+
+/* SCROLL REVEAL */
+const obs = new IntersectionObserver(es => {
+  es.forEach(e => { if(e.isIntersecting) e.target.classList.add('on'); });
+}, { threshold: .15 });
+document.querySelectorAll('.rv').forEach(el => obs.observe(el));
+</script>
+</body>
+</html>
