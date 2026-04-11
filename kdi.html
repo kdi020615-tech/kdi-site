@@ -162,6 +162,53 @@ nav {
   animation:scrollPulse 2s infinite;
 }
 
+/* ── VIDEO GALLERY ── */
+.vid-section {
+  padding:100px 48px;
+  border-bottom:1px solid rgba(255,255,255,.1);
+}
+.vid-tag { font-size:9px; letter-spacing:5px; color:var(--g); margin-bottom:24px; }
+.vid-title {
+  font-family:'Bebas Neue';
+  font-size:clamp(48px, 7vw, 88px);
+  line-height:1; margin-bottom:48px;
+}
+.vid-grid {
+  display:grid;
+  grid-template-columns:repeat(3, 1fr);
+  gap:8px;
+}
+.vid-card {
+  position:relative;
+  aspect-ratio:16/9;
+  overflow:hidden;
+  background:#111;
+  border-radius:2px;
+}
+.vid-card iframe {
+  width:100%; height:100%;
+  border:none;
+}
+
+/* ── SOCIAL LINK ── */
+.social-section {
+  padding:60px 48px;
+  border-bottom:1px solid rgba(255,255,255,.1);
+  display:flex;
+  align-items:center;
+  gap:24px;
+}
+.social-tag { font-size:9px; letter-spacing:5px; color:var(--g); }
+.social-link {
+  font-family:'Bebas Neue';
+  font-size:clamp(24px, 3vw, 36px);
+  color:var(--w);
+  text-decoration:none;
+  letter-spacing:1px;
+  transition:color .3s;
+}
+.social-link:hover { color:var(--g); }
+
 /* ── PHOTO GALLERY ── */
 .photo-section {
   padding:100px 48px;
@@ -317,6 +364,9 @@ footer {
   .ah-role { font-size: 9px; letter-spacing:3px; }
   .ah-scroll { display:none; }
 
+  .vid-section { padding:60px 24px; }
+  .vid-grid { grid-template-columns:1fr; gap:6px; }
+  .social-section { padding:40px 24px; flex-direction:column; align-items:flex-start; gap:12px; }
   .photo-section { padding:60px 24px; }
   .photo-grid { grid-template-columns:repeat(2, 1fr); gap:3px; }
 
@@ -377,6 +427,29 @@ footer {
   </div>
   <div class="ah-scroll">SCROLL</div>
 </section>
+
+<!-- VIDEOS -->
+<section class="vid-section rv">
+  <div class="vid-tag">// VIDEOS</div>
+  <h2 class="vid-title">WATCH</h2>
+  <div class="vid-grid">
+    <div class="vid-card">
+      <iframe src="https://www.youtube.com/embed/MW_gyzK88bk?rel=0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    </div>
+    <div class="vid-card">
+      <iframe src="https://www.youtube.com/embed/MtwgWnDKviw?rel=0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    </div>
+    <div class="vid-card">
+      <iframe src="https://www.youtube.com/embed/Ct2gjY5TdxA?rel=0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    </div>
+  </div>
+</section>
+
+<!-- SOCIAL -->
+<div class="social-section rv">
+  <div class="social-tag">// INSTAGRAM</div>
+  <a href="https://www.instagram.com/kdi7777/" target="_blank" class="social-link">@KDI7777</a>
+</div>
 
 <!-- PHOTOS -->
 <section class="photo-section rv">
