@@ -294,6 +294,24 @@ nav {
   text-transform:uppercase;
 }
 
+.track-list { display:flex; flex-direction:column; }
+.track-row {
+  display:grid;
+  grid-template-columns:40px 1fr 40px;
+  align-items:center;
+  padding:20px 0;
+  border-bottom:1px solid rgba(255,255,255,.08);
+  cursor:pointer;
+  transition:padding-left .3s, background .3s;
+}
+.track-row:hover { padding-left:8px; background:rgba(255,255,255,.02); }
+.track-row.active { background:rgba(184,168,130,.05); }
+.track-num { font-family:'Bebas Neue'; font-size:13px; letter-spacing:2px; color:rgba(255,255,255,.3); }
+.track-name { font-family:'Bebas Neue'; font-size:clamp(24px,3vw,36px); letter-spacing:.5px; }
+.track-play { font-size:12px; text-align:center; color:var(--g); transition:transform .2s; }
+.track-row:hover .track-play { transform:scale(1.3); }
+.track-row.active .track-play { color:var(--w); }
+
 /* FOOTER */
 footer {
   padding:56px 48px;
@@ -469,7 +487,13 @@ footer {
 <section class="section-placeholder rv">
   <div class="sp-tag">// MUSIC</div>
   <h2 class="sp-title">MUSIC</h2>
-  <div class="sp-coming">COMING SOON</div>
+  <div class="track-list">
+    <div class="track-row" onclick="playTrack(this, '인물사진 /케이디아이/음악/스컷 리마스터링.wav')">
+      <div class="track-num">01</div>
+      <div class="track-name">스컷 (Remastered)</div>
+      <div class="track-play">▶</div>
+    </div>
+  </div>
 </section>
 
 <!-- AUDIO -->
@@ -601,6 +625,52 @@ function onYouTubeIframeAPIReady() {
       }
     }));
   });
+}
+
+/* TRACK PLAYER */
+let trackAudio = null;
+let activeRow = null;
+
+function playTrack(row, src) {
+  if (activeRow === row && trackAudio && !trackAudio.paused) {
+    trackAudio.pause();
+    row.classList.remove('active');
+    row.querySelector('.track-play').textContent = '▶';
+    activeRow = null;
+    audio.play().then(() => {
+      playing = true;
+      plIcon.innerHTML = '<rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/>';
+      plStatus.textContent = 'NOW PLAYING';
+      eqBars.forEach(b => b.classList.remove('off'));
+    }).catch(()=>{});
+    return;
+  }
+  if (activeRow) {
+    activeRow.classList.remove('active');
+    activeRow.querySelector('.track-play').textContent = '▶';
+  }
+  audio.pause();
+  playing = false;
+  plIcon.innerHTML = '<polygon points="5,3 19,12 5,21"/>';
+  plStatus.textContent = 'PAUSED';
+  eqBars.forEach(b => b.classList.add('off'));
+  if (!trackAudio) trackAudio = new Audio();
+  trackAudio.src = src;
+  trackAudio.play();
+  row.classList.add('active');
+  row.querySelector('.track-play').textContent = '■';
+  activeRow = row;
+  trackAudio.onended = () => {
+    row.classList.remove('active');
+    row.querySelector('.track-play').textContent = '▶';
+    activeRow = null;
+    audio.play().then(() => {
+      playing = true;
+      plIcon.innerHTML = '<rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/>';
+      plStatus.textContent = 'NOW PLAYING';
+      eqBars.forEach(b => b.classList.remove('off'));
+    }).catch(()=>{});
+  };
 }
 
 /* SCROLL REVEAL */
