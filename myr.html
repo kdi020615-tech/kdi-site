@@ -192,6 +192,24 @@ nav {
   border:1px solid rgba(255,255,255,.1);
   text-transform:uppercase;
 }
+.track-list { display:flex; flex-direction:column; }
+.track-row {
+  display:grid;
+  grid-template-columns:40px 1fr 160px 40px;
+  align-items:center;
+  padding:20px 0;
+  border-bottom:1px solid rgba(255,255,255,.08);
+  cursor:pointer;
+  transition:padding-left .3s, background .3s;
+}
+.track-row:hover { padding-left:8px; background:rgba(255,255,255,.02); }
+.track-row.active { background:rgba(184,168,130,.05); }
+.track-num { font-family:'Bebas Neue'; font-size:13px; letter-spacing:2px; color:rgba(255,255,255,.3); }
+.track-name { font-family:'Bebas Neue'; font-size:clamp(24px,3vw,36px); letter-spacing:.5px; }
+.track-meta { font-size:10px; letter-spacing:3px; color:rgba(255,255,255,.35); text-align:right; }
+.track-play { font-size:12px; text-align:center; color:var(--g); transition:transform .2s; }
+.track-row:hover .track-play { transform:scale(1.3); }
+.track-row.active .track-play { color:var(--w); }
 
 /* ── FOOTER ── */
 footer {
@@ -264,6 +282,8 @@ footer {
   .ah-scroll { display:none; }
 
   .section-placeholder { padding: 60px 24px; }
+  .track-row { grid-template-columns:30px 1fr 40px; }
+  .track-meta { display:none; }
   .sp-title { font-size: clamp(36px, 10vw, 52px); margin-bottom:32px; }
 
   footer {
@@ -322,7 +342,20 @@ footer {
 <section class="section-placeholder rv">
   <div class="sp-tag">// MUSIC</div>
   <h2 class="sp-title">MUSIC</h2>
-  <div class="sp-coming">COMING SOON</div>
+  <div class="track-list">
+    <div class="track-row" onclick="playTrack(this, '인물사진 /Myr/음악/127_Em_Malone.mp3')">
+      <div class="track-num">01</div>
+      <div class="track-name">Malone</div>
+      <div class="track-meta">127 BPM · Em</div>
+      <div class="track-play">▶</div>
+    </div>
+    <div class="track-row" onclick="playTrack(this, '인물사진 /Myr/음악/C major_121_Core Temp.mp3')">
+      <div class="track-num">02</div>
+      <div class="track-name">Core Temp</div>
+      <div class="track-meta">121 BPM · C Major</div>
+      <div class="track-play">▶</div>
+    </div>
+  </div>
 </section>
 
 <!-- ═══ GALLERY ═══ -->
@@ -440,6 +473,57 @@ function togglePlay() {
     eqBars.forEach(b => b.classList.remove('off'));
   }
   playing = !playing;
+}
+
+/* TRACK PLAYER (배경 음악 끄고 트랙 재생) */
+let trackAudio = null;
+let activeRow = null;
+
+function playTrack(row, src) {
+  // 같은 트랙 다시 클릭 → 정지
+  if (activeRow === row && trackAudio && !trackAudio.paused) {
+    trackAudio.pause();
+    row.classList.remove('active');
+    row.querySelector('.track-play').textContent = '▶';
+    activeRow = null;
+    // 배경 음악 복귀
+    audio.play().then(() => {
+      playing = true;
+      plIcon.innerHTML = '<rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/>';
+      plStatus.textContent = 'NOW PLAYING';
+      eqBars.forEach(b => b.classList.remove('off'));
+    }).catch(()=>{});
+    return;
+  }
+  // 이전 트랙 정리
+  if (activeRow) {
+    activeRow.classList.remove('active');
+    activeRow.querySelector('.track-play').textContent = '▶';
+  }
+  // 배경 음악 끄기
+  audio.pause();
+  playing = false;
+  plIcon.innerHTML = '<polygon points="5,3 19,12 5,21"/>';
+  plStatus.textContent = 'PAUSED';
+  eqBars.forEach(b => b.classList.add('off'));
+  // 트랙 재생
+  if (!trackAudio) trackAudio = new Audio();
+  trackAudio.src = src;
+  trackAudio.play();
+  row.classList.add('active');
+  row.querySelector('.track-play').textContent = '■';
+  activeRow = row;
+  trackAudio.onended = () => {
+    row.classList.remove('active');
+    row.querySelector('.track-play').textContent = '▶';
+    activeRow = null;
+    audio.play().then(() => {
+      playing = true;
+      plIcon.innerHTML = '<rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/>';
+      plStatus.textContent = 'NOW PLAYING';
+      eqBars.forEach(b => b.classList.remove('off'));
+    }).catch(()=>{});
+  };
 }
 
 /* SCROLL REVEAL */

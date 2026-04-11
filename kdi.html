@@ -162,30 +162,28 @@ nav {
   animation:scrollPulse 2s infinite;
 }
 
-/* SECTION */
-.section-block {
+/* ── SECTION PLACEHOLDER ── */
+.section-placeholder {
   padding:120px 48px;
   border-bottom:1px solid rgba(255,255,255,.1);
 }
-.section-tag {
+.sp-tag {
   font-size:9px; letter-spacing:5px;
   color:var(--g); margin-bottom:24px;
 }
-.section-title {
+.sp-title {
   font-family:'Bebas Neue';
   font-size:clamp(48px, 7vw, 88px);
   line-height:1;
   margin-bottom:48px;
 }
-.coming-soon {
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  height:200px;
+.sp-coming {
+  display:inline-block;
+  font-size:10px;
+  letter-spacing:7px;
+  color:rgba(255,255,255,.35);
+  padding:16px 40px;
   border:1px solid rgba(255,255,255,.1);
-  font-size:11px;
-  letter-spacing:6px;
-  color:rgba(255,255,255,.25);
   text-transform:uppercase;
 }
 
@@ -259,7 +257,7 @@ footer {
   .ah-role { font-size: 9px; letter-spacing:3px; }
   .ah-scroll { display:none; }
 
-  .section-block { padding: 60px 24px; }
+  .section-placeholder { padding: 60px 24px; }
   .section-title { font-size: clamp(36px, 10vw, 52px); margin-bottom:32px; }
   .coming-soon { height:140px; font-size:10px; letter-spacing:4px; }
 
@@ -318,17 +316,17 @@ footer {
 </section>
 
 <!-- MUSIC -->
-<section class="section-block rv">
-  <div class="section-tag">// DISCOGRAPHY</div>
-  <h2 class="section-title">MUSIC</h2>
-  <div class="coming-soon">COMING SOON</div>
+<section class="section-placeholder rv">
+  <div class="sp-tag">// MUSIC</div>
+  <h2 class="sp-title">MUSIC</h2>
+  <div class="sp-coming">COMING SOON</div>
 </section>
 
 <!-- GALLERY -->
-<section class="section-block rv" style="border-bottom:none;">
-  <div class="section-tag">// VISUALS</div>
-  <h2 class="section-title">GALLERY</h2>
-  <div class="coming-soon">COMING SOON</div>
+<section class="section-placeholder rv">
+  <div class="sp-tag">// GALLERY</div>
+  <h2 class="sp-title">GALLERY</h2>
+  <div class="sp-coming">COMING SOON</div>
 </section>
 
 <!-- AUDIO -->
