@@ -759,7 +759,7 @@ function playYoutube() {
   document.getElementById('cv-cover').style.display = 'none';
   document.getElementById('cv-close').style.display = 'flex';
   const iframe = document.getElementById('cv-iframe');
-  iframe.src = 'https://www.youtube.com/embed/crgWvugn630?autoplay=1&rel=0&enablejsapi=1';
+  iframe.src = 'https://www.youtube.com/embed/crgWvugn630?autoplay=1&rel=0&enablejsapi=1&vq=hd2160';
   iframe.style.display = 'block';
 }
 
@@ -810,6 +810,16 @@ const obs = new IntersectionObserver(es => {
   es.forEach(e => { if(e.isIntersecting) e.target.classList.add('on'); });
 }, { threshold: .15 });
 document.querySelectorAll('.rv').forEach(el => obs.observe(el));
+
+/* 유튜브 섹션 벗어나면 자동으로 음악 복귀 */
+const ytObs = new IntersectionObserver(es => {
+  es.forEach(e => {
+    if (!e.isIntersecting && ytPlaying) {
+      closeYoutube();
+    }
+  });
+}, { threshold: 0.05 });
+ytObs.observe(document.getElementById('crew-video'));
 
 /* 스크롤시 섹션 진입하면 영상 재생 */
 const vidObs = new IntersectionObserver(es => {
