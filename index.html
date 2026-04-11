@@ -328,7 +328,72 @@ footer {
 @keyframes scrollPulse { 0%,100%{opacity:1;} 50%{opacity:.2;} }
 @keyframes eqAnim { from{height:2px;} to{height:14px;} }
 
+/* ── CREW VIDEO ── */
+#crew-video {
+  padding: 120px 48px 80px;
+}
+.cv-head { margin-bottom: 32px; }
+.cv-tag { font-size:9px; letter-spacing:5px; color:var(--g); margin-bottom:12px; }
+.cv-title {
+  font-family:'Bebas Neue';
+  font-size:clamp(48px, 7vw, 88px);
+  line-height:1;
+}
+.cv-frame {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16/9;
+  background: #0d0d0d;
+  overflow: hidden;
+}
+#cv-cover {
+  position: absolute;
+  inset: 0;
+  cursor: pointer;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+}
+#cv-cover img {
+  position: absolute;
+  inset: 0;
+  width: 100%; height: 100%;
+  object-fit: cover;
+  filter: brightness(.6) grayscale(20%);
+  transition: filter .4s;
+}
+#cv-cover:hover img { filter: brightness(.75) grayscale(0%); }
+.cv-play {
+  position: relative;
+  z-index: 2;
+  width: 80px; height: 80px;
+  border: 2px solid rgba(240,236,228,.5);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: border-color .3s, transform .3s;
+}
+#cv-cover:hover .cv-play { border-color: var(--w); transform: scale(1.08); }
+.cv-play svg { margin-left: 4px; }
+.cv-play-label {
+  position: relative;
+  z-index: 2;
+  font-size: 10px;
+  letter-spacing: 5px;
+  color: var(--g);
+}
+#cv-iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
 @media (max-width:768px) {
+  #crew-video { padding: 80px 24px 60px; }
   body { cursor: auto; }
   #cur, #cur-ring { display:none; }
 
@@ -410,6 +475,29 @@ footer {
     <li><a href="#myr">MYR</a></li>
   </ul>
 </nav>
+
+<!-- ═══ CREW VIDEO ═══ -->
+<section id="crew-video">
+  <div class="cv-head rv">
+    <div class="cv-tag">// KDI CREW</div>
+    <h2 class="cv-title">WATCH</h2>
+  </div>
+  <div class="cv-frame rv">
+    <div id="cv-cover" onclick="playYoutube()">
+      <img src="https://img.youtube.com/vi/crgWvugn630/maxresdefault.jpg" alt="KDI CREW"/>
+      <div class="cv-play">
+        <svg viewBox="0 0 24 24" width="48" height="48"><polygon points="5,3 19,12 5,21" fill="#fff"/></svg>
+      </div>
+      <div class="cv-play-label">PLAY VIDEO</div>
+    </div>
+    <iframe id="cv-iframe"
+      src=""
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen"
+      allowfullscreen
+      style="display:none;">
+    </iframe>
+  </div>
+</section>
 
 <!-- ═══ KDI HERO ═══ -->
 <section class="artist-hero" id="kdi">
@@ -631,6 +719,22 @@ function togglePlay() {
     eqBars.forEach(b => b.classList.remove('off'));
   }
   playing = !playing;
+}
+
+/* YOUTUBE PLAY (배경음악 끄고 유튜브 재생) */
+function playYoutube() {
+  // 배경 음악 끄기
+  audio.pause();
+  playing = false;
+  plIcon.innerHTML = '<polygon points="5,3 19,12 5,21"/>';
+  plStatus.textContent = 'PAUSED';
+  eqBars.forEach(b => b.classList.add('off'));
+
+  // 커버 숨기고 iframe 표시
+  document.getElementById('cv-cover').style.display = 'none';
+  const iframe = document.getElementById('cv-iframe');
+  iframe.src = 'https://www.youtube.com/embed/crgWvugn630?autoplay=1&rel=0';
+  iframe.style.display = 'block';
 }
 
 /* VIDEO PLAYLIST 헬퍼 */
