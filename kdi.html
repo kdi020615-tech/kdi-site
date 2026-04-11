@@ -552,6 +552,18 @@ footer {
 </footer>
 
 <script>
+/* HERO VIDEO AUTOPLAY */
+document.querySelectorAll('.artist-hero video').forEach(v => {
+  v.muted = true;
+  v.playsInline = true;
+  v.play().catch(() => {
+    document.addEventListener('touchstart', function h() {
+      v.play().catch(()=>{});
+      document.removeEventListener('touchstart', h);
+    }, { once: true });
+  });
+});
+
 /* CURSOR */
 const cur = document.getElementById('cur');
 const ring = document.getElementById('cur-ring');

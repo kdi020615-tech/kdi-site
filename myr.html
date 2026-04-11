@@ -584,9 +584,16 @@ document.querySelectorAll('a,.artist-hero,#player').forEach(el=>{
 /* VIDEO PLAYLIST */
 function makePlaylist(videoEl, srcs) {
   let idx = 0;
+  videoEl.muted = true;
+  videoEl.playsInline = true;
   videoEl.src = srcs[0];
   videoEl.load();
-  videoEl.play().catch(()=>{});
+  videoEl.play().catch(() => {
+    document.addEventListener('touchstart', function h() {
+      videoEl.play().catch(()=>{});
+      document.removeEventListener('touchstart', h);
+    }, { once: true });
+  });
   videoEl.addEventListener('ended', () => {
     idx = (idx + 1) % srcs.length;
     videoEl.src = srcs[idx];
