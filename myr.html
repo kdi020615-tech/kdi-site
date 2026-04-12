@@ -148,6 +148,8 @@ nav {
   filter:grayscale(25%) contrast(1.08);
   background:#000;
 }
+.hero-vid { opacity:0; transition:opacity .6s ease; }
+.hero-vid.active { opacity:1; }
 video::-webkit-media-controls { display:none !important; }
 video::-webkit-media-controls-start-playback-button { display:none !important; -webkit-appearance:none; }
 video::-webkit-media-controls-play-button { display:none !important; }
@@ -508,7 +510,8 @@ footer {
 
 <!-- ═══ MYR HERO ═══ -->
 <section class="artist-hero">
-  <video id="myr-video" autoplay muted playsinline webkit-playsinline></video>
+  <video id="myr-video-a" class="hero-vid active" autoplay muted playsinline webkit-playsinline></video>
+  <video id="myr-video-b" class="hero-vid" muted playsinline webkit-playsinline></video>
   <div class="ah-overlay"></div>
   <div class="ah-content">
     <div class="ah-name">MYR</div>
@@ -625,32 +628,46 @@ document.querySelectorAll('a,.artist-hero,#player').forEach(el=>{
   });
 });
 
-/* VIDEO PLAYLIST */
-function makePlaylist(videoEl, srcs) {
+/* VIDEO PLAYLIST (crossfade) */
+(function() {
+  const srcs = ["인물사진 /Myr/1.mp4","인물사진 /Myr/2.mp4","인물사진 /Myr/3.mp4"];
+  const vidA = document.getElementById('myr-video-a');
+  const vidB = document.getElementById('myr-video-b');
   let idx = 0;
-  videoEl.muted = true;
-  videoEl.playsInline = true;
-  videoEl.src = srcs[0];
-  videoEl.load();
-  videoEl.play().catch(() => {
+  let current = vidA, next = vidB;
+
+  function initVid(v) { v.muted = true; v.playsInline = true; }
+  initVid(vidA); initVid(vidB);
+
+  vidA.src = srcs[0];
+  vidA.load();
+  vidA.play().catch(() => {
     document.addEventListener('touchstart', function h() {
-      videoEl.play().catch(()=>{});
+      vidA.play().catch(()=>{});
       document.removeEventListener('touchstart', h);
     }, { once: true });
   });
-  videoEl.addEventListener('ended', () => {
-    idx = (idx + 1) % srcs.length;
-    videoEl.src = srcs[idx];
-    videoEl.load();
-    videoEl.play().catch(()=>{});
-  });
-}
 
-makePlaylist(document.getElementById('myr-video'), [
-  "인물사진 /Myr/1.mp4",
-  "인물사진 /Myr/2.mp4",
-  "인물사진 /Myr/3.mp4"
-]);
+  // 미리 다음 영상 로드
+  function preloadNext() {
+    const ni = (idx + 1) % srcs.length;
+    next.src = srcs[ni];
+    next.load();
+  }
+  preloadNext();
+
+  function onEnded() {
+    idx = (idx + 1) % srcs.length;
+    next.play().catch(()=>{});
+    next.classList.add('active');
+    current.classList.remove('active');
+    const tmp = current; current = next; next = tmp;
+    preloadNext();
+  }
+
+  vidA.addEventListener('ended', onEnded);
+  vidB.addEventListener('ended', onEnded);
+})();
 
 /* MUSIC PLAYER */
 const audio = document.getElementById('audio');

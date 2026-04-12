@@ -179,6 +179,8 @@ nav {
   filter:grayscale(25%) contrast(1.08);
   background:#000;
 }
+.hero-vid { opacity:0; transition:opacity .6s ease; }
+.hero-vid.active { opacity:1; }
 video::-webkit-media-controls { display:none !important; }
 video::-webkit-media-controls-start-playback-button { display:none !important; -webkit-appearance:none; }
 video::-webkit-media-controls-play-button { display:none !important; }
@@ -641,7 +643,8 @@ footer {
 
 <!-- ═══ JYS HERO ═══ -->
 <section class="artist-hero" id="jys">
-  <video id="jys-video" autoplay muted playsinline webkit-playsinline></video>
+  <video id="jys-video-a" class="hero-vid active" autoplay muted playsinline webkit-playsinline></video>
+  <video id="jys-video-b" class="hero-vid" muted playsinline webkit-playsinline></video>
   <div class="ah-overlay"></div>
   <div class="ah-content">
     <a href="jys.html" class="ah-name" style="text-decoration:none;color:inherit;">JYS</a>
@@ -690,7 +693,8 @@ footer {
 
 <!-- ═══ MYR HERO ═══ -->
 <section class="artist-hero" id="myr">
-  <video id="myr-video" autoplay muted playsinline webkit-playsinline></video>
+  <video id="myr-video-a" class="hero-vid active" autoplay muted playsinline webkit-playsinline></video>
+  <video id="myr-video-b" class="hero-vid" muted playsinline webkit-playsinline></video>
   <div class="ah-overlay"></div>
   <div class="ah-content">
     <a href="myr.html" class="ah-name" style="text-decoration:none;color:inherit;">MYR</a>
@@ -846,30 +850,29 @@ function closeYoutube() {
   }).catch(()=>{});
 }
 
-/* VIDEO PLAYLIST 헬퍼 */
-function makePlaylist(videoEl, srcs) {
-  let idx = 0;
-  // src만 세팅, 재생은 enterSite에서
-  videoEl.src = srcs[0];
-  videoEl.load();
-  videoEl.addEventListener('ended', () => {
+/* VIDEO PLAYLIST (crossfade) */
+function makeCrossfadePlaylist(idPrefix, srcs) {
+  const vidA = document.getElementById(idPrefix + '-a');
+  const vidB = document.getElementById(idPrefix + '-b');
+  let idx = 0, current = vidA, next = vidB;
+  [vidA, vidB].forEach(v => { v.muted = true; v.playsInline = true; });
+  vidA.src = srcs[0]; vidA.load();
+  const ni = (idx + 1) % srcs.length;
+  vidB.src = srcs[ni]; vidB.load();
+  function onEnded() {
     idx = (idx + 1) % srcs.length;
-    videoEl.src = srcs[idx];
-    videoEl.load();
-    videoEl.play().catch(()=>{});
-  });
+    next.play().catch(()=>{});
+    next.classList.add('active');
+    current.classList.remove('active');
+    const tmp = current; current = next; next = tmp;
+    const pi = (idx + 1) % srcs.length;
+    next.src = srcs[pi]; next.load();
+  }
+  vidA.addEventListener('ended', onEnded);
+  vidB.addEventListener('ended', onEnded);
 }
-
-makePlaylist(document.getElementById('myr-video'), [
-  "인물사진 /Myr/1.mp4",
-  "인물사진 /Myr/2.mp4",
-  "인물사진 /Myr/3.mp4"
-]);
-
-makePlaylist(document.getElementById('jys-video'), [
-  "인물사진 /JYS(정윤상)/hf_20260409_201709_cc577aa1-60da-4374-80fc-7917fdd3c1ad.mp4",
-  "인물사진 /JYS(정윤상)/제목 없음.mp4"
-]);
+makeCrossfadePlaylist('myr-video', ["인물사진 /Myr/1.mp4","인물사진 /Myr/2.mp4","인물사진 /Myr/3.mp4"]);
+makeCrossfadePlaylist('jys-video', ["인물사진 /JYS(정윤상)/hf_20260409_201709_cc577aa1-60da-4374-80fc-7917fdd3c1ad.mp4","인물사진 /JYS(정윤상)/제목 없음.mp4"]);
 
 /* SCROLL REVEAL */
 const obs = new IntersectionObserver(es => {
