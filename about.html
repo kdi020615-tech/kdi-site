@@ -36,6 +36,15 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;padding:28px 48px;display:fl
 .page-content{padding:160px 48px 80px;max-width:760px;margin:0 auto;}
 .about-label{font-family:'Bebas Neue';font-size:clamp(28px,4vw,42px);letter-spacing:2px;margin-bottom:32px;color:var(--g);}
 .about-text{font-size:15px;line-height:2.2;color:rgba(255,255,255,.75);letter-spacing:.5px;word-break:keep-all;}
+.timeline-label{font-size:9px;letter-spacing:6px;color:var(--g);margin-top:80px;margin-bottom:32px;}
+.timeline{position:relative;padding-left:40px;}
+.timeline::before{content:'';position:absolute;left:12px;top:0;bottom:0;width:1px;background:rgba(184,168,130,.2);}
+.tl-item{position:relative;padding-bottom:40px;}
+.tl-item::before{content:'';position:absolute;left:-33px;top:6px;width:7px;height:7px;border:1px solid var(--g);background:var(--b);border-radius:50%;z-index:1;}
+.tl-item:last-child{padding-bottom:0;}
+.tl-year{font-family:'Bebas Neue';font-size:20px;letter-spacing:3px;color:var(--g);margin-bottom:6px;}
+.tl-title{font-family:'Bebas Neue';font-size:22px;letter-spacing:2px;color:var(--w);margin-bottom:4px;}
+.tl-desc{font-size:13px;color:rgba(255,255,255,.5);letter-spacing:.5px;line-height:1.8;}
 .about-label .char,.about-text .char{display:inline-block;opacity:0;filter:blur(4px);transform:translateY(8px);transition:opacity .4s,filter .6s,transform .4s;}
 .about-label .char.decoded,.about-text .char.decoded{opacity:1;filter:blur(0);transform:translateY(0);}
 .about-label .char.scramble,.about-text .char.scramble{opacity:1;filter:blur(1px);transform:translateY(0);color:var(--g);}
@@ -134,6 +143,73 @@ footer{border-top:1px solid rgba(255,255,255,.1);padding:48px;display:flex;justi
 <div class="page-content">
   <div class="about-label" id="aboutLabel">KDI Records</div>
   <p class="about-text" id="aboutText">케이디아이 레코즈(KDI Records)는 정형화된 틀에 갇힌 음악적 문법을 거부하고 아티스트 개인이 가진 고유한 서사와 정체성을 가장 선명한 비트와 세련된 사운드로 증명해내는 크리에이티브 힙합 레이블이자 프로듀싱 허브로서, 언더그라운드 특유의 거칠고 날 것 그대로인 에너지에 오버그라운드의 높은 완성도와 대중적 감각을 결합하여 대한민국 힙합 씬의 새로운 기준과 흐름을 설계하고 단순한 음원 제작을 넘어 장르의 경계를 허무는 끊임없는 실험과 혁신적인 사운드 디자인을 통해 시대의 감성을 주도하는 독보적인 문화적 무브먼트를 지향하며 아티스트와 리스너가 가장 깊게 공명할 수 있는 최상의 음악적 경험을 제공합니다.</p>
+
+  <div class="timeline-label">// CHRONICLE</div>
+  <div class="timeline">
+    <div class="tl-item">
+      <div class="tl-year">2019</div>
+      <div class="tl-content">
+        <div class="tl-title">MOST KILLER</div>
+        <div class="tl-desc">5군단 5공병여단 KDI レジン 위문공연</div>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-year">2023</div>
+      <div class="tl-content">
+        <div class="tl-title">NSU RAW 2023</div>
+        <div class="tl-desc">JYS 패션위키 행사 &lt;NSU RAW 2023&gt;, &lt;SINS &amp; SENSE&gt;</div>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-year">2024.03</div>
+      <div class="tl-content">
+        <div class="tl-title">KDI FLOW</div>
+        <div class="tl-desc">KDI FLOW 앨범 창설</div>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-year">2024.09</div>
+      <div class="tl-content">
+        <div class="tl-title">KDI WORLD</div>
+        <div class="tl-desc">KDI WORLD 앨범 창설</div>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-year">2025.01</div>
+      <div class="tl-content">
+        <div class="tl-title">MEDIKINET (OUTRO)</div>
+        <div class="tl-desc">Klein Bite — Medikinet (outro) MYR 프로듀싱</div>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-year">2025.08</div>
+      <div class="tl-content">
+        <div class="tl-title">MYR 영입</div>
+        <div class="tl-desc">프로듀서 MYR, KDI Records 합류</div>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-year">2025.11</div>
+      <div class="tl-content">
+        <div class="tl-title">LUCIFER</div>
+        <div class="tl-desc">Magnum77Chase — Lucifer (Feat. Nyx Rodi, shota, GOTAYKA) MYR 프로듀싱</div>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-year">2026.01</div>
+      <div class="tl-content">
+        <div class="tl-title">THIS IS FXXKED MELODY</div>
+        <div class="tl-desc">Klein Bite — this is fxxked melody MYR 프로듀싱</div>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-year">2026.03</div>
+      <div class="tl-content">
+        <div class="tl-title">JYS 영입</div>
+        <div class="tl-desc">래퍼 JYS, KDI Records 합류</div>
+      </div>
+    </div>
+  </div>
 </div>
 <!-- AUDIO -->
 <audio id="audio" loop>
