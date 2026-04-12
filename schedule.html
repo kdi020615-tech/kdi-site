@@ -123,13 +123,6 @@ footer{border-top:1px solid rgba(255,255,255,.1);padding:48px;display:flex;justi
 </head>
 <body>
 
-<!-- LOCK SCREEN -->
-<div id="lockScreen">
-  <div class="lock-icon">🔒</div>
-  <div class="lock-label">Enter Password</div>
-  <input type="password" class="lock-input" id="pwInput" placeholder="****" maxlength="4" autofocus/>
-  <div class="lock-error" id="lockError">WRONG PASSWORD</div>
-</div>
 
 <nav>
   <a href="index.html" class="nav-logo">KDI</a>
@@ -146,6 +139,7 @@ footer{border-top:1px solid rgba(255,255,255,.1);padding:48px;display:flex;justi
     </li>
     <li><a href="shop.html">Shop</a></li>
     <li><a href="contact.html">Contact</a></li>
+    <li><a href="schedule.html" class="active">Schedule</a></li>
   </ul>
   <div class="hamburger" id="hamburger" onclick="document.getElementById('hamburger').classList.toggle('open');document.getElementById('mobileMenu').classList.toggle('open');">
     <span></span><span></span><span></span>
@@ -159,6 +153,7 @@ footer{border-top:1px solid rgba(255,255,255,.1);padding:48px;display:flex;justi
   <a href="myr.html">MYR</a>
   <a href="shop.html">Shop</a>
   <a href="contact.html">Contact</a>
+  <a href="schedule.html" class="active">Schedule</a>
 </div>
 
 <div class="page-hero">
@@ -166,20 +161,30 @@ footer{border-top:1px solid rgba(255,255,255,.1);padding:48px;display:flex;justi
   <h1 class="page-title">SCHEDULE</h1>
 </div>
 
-<div class="page-content" id="mainContent" style="display:none;">
-  <!-- ADD FORM -->
-  <div class="sch-form">
-    <div class="sch-form-title">// Add Schedule</div>
-    <div class="sch-row">
-      <input type="date" class="sch-input" id="schDate"/>
-      <input type="text" class="sch-input" id="schTitle" placeholder="제목"/>
-    </div>
-    <textarea class="sch-textarea" id="schDesc" placeholder="내용 (선택)"></textarea>
-    <button class="sch-btn" onclick="addSchedule()">등록</button>
-  </div>
-
-  <!-- SCHEDULE LIST -->
+<div class="page-content">
+  <!-- SCHEDULE LIST (누구나 보기 가능) -->
   <div id="schList"></div>
+
+  <!-- ADMIN (비밀번호 입력 후 등록/삭제) -->
+  <div class="admin-toggle" style="margin-top:60px;text-align:center;">
+    <button class="sch-btn" id="adminToggleBtn" onclick="showAdminLogin()">ADMIN</button>
+  </div>
+  <div id="adminLogin" style="display:none;margin-top:24px;text-align:center;">
+    <div class="lock-label" style="margin-bottom:12px;">Enter Password</div>
+    <input type="password" class="lock-input" id="pwInput" placeholder="****" maxlength="4"/>
+    <div class="lock-error" id="lockError">WRONG PASSWORD</div>
+  </div>
+  <div id="adminPanel" style="display:none;margin-top:40px;">
+    <div class="sch-form">
+      <div class="sch-form-title">// Add Schedule</div>
+      <div class="sch-row">
+        <input type="date" class="sch-input" id="schDate"/>
+        <input type="text" class="sch-input" id="schTitle" placeholder="제목"/>
+      </div>
+      <textarea class="sch-textarea" id="schDesc" placeholder="내용 (선택)"></textarea>
+      <button class="sch-btn" onclick="addSchedule()">등록</button>
+    </div>
+  </div>
 </div>
 
 <!-- AUDIO -->
@@ -227,17 +232,22 @@ firebase.initializeApp({
 const db = firebase.firestore();
 const schCol = db.collection('schedules');
 
-/* PASSWORD */
+/* ADMIN */
+let isAdmin = false;
+function showAdminLogin() {
+  document.getElementById('adminLogin').style.display = 'block';
+  document.getElementById('adminToggleBtn').style.display = 'none';
+  document.getElementById('pwInput').focus();
+}
 const pwInput = document.getElementById('pwInput');
-const lockScreen = document.getElementById('lockScreen');
 const lockError = document.getElementById('lockError');
-const mainContent = document.getElementById('mainContent');
-
 pwInput.addEventListener('input', function() {
   if (this.value.length === 4) {
     if (this.value === '1206') {
-      lockScreen.classList.add('hide');
-      mainContent.style.display = 'block';
+      isAdmin = true;
+      document.getElementById('adminLogin').style.display = 'none';
+      document.getElementById('adminPanel').style.display = 'block';
+      loadSchedules();
     } else {
       lockError.classList.add('show');
       this.value = '';
@@ -279,7 +289,7 @@ async function loadSchedules() {
         <div class="sch-title">${s.title}</div>
         ${s.desc ? `<div class="sch-desc">${s.desc}</div>` : ''}
       </div>
-      <button class="sch-del" onclick="deleteSchedule('${doc.id}')">DELETE</button>
+      ${isAdmin ? `<button class="sch-del" onclick="deleteSchedule('${doc.id}')">DELETE</button>` : ''}
     </div>`;
   });
   html += '</div>';
