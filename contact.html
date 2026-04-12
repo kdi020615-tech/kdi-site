@@ -200,6 +200,15 @@ audio.play().then(() => {
   plIcon.innerHTML = '<polygon points="5,3 19,12 5,21"/>';
   plStatus.textContent = 'CLICK TO PLAY';
   eqBars.forEach(b => b.classList.add('off'));
+  document.addEventListener('touchstart', function h() {
+    audio.play().then(() => {
+      playing = true;
+      plStatus.textContent = 'NOW PLAYING';
+      plIcon.innerHTML = '<rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/>';
+      eqBars.forEach(b => b.classList.remove('off'));
+    }).catch(()=>{});
+    document.removeEventListener('touchstart', h);
+  }, { once: true });
 });
 
 function togglePlay() {
