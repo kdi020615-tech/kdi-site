@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>KDI — Contact</title>
+<title>KDI — About</title>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400&display=swap');
 @font-face { font-family:'Splash'; src:url('Splash-Regular.ttf') format('truetype'); }
@@ -33,12 +33,9 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;padding:28px 48px;display:fl
 .page-hero::after{content:'';position:absolute;bottom:0;left:0;right:0;height:1px;background:rgba(255,255,255,.1);}
 .page-tag{font-size:9px;letter-spacing:6px;color:var(--g);margin-bottom:16px;}
 .page-title{font-family:'Bebas Neue';font-size:clamp(64px,12vw,140px);line-height:.9;letter-spacing:-1px;text-align:center;}
-.page-content{padding:80px 48px;max-width:700px;margin:0 auto;}
-.contact-row{display:flex;justify-content:space-between;align-items:center;padding:24px 0;border-bottom:1px solid rgba(255,255,255,.1);}
-.contact-label{font-size:10px;letter-spacing:4px;color:var(--g);text-transform:uppercase;}
-.contact-value a{font-size:14px;color:var(--w);text-decoration:none;letter-spacing:1px;transition:color .3s;}
-.contact-value a:hover{color:var(--g);}
-.contact-value{font-size:14px;color:rgba(255,255,255,.7);letter-spacing:1px;}
+.page-content{padding:80px 48px;max-width:760px;margin:0 auto;}
+.about-label{font-family:'Bebas Neue';font-size:clamp(28px,4vw,42px);letter-spacing:2px;margin-bottom:32px;color:var(--g);}
+.about-text{font-size:15px;line-height:2.2;color:rgba(255,255,255,.75);letter-spacing:.5px;word-break:keep-all;}
 footer{border-top:1px solid rgba(255,255,255,.1);padding:48px;display:flex;justify-content:space-between;align-items:center;}
 .ft-logo{font-family:'Splash',cursive;font-size:36px;letter-spacing:4px;color:var(--g);text-decoration:none;}
 .ft-copy{font-size:9px;letter-spacing:3px;color:rgba(255,255,255,.25);text-align:right;line-height:2;}
@@ -91,7 +88,7 @@ footer{border-top:1px solid rgba(255,255,255,.1);padding:48px;display:flex;justi
   .nav-links{display:none;}
   .hamburger{display:flex;}
   .page-content{padding:60px 24px;}
-  .contact-row{flex-direction:column;align-items:flex-start;gap:8px;}
+  .about-text{font-size:14px;line-height:2;}
   footer{padding:40px 24px;flex-direction:column;gap:16px;align-items:flex-start;}
   #player { left:16px; bottom:20px; gap:10px; }
   .pl-btn { width:36px; height:36px; }
@@ -114,9 +111,9 @@ footer{border-top:1px solid rgba(255,255,255,.1);padding:48px;display:flex;justi
         <a href="myr.html"><span class="at-num">03</span> MYR</a>
       </div>
     </li>
-    <li><a href="about.html">About</a></li>
+    <li><a href="about.html" class="active">About</a></li>
     <li><a href="shop.html">Shop</a></li>
-    <li><a href="contact.html" class="active">Contact</a></li>
+    <li><a href="contact.html">Contact</a></li>
   </ul>
   <div class="hamburger" id="hamburger" onclick="document.getElementById('hamburger').classList.toggle('open');document.getElementById('mobileMenu').classList.toggle('open');">
     <span></span><span></span><span></span>
@@ -127,31 +124,17 @@ footer{border-top:1px solid rgba(255,255,255,.1);padding:48px;display:flex;justi
   <a href="kdi.html">KDI</a>
   <a href="jys.html">JYS</a>
   <a href="myr.html">MYR</a>
-  <a href="about.html">About</a>
+  <a href="about.html" class="active">About</a>
   <a href="shop.html">Shop</a>
-  <a href="contact.html" class="active">Contact</a>
+  <a href="contact.html">Contact</a>
 </div>
 <div class="page-hero">
-  <div class="page-tag">// GET IN TOUCH</div>
-  <h1 class="page-title">CONTACT</h1>
+  <div class="page-tag">// WHO WE ARE</div>
+  <h1 class="page-title">ABOUT</h1>
 </div>
 <div class="page-content">
-  <div class="contact-row">
-    <div class="contact-label">Email</div>
-    <div class="contact-value"><a href="mailto:kdi020615@gmail.com">kdi020615@gmail.com</a></div>
-  </div>
-  <div class="contact-row">
-    <div class="contact-label">YouTube</div>
-    <div class="contact-value">COMING SOON</div>
-  </div>
-  <div class="contact-row">
-    <div class="contact-label">Instagram</div>
-    <div class="contact-value">COMING SOON</div>
-  </div>
-  <div class="contact-row">
-    <div class="contact-label">SoundCloud</div>
-    <div class="contact-value">COMING SOON</div>
-  </div>
+  <div class="about-label">KDI Records</div>
+  <p class="about-text">케이디아이 레코즈(KDI Records)는 정형화된 틀에 갇힌 음악적 문법을 거부하고 아티스트 개인이 가진 고유한 서사와 정체성을 가장 선명한 비트와 세련된 사운드로 증명해내는 크리에이티브 힙합 레이블이자 프로듀싱 허브로서, 언더그라운드 특유의 거칠고 날 것 그대로인 에너지에 오버그라운드의 높은 완성도와 대중적 감각을 결합하여 대한민국 힙합 씬의 새로운 기준과 흐름을 설계하고 단순한 음원 제작을 넘어 장르의 경계를 허무는 끊임없는 실험과 혁신적인 사운드 디자인을 통해 시대의 감성을 주도하는 독보적인 문화적 무브먼트를 지향하며 아티스트와 리스너가 가장 깊게 공명할 수 있는 최상의 음악적 경험을 제공합니다.</p>
 </div>
 <!-- AUDIO -->
 <audio id="audio" loop>
@@ -180,7 +163,7 @@ footer{border-top:1px solid rgba(255,255,255,.1);padding:48px;display:flex;justi
 
 <footer>
   <a href="index.html" class="ft-logo">KDI</a>
-  <div class="ft-copy">© 2026 KDI. ALL RIGHTS RESERVED.<br/>KOREA · OMOKCHEON-DONG · JOWON-DONG · SERYU-DONG</div>
+  <div class="ft-copy">&copy; 2026 KDI. ALL RIGHTS RESERVED.<br/>KOREA &middot; OMOKCHEON-DONG &middot; JOWON-DONG &middot; SERYU-DONG</div>
 </footer>
 
 <script>
