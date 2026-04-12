@@ -212,7 +212,21 @@ footer{border-top:1px solid rgba(255,255,255,.1);padding:48px;display:flex;justi
   <div class="ft-copy">&copy; 2026 KDI. ALL RIGHTS RESERVED.<br/>KOREA &middot; OMOKCHEON-DONG &middot; JOWON-DONG &middot; SERYU-DONG</div>
 </footer>
 
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
 <script>
+/* FIREBASE */
+firebase.initializeApp({
+  apiKey: "AIzaSyDv0MTq95kwXo6Bq0qGn4yGVo6XPLn4vVo",
+  authDomain: "kdi-site.firebaseapp.com",
+  projectId: "kdi-site",
+  storageBucket: "kdi-site.firebasestorage.app",
+  messagingSenderId: "803075660446",
+  appId: "1:803075660446:web:d767f20a2684b139d9398f"
+});
+const db = firebase.firestore();
+const schCol = db.collection('schedules');
+
 /* PASSWORD */
 const pwInput = document.getElementById('pwInput');
 const lockScreen = document.getElementById('lockScreen');
@@ -232,51 +246,46 @@ pwInput.addEventListener('input', function() {
   }
 });
 
-/* SCHEDULE CRUD */
-function getSchedules() {
-  return JSON.parse(localStorage.getItem('kdi-schedules') || '[]');
-}
-function saveSchedules(list) {
-  localStorage.setItem('kdi-schedules', JSON.stringify(list));
-}
-function addSchedule() {
+/* SCHEDULE CRUD (Firebase) */
+async function addSchedule() {
   const date = document.getElementById('schDate').value;
   const title = document.getElementById('schTitle').value.trim();
   const desc = document.getElementById('schDesc').value.trim();
   if (!date || !title) return;
-  const list = getSchedules();
-  list.push({ id: Date.now(), date, title, desc });
-  list.sort((a, b) => a.date.localeCompare(b.date));
-  saveSchedules(list);
+  await schCol.add({ date, title, desc, createdAt: Date.now() });
   document.getElementById('schDate').value = '';
   document.getElementById('schTitle').value = '';
   document.getElementById('schDesc').value = '';
-  renderSchedules();
+  loadSchedules();
 }
-function deleteSchedule(id) {
-  const list = getSchedules().filter(s => s.id !== id);
-  saveSchedules(list);
-  renderSchedules();
+async function deleteSchedule(id) {
+  await schCol.doc(id).delete();
+  loadSchedules();
 }
-function renderSchedules() {
-  const list = getSchedules();
+async function loadSchedules() {
+  const snap = await schCol.orderBy('date').get();
   const el = document.getElementById('schList');
-  if (list.length === 0) {
+  if (snap.empty) {
     el.innerHTML = '<div class="sch-empty">등록된 스케줄이 없습니다</div>';
     return;
   }
-  el.innerHTML = '<div class="sch-list">' + list.map(s => `
+  let html = '<div class="sch-list">';
+  snap.forEach(doc => {
+    const s = doc.data();
+    html += `
     <div class="sch-item">
       <div class="sch-item-left">
         <div class="sch-date">${s.date}</div>
         <div class="sch-title">${s.title}</div>
         ${s.desc ? `<div class="sch-desc">${s.desc}</div>` : ''}
       </div>
-      <button class="sch-del" onclick="deleteSchedule(${s.id})">DELETE</button>
-    </div>
-  `).join('') + '</div>';
+      <button class="sch-del" onclick="deleteSchedule('${doc.id}')">DELETE</button>
+    </div>`;
+  });
+  html += '</div>';
+  el.innerHTML = html;
 }
-renderSchedules();
+loadSchedules();
 
 /* AUDIO PLAYER */
 const audio = document.getElementById('audio');
