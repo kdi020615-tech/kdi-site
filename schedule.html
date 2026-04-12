@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>KDI — Schedule</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400&display=swap');
+@font-face { font-family:'Splash'; src:url('Splash-Regular.ttf') format('truetype'); }
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+:root{--w:#ffffff;--g:#b8a882;--b:#0d0812;}
+html{scroll-behavior:smooth;}
+body{background:var(--b);color:var(--w);font-family:'Inter',sans-serif;font-weight:300;overflow-x:hidden;}
+body::before{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;background:url('hf_20260411_224131_9914dd79-a943-4c95-9079-d63a7cacb8ff.png') center/cover no-repeat fixed;opacity:.15;mix-blend-mode:screen;}
+body::after{content:'';position:fixed;inset:0;z-index:9000;pointer-events:none;opacity:.04;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");background-size:160px;}
+nav{position:fixed;top:0;left:0;right:0;z-index:500;padding:28px 48px;display:flex;justify-content:space-between;align-items:center;mix-blend-mode:difference;}
+.nav-logo{font-family:'Splash',cursive;font-size:26px;letter-spacing:3px;color:var(--w);text-decoration:none;}
+.nav-links{display:flex;gap:40px;list-style:none;align-items:center;}
+.nav-links a{font-size:10px;letter-spacing:4px;color:rgba(255,255,255,.7);text-decoration:none;text-transform:uppercase;transition:color .3s;}
+.nav-links a:hover{color:var(--w);}
+.nav-links a.active{color:var(--w);}
+.nav-artist{position:relative;}
+.nav-artist > span{font-size:10px;letter-spacing:4px;line-height:1;color:rgba(255,255,255,.7);text-transform:uppercase;cursor:pointer;display:inline-flex;align-items:baseline;gap:4px;transition:color .3s;}
+.nav-artist:hover > span{color:var(--w);}
+.nav-artist > span::after{content:'▾';font-size:8px;transition:transform .3s;}
+.nav-artist.open > span::after{transform:rotate(180deg);}
+.nav-artist-drop{position:fixed;top:60px;left:auto;mix-blend-mode:normal;isolation:isolate;background:rgba(13,8,18,.97);border:1px solid rgba(255,255,255,.12);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);padding:8px 0;min-width:150px;opacity:0;visibility:hidden;transform:translateY(-6px);transition:opacity .3s,visibility .3s,transform .3s;z-index:9999;}
+.nav-artist.open .nav-artist-drop{opacity:1;visibility:visible;transform:translateY(0);}
+.nav-artist-drop a{display:flex;align-items:center;gap:10px;padding:12px 20px;font-size:10px;letter-spacing:4px;color:#ccc;text-decoration:none;text-transform:uppercase;transition:color .3s,background .3s;}
+.nav-artist-drop a:hover{color:#fff;background:rgba(255,255,255,.06);}
+.at-num{font-family:'Bebas Neue';font-size:13px;color:rgba(255,255,255,.25);}
+
+/* LOCK SCREEN */
+#lockScreen{position:fixed;inset:0;z-index:7000;background:var(--b);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:24px;transition:opacity .5s,visibility .5s;}
+#lockScreen.hide{opacity:0;visibility:hidden;pointer-events:none;}
+.lock-icon{font-size:48px;margin-bottom:8px;}
+.lock-label{font-size:9px;letter-spacing:6px;color:var(--g);text-transform:uppercase;}
+.lock-input{background:transparent;border:1px solid rgba(184,168,130,.3);color:var(--w);font-family:'Bebas Neue';font-size:32px;letter-spacing:8px;text-align:center;padding:12px 24px;width:200px;outline:none;transition:border-color .3s;}
+.lock-input:focus{border-color:var(--g);}
+.lock-input::placeholder{color:rgba(255,255,255,.15);font-size:16px;letter-spacing:4px;}
+.lock-error{font-size:10px;letter-spacing:3px;color:#ff4444;opacity:0;transition:opacity .3s;}
+.lock-error.show{opacity:1;}
+
+/* PAGE */
+.page-hero{height:50vh;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;padding-bottom:60px;position:relative;}
+.page-hero::after{content:'';position:absolute;bottom:0;left:0;right:0;height:1px;background:rgba(255,255,255,.1);}
+.page-tag{font-size:9px;letter-spacing:6px;color:var(--g);margin-bottom:16px;}
+.page-title{font-family:'Bebas Neue';font-size:clamp(64px,12vw,140px);line-height:.9;letter-spacing:-1px;text-align:center;}
+.page-content{padding:80px 48px;max-width:900px;margin:0 auto;}
+
+/* FORM */
+.sch-form{margin-bottom:60px;padding:32px;border:1px solid rgba(184,168,130,.15);background:rgba(184,168,130,.03);}
+.sch-form-title{font-size:9px;letter-spacing:5px;color:var(--g);text-transform:uppercase;margin-bottom:24px;}
+.sch-row{display:flex;gap:16px;margin-bottom:16px;}
+.sch-input{flex:1;background:transparent;border:1px solid rgba(255,255,255,.1);color:var(--w);font-family:'Inter',sans-serif;font-size:13px;padding:12px 16px;outline:none;transition:border-color .3s;}
+.sch-input:focus{border-color:var(--g);}
+.sch-input::placeholder{color:rgba(255,255,255,.2);}
+.sch-textarea{width:100%;background:transparent;border:1px solid rgba(255,255,255,.1);color:var(--w);font-family:'Inter',sans-serif;font-size:13px;padding:12px 16px;outline:none;resize:vertical;min-height:80px;margin-bottom:16px;transition:border-color .3s;}
+.sch-textarea:focus{border-color:var(--g);}
+.sch-textarea::placeholder{color:rgba(255,255,255,.2);}
+.sch-btn{background:transparent;border:1px solid rgba(184,168,130,.3);color:var(--g);font-size:10px;letter-spacing:4px;padding:12px 32px;cursor:pointer;text-transform:uppercase;transition:background .3s,color .3s;}
+.sch-btn:hover{background:var(--g);color:var(--b);}
+
+/* SCHEDULE LIST */
+.sch-list{display:flex;flex-direction:column;gap:0;}
+.sch-item{padding:24px 0;border-bottom:1px solid rgba(255,255,255,.08);display:flex;justify-content:space-between;align-items:flex-start;gap:24px;}
+.sch-item-left{flex:1;}
+.sch-date{font-family:'Bebas Neue';font-size:18px;letter-spacing:3px;color:var(--g);margin-bottom:6px;}
+.sch-title{font-family:'Bebas Neue';font-size:24px;letter-spacing:2px;color:var(--w);margin-bottom:4px;}
+.sch-desc{font-size:13px;color:rgba(255,255,255,.5);line-height:1.6;}
+.sch-del{background:none;border:1px solid rgba(255,255,255,.1);color:rgba(255,255,255,.3);font-size:9px;letter-spacing:2px;padding:6px 12px;cursor:pointer;transition:border-color .3s,color .3s;white-space:nowrap;}
+.sch-del:hover{border-color:#ff4444;color:#ff4444;}
+.sch-empty{font-size:13px;color:rgba(255,255,255,.3);letter-spacing:2px;text-align:center;padding:60px 0;}
+
+footer{border-top:1px solid rgba(255,255,255,.1);padding:48px;display:flex;justify-content:space-between;align-items:center;}
+.ft-logo{font-family:'Splash',cursive;font-size:36px;letter-spacing:4px;color:var(--g);text-decoration:none;}
+.ft-copy{font-size:9px;letter-spacing:3px;color:rgba(255,255,255,.25);text-align:right;line-height:2;}
+
+/* PLAYER */
+#player{position:fixed;bottom:32px;left:48px;z-index:600;display:flex;align-items:center;gap:14px;cursor:pointer;}
+.pl-btn{width:42px;height:42px;border:1px solid rgba(255,255,255,.25);border-radius:50%;display:flex;align-items:center;justify-content:center;transition:border-color .3s,background .3s;}
+#player:hover .pl-btn{border-color:rgba(255,255,255,.7);background:rgba(255,255,255,.08);}
+.pl-icon{width:12px;height:12px;fill:var(--w);}
+.pl-info{line-height:1.5;}
+.pl-track{font-size:10px;letter-spacing:3px;color:var(--g);}
+.pl-status{font-size:9px;letter-spacing:2px;color:rgba(255,255,255,.35);}
+.eq{display:flex;align-items:flex-end;gap:2px;height:14px;margin-left:4px;}
+.eq-b{width:2px;background:var(--g);border-radius:1px;animation:eqAnim .7s ease-in-out infinite alternate;}
+.eq-b:nth-child(1){animation-duration:.5s;}
+.eq-b:nth-child(2){animation-duration:.8s;}
+.eq-b:nth-child(3){animation-duration:.45s;}
+.eq-b:nth-child(4){animation-duration:.65s;}
+.eq-b.off{animation-play-state:paused;height:2px !important;}
+@keyframes eqAnim{from{height:2px;}to{height:14px;}}
+
+/* HAMBURGER */
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;z-index:600;padding:8px;}
+.hamburger span{width:22px;height:1.5px;background:var(--w);transition:transform .3s,opacity .3s;}
+.hamburger.open span:nth-child(1){transform:translateY(6.5px) rotate(45deg);}
+.hamburger.open span:nth-child(2){opacity:0;}
+.hamburger.open span:nth-child(3){transform:translateY(-6.5px) rotate(-45deg);}
+.mobile-menu{display:none;position:fixed;inset:0;z-index:550;background:rgba(13,8,18,.97);flex-direction:column;align-items:center;justify-content:center;gap:32px;}
+.mobile-menu.open{display:flex;}
+.mobile-menu a{font-size:14px;letter-spacing:6px;color:rgba(255,255,255,.7);text-decoration:none;text-transform:uppercase;transition:color .3s;}
+.mobile-menu a:hover,.mobile-menu a.active{color:var(--w);}
+
+@media(max-width:768px){
+  nav{padding:20px 24px;}
+  .nav-links{display:none;}
+  .hamburger{display:flex;}
+  .page-content{padding:60px 24px;}
+  .page-hero{height:40vh;padding-bottom:40px;}
+  .sch-row{flex-direction:column;gap:12px;}
+  .sch-item{flex-direction:column;gap:12px;}
+  footer{padding:40px 24px;flex-direction:column;gap:16px;align-items:flex-start;}
+  #player{left:16px;bottom:20px;gap:10px;}
+  .pl-btn{width:36px;height:36px;}
+  .pl-track{font-size:9px;}
+  .pl-status{font-size:8px;}
+  .eq{display:none;}
+}
+</style>
+</head>
+<body>
+
+<!-- LOCK SCREEN -->
+<div id="lockScreen">
+  <div class="lock-icon">🔒</div>
+  <div class="lock-label">Enter Password</div>
+  <input type="password" class="lock-input" id="pwInput" placeholder="****" maxlength="4" autofocus/>
+  <div class="lock-error" id="lockError">WRONG PASSWORD</div>
+</div>
+
+<nav>
+  <a href="index.html" class="nav-logo">KDI</a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="about.html">About</a></li>
+    <li class="nav-artist" id="navArtist" onclick="this.classList.toggle('open');">
+      <span>Artist</span>
+      <div class="nav-artist-drop">
+        <a href="kdi.html"><span class="at-num">01</span> KDI</a>
+        <a href="jys.html"><span class="at-num">02</span> JYS</a>
+        <a href="myr.html"><span class="at-num">03</span> MYR</a>
+      </div>
+    </li>
+    <li><a href="shop.html">Shop</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+  <div class="hamburger" id="hamburger" onclick="document.getElementById('hamburger').classList.toggle('open');document.getElementById('mobileMenu').classList.toggle('open');">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="index.html">Home</a>
+  <a href="about.html">About</a>
+  <a href="kdi.html">KDI</a>
+  <a href="jys.html">JYS</a>
+  <a href="myr.html">MYR</a>
+  <a href="shop.html">Shop</a>
+  <a href="contact.html">Contact</a>
+</div>
+
+<div class="page-hero">
+  <div class="page-tag">// PRIVATE</div>
+  <h1 class="page-title">SCHEDULE</h1>
+</div>
+
+<div class="page-content" id="mainContent" style="display:none;">
+  <!-- ADD FORM -->
+  <div class="sch-form">
+    <div class="sch-form-title">// Add Schedule</div>
+    <div class="sch-row">
+      <input type="date" class="sch-input" id="schDate"/>
+      <input type="text" class="sch-input" id="schTitle" placeholder="제목"/>
+    </div>
+    <textarea class="sch-textarea" id="schDesc" placeholder="내용 (선택)"></textarea>
+    <button class="sch-btn" onclick="addSchedule()">등록</button>
+  </div>
+
+  <!-- SCHEDULE LIST -->
+  <div id="schList"></div>
+</div>
+
+<!-- AUDIO -->
+<audio id="audio" loop>
+  <source src="main-bgm.mp3" type="audio/mpeg"/>
+</audio>
+
+<!-- PLAYER -->
+<div id="player" onclick="togglePlay()">
+  <div class="pl-btn">
+    <svg class="pl-icon" id="plIcon" viewBox="0 0 24 24">
+      <rect x="6" y="4" width="4" height="16"/>
+      <rect x="14" y="4" width="4" height="16"/>
+    </svg>
+  </div>
+  <div class="pl-info">
+    <div class="pl-track">JEFF HARDY</div>
+    <div class="pl-status" id="plStatus">NOW PLAYING</div>
+  </div>
+  <div class="eq" id="eq">
+    <div class="eq-b" style="height:6px"></div>
+    <div class="eq-b" style="height:10px"></div>
+    <div class="eq-b" style="height:4px"></div>
+    <div class="eq-b" style="height:12px"></div>
+  </div>
+</div>
+
+<footer>
+  <a href="index.html" class="ft-logo">KDI</a>
+  <div class="ft-copy">&copy; 2026 KDI. ALL RIGHTS RESERVED.<br/>KOREA &middot; OMOKCHEON-DONG &middot; JOWON-DONG &middot; SERYU-DONG</div>
+</footer>
+
+<script>
+/* PASSWORD */
+const pwInput = document.getElementById('pwInput');
+const lockScreen = document.getElementById('lockScreen');
+const lockError = document.getElementById('lockError');
+const mainContent = document.getElementById('mainContent');
+
+pwInput.addEventListener('input', function() {
+  if (this.value.length === 4) {
+    if (this.value === '1206') {
+      lockScreen.classList.add('hide');
+      mainContent.style.display = 'block';
+    } else {
+      lockError.classList.add('show');
+      this.value = '';
+      setTimeout(() => lockError.classList.remove('show'), 1500);
+    }
+  }
+});
+
+/* SCHEDULE CRUD */
+function getSchedules() {
+  return JSON.parse(localStorage.getItem('kdi-schedules') || '[]');
+}
+function saveSchedules(list) {
+  localStorage.setItem('kdi-schedules', JSON.stringify(list));
+}
+function addSchedule() {
+  const date = document.getElementById('schDate').value;
+  const title = document.getElementById('schTitle').value.trim();
+  const desc = document.getElementById('schDesc').value.trim();
+  if (!date || !title) return;
+  const list = getSchedules();
+  list.push({ id: Date.now(), date, title, desc });
+  list.sort((a, b) => a.date.localeCompare(b.date));
+  saveSchedules(list);
+  document.getElementById('schDate').value = '';
+  document.getElementById('schTitle').value = '';
+  document.getElementById('schDesc').value = '';
+  renderSchedules();
+}
+function deleteSchedule(id) {
+  const list = getSchedules().filter(s => s.id !== id);
+  saveSchedules(list);
+  renderSchedules();
+}
+function renderSchedules() {
+  const list = getSchedules();
+  const el = document.getElementById('schList');
+  if (list.length === 0) {
+    el.innerHTML = '<div class="sch-empty">등록된 스케줄이 없습니다</div>';
+    return;
+  }
+  el.innerHTML = '<div class="sch-list">' + list.map(s => `
+    <div class="sch-item">
+      <div class="sch-item-left">
+        <div class="sch-date">${s.date}</div>
+        <div class="sch-title">${s.title}</div>
+        ${s.desc ? `<div class="sch-desc">${s.desc}</div>` : ''}
+      </div>
+      <button class="sch-del" onclick="deleteSchedule(${s.id})">DELETE</button>
+    </div>
+  `).join('') + '</div>';
+}
+renderSchedules();
+
+/* AUDIO PLAYER */
+const audio = document.getElementById('audio');
+const plIcon = document.getElementById('plIcon');
+const plStatus = document.getElementById('plStatus');
+const eqBars = document.querySelectorAll('.eq-b');
+let playing = false;
+
+audio.play().then(() => {
+  playing = true;
+  plStatus.textContent = 'NOW PLAYING';
+  plIcon.innerHTML = '<rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/>';
+  eqBars.forEach(b => b.classList.remove('off'));
+}).catch(() => {
+  playing = false;
+  plIcon.innerHTML = '<polygon points="5,3 19,12 5,21"/>';
+  plStatus.textContent = 'CLICK TO PLAY';
+  eqBars.forEach(b => b.classList.add('off'));
+  document.addEventListener('touchstart', function h() {
+    audio.play().then(() => {
+      playing = true;
+      plStatus.textContent = 'NOW PLAYING';
+      plIcon.innerHTML = '<rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/>';
+      eqBars.forEach(b => b.classList.remove('off'));
+    }).catch(()=>{});
+    document.removeEventListener('touchstart', h);
+  }, { once: true });
+});
+
+function togglePlay() {
+  if (playing) {
+    audio.pause();
+    plIcon.innerHTML = '<polygon points="5,3 19,12 5,21"/>';
+    plStatus.textContent = 'PAUSED';
+    eqBars.forEach(b => b.classList.add('off'));
+  } else {
+    audio.play();
+    plIcon.innerHTML = '<rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/>';
+    plStatus.textContent = 'NOW PLAYING';
+    eqBars.forEach(b => b.classList.remove('off'));
+  }
+  playing = !playing;
+}
+
+/* ARTIST DROPDOWN */
+const navArtist = document.getElementById('navArtist');
+const atDrop = navArtist.querySelector('.nav-artist-drop');
+navArtist.addEventListener('click', () => {
+  const r = navArtist.getBoundingClientRect();
+  atDrop.style.left = r.left + 'px';
+  atDrop.style.top = (r.bottom + 8) + 'px';
+});
+document.addEventListener('click', e => {
+  if (!navArtist.contains(e.target)) navArtist.classList.remove('open');
+});
+</script>
+</body>
+</html>
