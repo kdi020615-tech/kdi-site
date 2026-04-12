@@ -36,6 +36,9 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;padding:28px 48px;display:fl
 .page-content{padding:80px 48px;max-width:760px;margin:0 auto;}
 .about-label{font-family:'Bebas Neue';font-size:clamp(28px,4vw,42px);letter-spacing:2px;margin-bottom:32px;color:var(--g);}
 .about-text{font-size:15px;line-height:2.2;color:rgba(255,255,255,.75);letter-spacing:.5px;word-break:keep-all;}
+.about-label .char,.about-text .char{display:inline-block;opacity:0;filter:blur(4px);transform:translateY(8px);transition:opacity .4s,filter .6s,transform .4s;}
+.about-label .char.decoded,.about-text .char.decoded{opacity:1;filter:blur(0);transform:translateY(0);}
+.about-label .char.scramble,.about-text .char.scramble{opacity:1;filter:blur(1px);transform:translateY(0);color:var(--g);}
 footer{border-top:1px solid rgba(255,255,255,.1);padding:48px;display:flex;justify-content:space-between;align-items:center;}
 .ft-logo{font-family:'Splash',cursive;font-size:36px;letter-spacing:4px;color:var(--g);text-decoration:none;}
 .ft-copy{font-size:9px;letter-spacing:3px;color:rgba(255,255,255,.25);text-align:right;line-height:2;}
@@ -133,8 +136,8 @@ footer{border-top:1px solid rgba(255,255,255,.1);padding:48px;display:flex;justi
   <h1 class="page-title">ABOUT</h1>
 </div>
 <div class="page-content">
-  <div class="about-label">KDI Records</div>
-  <p class="about-text">케이디아이 레코즈(KDI Records)는 정형화된 틀에 갇힌 음악적 문법을 거부하고 아티스트 개인이 가진 고유한 서사와 정체성을 가장 선명한 비트와 세련된 사운드로 증명해내는 크리에이티브 힙합 레이블이자 프로듀싱 허브로서, 언더그라운드 특유의 거칠고 날 것 그대로인 에너지에 오버그라운드의 높은 완성도와 대중적 감각을 결합하여 대한민국 힙합 씬의 새로운 기준과 흐름을 설계하고 단순한 음원 제작을 넘어 장르의 경계를 허무는 끊임없는 실험과 혁신적인 사운드 디자인을 통해 시대의 감성을 주도하는 독보적인 문화적 무브먼트를 지향하며 아티스트와 리스너가 가장 깊게 공명할 수 있는 최상의 음악적 경험을 제공합니다.</p>
+  <div class="about-label" id="aboutLabel">KDI Records</div>
+  <p class="about-text" id="aboutText">케이디아이 레코즈(KDI Records)는 정형화된 틀에 갇힌 음악적 문법을 거부하고 아티스트 개인이 가진 고유한 서사와 정체성을 가장 선명한 비트와 세련된 사운드로 증명해내는 크리에이티브 힙합 레이블이자 프로듀싱 허브로서, 언더그라운드 특유의 거칠고 날 것 그대로인 에너지에 오버그라운드의 높은 완성도와 대중적 감각을 결합하여 대한민국 힙합 씬의 새로운 기준과 흐름을 설계하고 단순한 음원 제작을 넘어 장르의 경계를 허무는 끊임없는 실험과 혁신적인 사운드 디자인을 통해 시대의 감성을 주도하는 독보적인 문화적 무브먼트를 지향하며 아티스트와 리스너가 가장 깊게 공명할 수 있는 최상의 음악적 경험을 제공합니다.</p>
 </div>
 <!-- AUDIO -->
 <audio id="audio" loop>
@@ -211,6 +214,72 @@ navArtist.addEventListener('click', () => {
 document.addEventListener('click', e => {
   if (!navArtist.contains(e.target)) navArtist.classList.remove('open');
 });
+
+/* ── ANCIENT DECODE ANIMATION ── */
+const ancientChars = 'ΑΒΓΔΕΖΗΘΙΚΛΜΝΞΟΠΡΣΤΥΦΧΨΩαβγδεζηθικλμνξοπρστυφχψωᚠᚢᚦᚨᚱᚲᚷᚹᚺᚾᛁᛃᛇᛈᛉᛊᛏᛒᛗᛚᛝᛞᛟ';
+
+function decodeElement(el) {
+  const original = el.textContent;
+  el.innerHTML = '';
+
+  // 각 글자를 span.char로 감싸기
+  const chars = [];
+  for (let i = 0; i < original.length; i++) {
+    const span = document.createElement('span');
+    span.className = 'char';
+    span.dataset.final = original[i];
+    if (original[i] === ' ') {
+      span.innerHTML = '&nbsp;';
+      span.style.width = '0.3em';
+    } else {
+      span.textContent = ancientChars[Math.floor(Math.random() * ancientChars.length)];
+    }
+    el.appendChild(span);
+    chars.push(span);
+  }
+
+  // 순차적으로 디코딩
+  chars.forEach((span, i) => {
+    if (span.dataset.final === ' ') {
+      setTimeout(() => { span.classList.add('decoded'); }, i * 30);
+      return;
+    }
+
+    // 1단계: 고대 문자 표시 (scramble)
+    setTimeout(() => {
+      span.classList.add('scramble');
+      // 랜덤 문자 깜빡임
+      let flicker = 0;
+      const flickerInterval = setInterval(() => {
+        span.textContent = ancientChars[Math.floor(Math.random() * ancientChars.length)];
+        flicker++;
+        if (flicker > 3 + Math.random() * 4) {
+          clearInterval(flickerInterval);
+          // 2단계: 원래 문자로 디코딩
+          span.textContent = span.dataset.final;
+          span.classList.remove('scramble');
+          span.classList.add('decoded');
+        }
+      }, 50);
+    }, i * 30 + Math.random() * 80);
+  });
+}
+
+// 스크롤 진입시 실행
+const label = document.getElementById('aboutLabel');
+const text = document.getElementById('aboutText');
+let decoded = false;
+
+const decObs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting && !decoded) {
+      decoded = true;
+      decodeElement(label);
+      setTimeout(() => decodeElement(text), 400);
+    }
+  });
+}, { threshold: 0.2 });
+decObs.observe(label);
 </script>
 </body>
 </html>
