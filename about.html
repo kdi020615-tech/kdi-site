@@ -261,21 +261,13 @@ function decodeElement(el) {
   });
 }
 
-// 스크롤 진입시 실행
+// 페이지 로드시 실행
 const label = document.getElementById('aboutLabel');
 const text = document.getElementById('aboutText');
-let decoded = false;
-
-const decObs = new IntersectionObserver(entries => {
-  entries.forEach(e => {
-    if (e.isIntersecting && !decoded) {
-      decoded = true;
-      decodeElement(label);
-      setTimeout(() => decodeElement(text), 400);
-    }
-  });
-}, { threshold: 0.2 });
-decObs.observe(label);
+setTimeout(() => {
+  decodeElement(label);
+  setTimeout(() => decodeElement(text), 500);
+}, 300);
 </script>
 </body>
 </html>
