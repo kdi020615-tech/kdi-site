@@ -555,7 +555,7 @@ footer {
 
 <!-- NAV -->
 <nav>
-  <div class="nav-logo">KDI</div>
+  <a href="#" class="nav-logo" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">KDI</a>
   <ul class="nav-links">
     <li><a href="about.html">About</a></li>
     <li class="nav-artist" id="navArtist" onclick="this.classList.toggle('open');">
@@ -642,23 +642,6 @@ footer {
   </div>
 </div>
 
-<!-- MARQUEE -->
-<div class="mq">
-  <div class="mq-inner">
-    <span class="mq-item lit">KDI</span>
-    <span class="mq-item">JYS</span>
-    <span class="mq-item lit">MYR</span>
-    <span class="mq-item">KDI</span>
-    <span class="mq-item lit">JYS</span>
-    <span class="mq-item">MYR</span>
-    <span class="mq-item lit">KDI</span>
-    <span class="mq-item">JYS</span>
-    <span class="mq-item lit">MYR</span>
-    <span class="mq-item">KDI</span>
-    <span class="mq-item lit">JYS</span>
-    <span class="mq-item">MYR</span>
-  </div>
-</div>
 
 <!-- ═══ JYS HERO ═══ -->
 <section class="artist-hero" id="jys">
@@ -691,23 +674,6 @@ footer {
   </div>
 </div>
 
-<!-- MARQUEE 2 -->
-<div class="mq">
-  <div class="mq-inner" style="animation-direction:reverse; animation-duration:28s;">
-    <span class="mq-item lit">KDI</span>
-    <span class="mq-item">JYS</span>
-    <span class="mq-item lit">MYR</span>
-    <span class="mq-item">KDI</span>
-    <span class="mq-item lit">JYS</span>
-    <span class="mq-item">MYR</span>
-    <span class="mq-item lit">KDI</span>
-    <span class="mq-item">JYS</span>
-    <span class="mq-item lit">MYR</span>
-    <span class="mq-item">KDI</span>
-    <span class="mq-item lit">JYS</span>
-    <span class="mq-item">MYR</span>
-  </div>
-</div>
 
 <!-- ═══ MYR HERO ═══ -->
 <section class="artist-hero" id="myr">
@@ -967,16 +933,22 @@ function decodify(el, cls) {
   }, 1200);
 })();
 
-/* 아티스트 이름 스크롤시 디코딩 */
+/* 아티스트 이름 스크롤시 디코딩 (반복) */
 const nameObs = new IntersectionObserver(es => {
   es.forEach(e => {
-    if (e.isIntersecting && !e.target.dataset.decoded) {
-      e.target.dataset.decoded = '1';
+    if (e.isIntersecting && !e.target.dataset.animating) {
+      e.target.dataset.animating = '1';
       decodify(e.target, 'dchar');
+    } else if (!e.isIntersecting && e.target.dataset.animating) {
+      delete e.target.dataset.animating;
+      e.target.textContent = e.target.dataset.original;
     }
   });
 }, { threshold: .3 });
-document.querySelectorAll('.ah-name').forEach(el => nameObs.observe(el));
+document.querySelectorAll('.ah-name').forEach(el => {
+  el.dataset.original = el.textContent;
+  nameObs.observe(el);
+});
 </script>
 </body>
 </html>
