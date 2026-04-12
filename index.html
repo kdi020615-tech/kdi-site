@@ -610,6 +610,11 @@ footer {
   </div>
 </section>
 
+<!-- ═══ CREW PHOTO ═══ -->
+<section class="crew-photo rv">
+  <img src="home-photo.jpeg" alt="KDI CREW" style="width:100%;display:block;"/>
+</section>
+
 <!-- ═══ KDI HERO ═══ -->
 <section class="artist-hero" id="kdi">
   <video autoplay muted loop playsinline>
@@ -944,14 +949,14 @@ function decodify(el, cls) {
       let n = 0;
       const iv = setInterval(() => {
         s.textContent = ancientChars[Math.floor(Math.random() * ancientChars.length)];
-        if (++n > 4 + Math.random() * 5) {
+        if (++n > 6 + Math.random() * 8) {
           clearInterval(iv);
           s.textContent = s.dataset.final;
           s.classList.remove('scramble');
           s.classList.add('decoded');
         }
-      }, 60);
-    }, i * 80 + Math.random() * 100);
+      }, 100);
+    }, i * 140 + Math.random() * 150);
   });
   return spans;
 }
