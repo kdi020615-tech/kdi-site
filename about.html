@@ -258,15 +258,15 @@ function decodeElement(el) {
       const flickerInterval = setInterval(() => {
         span.textContent = ancientChars[Math.floor(Math.random() * ancientChars.length)];
         flicker++;
-        if (flicker > 6 + Math.random() * 8) {
+        if (flicker > 2 + Math.random() * 3) {
           clearInterval(flickerInterval);
           // 2단계: 원래 문자로 디코딩
           span.textContent = span.dataset.final;
           span.classList.remove('scramble');
           span.classList.add('decoded');
         }
-      }, 100);
-    }, i * 60 + Math.random() * 120);
+      }, 33);
+    }, i * 20 + Math.random() * 40);
   });
 }
 
