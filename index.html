@@ -76,40 +76,33 @@ body::after {
   font-size:clamp(80px, 14vw, 160px);
   letter-spacing:8px;
   color:var(--w);
-  overflow:hidden;
 }
 .enter-logo .dchar {
   display:inline-block;
   opacity:0;
-  filter:blur(6px);
-  transition:opacity .5s, filter .7s;
+  transition:opacity .4s;
 }
 .enter-logo .dchar.scramble {
   opacity:1;
-  filter:blur(2px);
   color:var(--g);
 }
 .enter-logo .dchar.decoded {
   opacity:1;
-  filter:blur(0);
   color:var(--w);
 }
 .ah-name .dchar {
   display:inline-block;
   opacity:0;
-  filter:blur(4px);
   transform:translateY(8px);
-  transition:opacity .4s, filter .6s, transform .4s;
+  transition:opacity .4s, transform .4s;
 }
 .ah-name .dchar.scramble {
   opacity:1;
-  filter:blur(1px);
   transform:translateY(0);
   color:var(--g);
 }
 .ah-name .dchar.decoded {
   opacity:1;
-  filter:blur(0);
   transform:translateY(0);
 }
 
@@ -964,15 +957,15 @@ function decodify(el, cls) {
 }
 
 /* ENTER 화면 로고 디코딩 */
-setTimeout(() => {
+(function() {
   const logo = document.getElementById('enterLogo');
-  const spans = decodify(logo, 'dchar');
-  // 디코딩 끝나면 ENTER 버튼 표시
-  const totalTime = logo.textContent.length * 80 + 600;
+  if (!logo) return;
+  // 바로 실행
+  decodify(logo, 'dchar');
   setTimeout(() => {
     document.querySelector('.enter-btn').classList.add('show');
-  }, 800);
-}, 200);
+  }, 1200);
+})();
 
 /* 아티스트 이름 스크롤시 디코딩 */
 const nameObs = new IntersectionObserver(es => {
