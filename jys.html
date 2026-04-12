@@ -607,14 +607,12 @@ document.querySelectorAll('a,.artist-hero,#player').forEach(el=>{
   ];
   const vidA = document.getElementById('jys-video-a');
   const vidB = document.getElementById('jys-video-b');
-  let idx = 0;
-  let current = vidA, next = vidB;
+  let idx = 0, current = vidA, next = vidB, switching = false;
 
   function initVid(v) { v.muted = true; v.playsInline = true; }
   initVid(vidA); initVid(vidB);
 
-  vidA.src = srcs[0];
-  vidA.load();
+  vidA.src = srcs[0]; vidA.load();
   vidA.play().catch(() => {
     document.addEventListener('touchstart', function h() {
       vidA.play().catch(()=>{});
@@ -624,12 +622,12 @@ document.querySelectorAll('a,.artist-hero,#player').forEach(el=>{
 
   function preloadNext() {
     const ni = (idx + 1) % srcs.length;
-    next.src = srcs[ni];
-    next.load();
+    next.src = srcs[ni]; next.load();
   }
   preloadNext();
 
-  function onEnded() {
+  function doSwitch() {
+    if (switching) return; switching = true;
     idx = (idx + 1) % srcs.length;
     next.play().catch(()=>{});
     next.classList.add('active');
@@ -638,8 +636,13 @@ document.querySelectorAll('a,.artist-hero,#player').forEach(el=>{
     preloadNext();
   }
 
-  vidA.addEventListener('ended', onEnded);
-  vidB.addEventListener('ended', onEnded);
+  function onTimeUpdate() { if (this.duration && this.currentTime >= this.duration - 1) doSwitch(); }
+  vidA.addEventListener('timeupdate', onTimeUpdate);
+  vidB.addEventListener('timeupdate', onTimeUpdate);
+  vidA.addEventListener('ended', doSwitch);
+  vidB.addEventListener('ended', doSwitch);
+  vidA.addEventListener('playing', () => { switching = false; });
+  vidB.addEventListener('playing', () => { switching = false; });
 })();
 
 /* MUSIC PLAYER */

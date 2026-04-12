@@ -635,6 +635,7 @@ document.querySelectorAll('a,.artist-hero,#player').forEach(el=>{
   const vidB = document.getElementById('myr-video-b');
   let idx = 0;
   let current = vidA, next = vidB;
+  let switching = false;
 
   function initVid(v) { v.muted = true; v.playsInline = true; }
   initVid(vidA); initVid(vidB);
@@ -648,7 +649,6 @@ document.querySelectorAll('a,.artist-hero,#player').forEach(el=>{
     }, { once: true });
   });
 
-  // 미리 다음 영상 로드
   function preloadNext() {
     const ni = (idx + 1) % srcs.length;
     next.src = srcs[ni];
@@ -656,7 +656,9 @@ document.querySelectorAll('a,.artist-hero,#player').forEach(el=>{
   }
   preloadNext();
 
-  function onEnded() {
+  function doSwitch() {
+    if (switching) return;
+    switching = true;
     idx = (idx + 1) % srcs.length;
     next.play().catch(()=>{});
     next.classList.add('active');
@@ -665,8 +667,23 @@ document.querySelectorAll('a,.artist-hero,#player').forEach(el=>{
     preloadNext();
   }
 
+  // 끝나기 1초 전에 전환 시작
+  function onTimeUpdate() {
+    if (this.duration && this.currentTime >= this.duration - 1) {
+      doSwitch();
+    }
+  }
+  // ended에서도 안전장치
+  function onEnded() { doSwitch(); }
+
+  vidA.addEventListener('timeupdate', onTimeUpdate);
+  vidB.addEventListener('timeupdate', onTimeUpdate);
   vidA.addEventListener('ended', onEnded);
   vidB.addEventListener('ended', onEnded);
+
+  // switching 리셋 — 전환 완료 후
+  vidA.addEventListener('playing', () => { switching = false; });
+  vidB.addEventListener('playing', () => { switching = false; });
 })();
 
 /* MUSIC PLAYER */
