@@ -78,12 +78,40 @@ body::after {
   color:var(--w);
   overflow:hidden;
 }
-.enter-logo span {
+.enter-logo .dchar {
   display:inline-block;
-  animation:slideUp .9s cubic-bezier(.16,1,.3,1) both;
+  opacity:0;
+  filter:blur(6px);
+  transition:opacity .5s, filter .7s;
 }
-.enter-logo span:nth-child(2) { animation-delay:.07s; }
-.enter-logo span:nth-child(3) { animation-delay:.14s; }
+.enter-logo .dchar.scramble {
+  opacity:1;
+  filter:blur(2px);
+  color:var(--g);
+}
+.enter-logo .dchar.decoded {
+  opacity:1;
+  filter:blur(0);
+  color:var(--w);
+}
+.ah-name .dchar {
+  display:inline-block;
+  opacity:0;
+  filter:blur(4px);
+  transform:translateY(8px);
+  transition:opacity .4s, filter .6s, transform .4s;
+}
+.ah-name .dchar.scramble {
+  opacity:1;
+  filter:blur(1px);
+  transform:translateY(0);
+  color:var(--g);
+}
+.ah-name .dchar.decoded {
+  opacity:1;
+  filter:blur(0);
+  transform:translateY(0);
+}
 
 .enter-line {
   width:1px; height:80px;
@@ -99,11 +127,11 @@ body::after {
   padding:16px 40px;
   border:1px solid rgba(184,168,130,.3);
   background:transparent;
-  color:var(--g);
   text-transform:uppercase;
   transition:border-color .3s, color .3s, background .3s;
-  animation:fadeIn .6s .8s both;
+  opacity:0;
 }
+.enter-btn.show { opacity:1; transition:opacity .6s; }
 .enter-btn:hover {
   border-color:var(--g);
   color:var(--w);
@@ -527,9 +555,7 @@ footer {
 
 <!-- ENTER SCREEN -->
 <div id="enter-screen">
-  <div class="enter-logo">
-    <span>K</span><span>D</span><span>I</span>
-  </div>
+  <div class="enter-logo" id="enterLogo">KDI</div>
   <div class="enter-line"></div>
   <button class="enter-btn" onclick="enterSite()">ENTER</button>
 </div>
@@ -901,6 +927,63 @@ navArtist.addEventListener('click', () => {
 document.addEventListener('click', e => {
   if (!navArtist.contains(e.target)) navArtist.classList.remove('open');
 });
+
+/* ── ANCIENT DECODE ANIMATION ── */
+const ancientChars = 'ΑΒΓΔΕΖΗΘΙΚΛΜΝΞΟΠΡΣΤΥΦΧΨΩαβγδεζηθικλμνξοπρστυφχψωᚠᚢᚦᚨᚱᚲᚷᚹᚺᚾᛁᛃᛇᛈᛉᛊᛏᛒᛗᛚᛝᛞᛟ';
+
+function decodify(el, cls) {
+  const txt = el.textContent;
+  el.innerHTML = '';
+  const spans = [];
+  for (let i = 0; i < txt.length; i++) {
+    const s = document.createElement('span');
+    s.className = cls || 'dchar';
+    s.dataset.final = txt[i];
+    if (txt[i] === ' ') { s.innerHTML = '&nbsp;'; s.style.width = '0.3em'; }
+    else { s.textContent = ancientChars[Math.floor(Math.random() * ancientChars.length)]; }
+    el.appendChild(s);
+    spans.push(s);
+  }
+  spans.forEach((s, i) => {
+    if (s.dataset.final === ' ') { setTimeout(() => s.classList.add('decoded'), i * 60); return; }
+    setTimeout(() => {
+      s.classList.add('scramble');
+      let n = 0;
+      const iv = setInterval(() => {
+        s.textContent = ancientChars[Math.floor(Math.random() * ancientChars.length)];
+        if (++n > 4 + Math.random() * 5) {
+          clearInterval(iv);
+          s.textContent = s.dataset.final;
+          s.classList.remove('scramble');
+          s.classList.add('decoded');
+        }
+      }, 60);
+    }, i * 80 + Math.random() * 100);
+  });
+  return spans;
+}
+
+/* ENTER 화면 로고 디코딩 */
+setTimeout(() => {
+  const logo = document.getElementById('enterLogo');
+  const spans = decodify(logo, 'dchar');
+  // 디코딩 끝나면 ENTER 버튼 표시
+  const totalTime = logo.textContent.length * 80 + 600;
+  setTimeout(() => {
+    document.querySelector('.enter-btn').classList.add('show');
+  }, 800);
+}, 200);
+
+/* 아티스트 이름 스크롤시 디코딩 */
+const nameObs = new IntersectionObserver(es => {
+  es.forEach(e => {
+    if (e.isIntersecting && !e.target.dataset.decoded) {
+      e.target.dataset.decoded = '1';
+      decodify(e.target, 'dchar');
+    }
+  });
+}, { threshold: .3 });
+document.querySelectorAll('.ah-name').forEach(el => nameObs.observe(el));
 </script>
 </body>
 </html>
