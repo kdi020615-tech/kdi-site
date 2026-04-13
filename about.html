@@ -3,6 +3,13 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta name="description" content="KDI Records — Creative Hip-Hop Label. KDI, JYS, MYR"/>
+<meta property="og:title" content="KDI Records"/>
+<meta property="og:description" content="Creative Hip-Hop Label — KDI, JYS, MYR"/>
+<meta property="og:type" content="website"/>
+<meta property="og:url" content="https://kdi020615-tech.github.io/kdi-site/"/>
+<meta property="og:image" content="https://kdi020615-tech.github.io/kdi-site/hf_20260411_224131_9914dd79-a943-4c95-9079-d63a7cacb8ff.png"/>
+<meta name="theme-color" content="#0d0812"/>
 <title>KDI — About</title>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400&display=swap');
@@ -107,6 +114,11 @@ footer{border-top:1px solid rgba(255,255,255,.1);padding:48px;display:flex;justi
   .pl-status { font-size:8px; }
   .eq { display:none; }
 }
+/* PAGE TRANSITION */
+body{animation:pageIn .5s ease;}
+@keyframes pageIn{from{opacity:0;}to{opacity:1;}}
+body.page-out{animation:pageOut .3s ease forwards;}
+@keyframes pageOut{from{opacity:1;}to{opacity:0;}}
 </style>
 </head>
 <body>
@@ -331,6 +343,19 @@ setTimeout(() => {
   decodeElement(label);
   setTimeout(() => decodeElement(text), 500);
 }, 300);
+
+/* PAGE TRANSITION */
+document.querySelectorAll('a[href]').forEach(a => {
+  if (a.hostname === location.hostname || !a.hostname) {
+    a.addEventListener('click', function(e) {
+      if (this.getAttribute('href').startsWith('#') || this.getAttribute('href').startsWith('mailto') || this.getAttribute('href').startsWith('javascript')) return;
+      e.preventDefault();
+      const href = this.getAttribute('href');
+      document.body.classList.add('page-out');
+      setTimeout(() => { window.location.href = href; }, 300);
+    });
+  }
+});
 </script>
 </body>
 </html>
