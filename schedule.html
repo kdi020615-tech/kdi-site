@@ -349,7 +349,7 @@ function renderCalendar() {
     const dateStr = curYear + '-' + String(curMonth+1).padStart(2,'0') + '-' + String(d).padStart(2,'0');
     const isToday = dateStr === todayStr;
     const dayEvents = events.filter(e => e.date === dateStr);
-    html += `<div class="cal-day${isToday ? ' today' : ''}">`;
+    html += `<div class="cal-day${isToday ? ' today' : ''}" onclick="selectDate('${dateStr}')">`;
     html += `<div class="cal-day-num">${d}</div>`;
     dayEvents.forEach(ev => {
       html += `<div class="cal-event" onclick="showPopup('${ev.id}')">${ev.member ? ev.member + ' ' : ''}${ev.title}</div>`;
@@ -390,6 +390,14 @@ async function deleteFromPopup() {
 document.getElementById('calPopup').addEventListener('click', function(e) {
   if (e.target === this) closePopup();
 });
+
+/* SELECT DATE FROM CALENDAR */
+function selectDate(dateStr) {
+  if (!isAdmin) return;
+  document.getElementById('schDate').value = dateStr;
+  document.getElementById('adminPanel').scrollIntoView({ behavior: 'smooth' });
+  document.getElementById('schTitle').focus();
+}
 
 /* ADD SCHEDULE */
 async function addSchedule() {
