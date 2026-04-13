@@ -30,17 +30,6 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;padding:28px 48px;display:fl
 .nav-artist-drop a:hover{color:#fff;background:rgba(255,255,255,.06);}
 .at-num{font-family:'Bebas Neue';font-size:13px;color:rgba(255,255,255,.25);}
 
-/* LOCK SCREEN */
-#lockScreen{position:fixed;inset:0;z-index:7000;background:var(--b);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:24px;transition:opacity .5s,visibility .5s;}
-#lockScreen.hide{opacity:0;visibility:hidden;pointer-events:none;}
-.lock-icon{font-size:48px;margin-bottom:8px;}
-.lock-label{font-size:9px;letter-spacing:6px;color:var(--g);text-transform:uppercase;}
-.lock-input{background:transparent;border:1px solid rgba(184,168,130,.3);color:var(--w);font-family:'Bebas Neue';font-size:32px;letter-spacing:8px;text-align:center;padding:12px 24px;width:200px;outline:none;transition:border-color .3s;}
-.lock-input:focus{border-color:var(--g);}
-.lock-input::placeholder{color:rgba(255,255,255,.15);font-size:16px;letter-spacing:4px;}
-.lock-error{font-size:10px;letter-spacing:3px;color:#ff4444;opacity:0;transition:opacity .3s;}
-.lock-error.show{opacity:1;}
-
 /* PAGE */
 .page-hero{height:50vh;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;padding-bottom:60px;position:relative;}
 .page-hero::after{content:'';position:absolute;bottom:0;left:0;right:0;height:1px;background:rgba(255,255,255,.1);}
@@ -48,8 +37,43 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;padding:28px 48px;display:fl
 .page-title{font-family:'Bebas Neue';font-size:clamp(64px,12vw,140px);line-height:.9;letter-spacing:-1px;text-align:center;}
 .page-content{padding:80px 48px;max-width:900px;margin:0 auto;}
 
-/* FORM */
-.sch-form{margin-bottom:60px;padding:32px;border:1px solid rgba(184,168,130,.15);background:rgba(184,168,130,.03);}
+/* CALENDAR */
+.cal-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:32px;}
+.cal-month{font-family:'Bebas Neue';font-size:clamp(28px,5vw,42px);letter-spacing:3px;}
+.cal-nav{display:flex;gap:12px;}
+.cal-nav button{background:transparent;border:1px solid rgba(255,255,255,.15);color:var(--w);font-size:18px;width:40px;height:40px;cursor:pointer;transition:border-color .3s,background .3s;display:flex;align-items:center;justify-content:center;}
+.cal-nav button:hover{border-color:var(--g);background:rgba(184,168,130,.1);}
+.cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:1px;background:rgba(255,255,255,.05);}
+.cal-day-head{padding:12px 4px;text-align:center;font-size:10px;letter-spacing:3px;color:var(--g);background:var(--b);}
+.cal-day{min-height:90px;padding:8px;background:rgba(13,8,18,.9);position:relative;cursor:default;transition:background .3s;}
+.cal-day:hover{background:rgba(184,168,130,.05);}
+.cal-day.other{opacity:.25;}
+.cal-day.today{background:rgba(184,168,130,.08);border:1px solid rgba(184,168,130,.3);}
+.cal-day-num{font-family:'Bebas Neue';font-size:16px;letter-spacing:1px;color:rgba(255,255,255,.5);margin-bottom:4px;}
+.cal-day.today .cal-day-num{color:var(--g);}
+.cal-event{font-size:9px;letter-spacing:1px;padding:3px 5px;margin-bottom:2px;background:rgba(184,168,130,.15);color:var(--g);border-left:2px solid var(--g);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;cursor:pointer;transition:background .3s;}
+.cal-event:hover{background:rgba(184,168,130,.3);}
+
+/* EVENT DETAIL POPUP */
+.cal-popup{display:none;position:fixed;inset:0;z-index:7000;background:rgba(0,0,0,.7);align-items:center;justify-content:center;}
+.cal-popup.open{display:flex;}
+.cal-popup-box{background:var(--b);border:1px solid rgba(184,168,130,.2);padding:40px;max-width:400px;width:90%;position:relative;}
+.cal-popup-close{position:absolute;top:16px;right:16px;background:none;border:none;color:rgba(255,255,255,.5);font-size:20px;cursor:pointer;}
+.cal-popup-close:hover{color:var(--w);}
+.cal-popup-date{font-family:'Bebas Neue';font-size:20px;letter-spacing:3px;color:var(--g);margin-bottom:8px;}
+.cal-popup-title{font-family:'Bebas Neue';font-size:28px;letter-spacing:2px;color:var(--w);margin-bottom:8px;}
+.cal-popup-desc{font-size:13px;color:rgba(255,255,255,.5);line-height:1.6;}
+.cal-popup-del{margin-top:20px;background:none;border:1px solid rgba(255,68,68,.3);color:#ff4444;font-size:9px;letter-spacing:2px;padding:8px 16px;cursor:pointer;transition:background .3s;}
+.cal-popup-del:hover{background:rgba(255,68,68,.1);}
+
+/* ADMIN */
+.lock-label{font-size:9px;letter-spacing:6px;color:var(--g);text-transform:uppercase;}
+.lock-input{background:transparent;border:1px solid rgba(184,168,130,.3);color:var(--w);font-family:'Bebas Neue';font-size:32px;letter-spacing:8px;text-align:center;padding:12px 24px;width:200px;outline:none;transition:border-color .3s;}
+.lock-input:focus{border-color:var(--g);}
+.lock-input::placeholder{color:rgba(255,255,255,.15);font-size:16px;letter-spacing:4px;}
+.lock-error{font-size:10px;letter-spacing:3px;color:#ff4444;opacity:0;transition:opacity .3s;}
+.lock-error.show{opacity:1;}
+.sch-form{margin-top:40px;padding:32px;border:1px solid rgba(184,168,130,.15);background:rgba(184,168,130,.03);}
 .sch-form-title{font-size:9px;letter-spacing:5px;color:var(--g);text-transform:uppercase;margin-bottom:24px;}
 .sch-row{display:flex;gap:16px;margin-bottom:16px;}
 .sch-input{flex:1;background:transparent;border:1px solid rgba(255,255,255,.1);color:var(--w);font-family:'Inter',sans-serif;font-size:13px;padding:12px 16px;outline:none;transition:border-color .3s;}
@@ -60,17 +84,6 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;padding:28px 48px;display:fl
 .sch-textarea::placeholder{color:rgba(255,255,255,.2);}
 .sch-btn{background:transparent;border:1px solid rgba(184,168,130,.3);color:var(--g);font-size:10px;letter-spacing:4px;padding:12px 32px;cursor:pointer;text-transform:uppercase;transition:background .3s,color .3s;}
 .sch-btn:hover{background:var(--g);color:var(--b);}
-
-/* SCHEDULE LIST */
-.sch-list{display:flex;flex-direction:column;gap:0;}
-.sch-item{padding:24px 0;border-bottom:1px solid rgba(255,255,255,.08);display:flex;justify-content:space-between;align-items:flex-start;gap:24px;}
-.sch-item-left{flex:1;}
-.sch-date{font-family:'Bebas Neue';font-size:18px;letter-spacing:3px;color:var(--g);margin-bottom:6px;}
-.sch-title{font-family:'Bebas Neue';font-size:24px;letter-spacing:2px;color:var(--w);margin-bottom:4px;}
-.sch-desc{font-size:13px;color:rgba(255,255,255,.5);line-height:1.6;}
-.sch-del{background:none;border:1px solid rgba(255,255,255,.1);color:rgba(255,255,255,.3);font-size:9px;letter-spacing:2px;padding:6px 12px;cursor:pointer;transition:border-color .3s,color .3s;white-space:nowrap;}
-.sch-del:hover{border-color:#ff4444;color:#ff4444;}
-.sch-empty{font-size:13px;color:rgba(255,255,255,.3);letter-spacing:2px;text-align:center;padding:60px 0;}
 
 footer{border-top:1px solid rgba(255,255,255,.1);padding:48px;display:flex;justify-content:space-between;align-items:center;}
 .ft-logo{font-family:'Splash',cursive;font-size:36px;letter-spacing:4px;color:var(--g);text-decoration:none;}
@@ -110,8 +123,11 @@ footer{border-top:1px solid rgba(255,255,255,.1);padding:48px;display:flex;justi
   .hamburger{display:flex;}
   .page-content{padding:60px 24px;}
   .page-hero{height:40vh;padding-bottom:40px;}
+  .cal-day{min-height:60px;padding:4px;}
+  .cal-day-num{font-size:13px;}
+  .cal-event{font-size:7px;padding:2px 3px;}
+  .cal-day-head{font-size:8px;padding:8px 2px;}
   .sch-row{flex-direction:column;gap:12px;}
-  .sch-item{flex-direction:column;gap:12px;}
   footer{padding:40px 24px;flex-direction:column;gap:16px;align-items:flex-start;}
   #player{left:16px;bottom:20px;gap:10px;}
   .pl-btn{width:36px;height:36px;}
@@ -122,7 +138,6 @@ footer{border-top:1px solid rgba(255,255,255,.1);padding:48px;display:flex;justi
 </style>
 </head>
 <body>
-
 
 <nav>
   <a href="index.html" class="nav-logo">KDI</a>
@@ -157,16 +172,23 @@ footer{border-top:1px solid rgba(255,255,255,.1);padding:48px;display:flex;justi
 </div>
 
 <div class="page-hero">
-  <div class="page-tag">// PRIVATE</div>
+  <div class="page-tag">// SCHEDULE</div>
   <h1 class="page-title">SCHEDULE</h1>
 </div>
 
 <div class="page-content">
-  <!-- SCHEDULE LIST (누구나 보기 가능) -->
-  <div id="schList"></div>
+  <!-- CALENDAR -->
+  <div class="cal-header">
+    <div class="cal-month" id="calMonth"></div>
+    <div class="cal-nav">
+      <button onclick="changeMonth(-1)">&#8249;</button>
+      <button onclick="changeMonth(1)">&#8250;</button>
+    </div>
+  </div>
+  <div class="cal-grid" id="calGrid"></div>
 
-  <!-- ADMIN (비밀번호 입력 후 등록/삭제) -->
-  <div class="admin-toggle" style="margin-top:60px;text-align:center;">
+  <!-- ADMIN -->
+  <div style="margin-top:60px;text-align:center;">
     <button class="sch-btn" id="adminToggleBtn" onclick="showAdminLogin()">ADMIN</button>
   </div>
   <div id="adminLogin" style="display:none;margin-top:24px;text-align:center;">
@@ -174,7 +196,7 @@ footer{border-top:1px solid rgba(255,255,255,.1);padding:48px;display:flex;justi
     <input type="password" class="lock-input" id="pwInput" placeholder="****" maxlength="4"/>
     <div class="lock-error" id="lockError">WRONG PASSWORD</div>
   </div>
-  <div id="adminPanel" style="display:none;margin-top:40px;">
+  <div id="adminPanel" style="display:none;">
     <div class="sch-form">
       <div class="sch-form-title">// Add Schedule</div>
       <div class="sch-row">
@@ -184,6 +206,17 @@ footer{border-top:1px solid rgba(255,255,255,.1);padding:48px;display:flex;justi
       <textarea class="sch-textarea" id="schDesc" placeholder="내용 (선택)"></textarea>
       <button class="sch-btn" onclick="addSchedule()">등록</button>
     </div>
+  </div>
+</div>
+
+<!-- EVENT DETAIL POPUP -->
+<div class="cal-popup" id="calPopup">
+  <div class="cal-popup-box">
+    <button class="cal-popup-close" onclick="closePopup()">&times;</button>
+    <div class="cal-popup-date" id="popupDate"></div>
+    <div class="cal-popup-title" id="popupTitle"></div>
+    <div class="cal-popup-desc" id="popupDesc"></div>
+    <button class="cal-popup-del" id="popupDel" style="display:none;" onclick="deleteFromPopup()">DELETE</button>
   </div>
 </div>
 
@@ -234,6 +267,7 @@ const schCol = db.collection('schedules');
 
 /* ADMIN */
 let isAdmin = false;
+let popupDocId = null;
 function showAdminLogin() {
   document.getElementById('adminLogin').style.display = 'block';
   document.getElementById('adminToggleBtn').style.display = 'none';
@@ -247,7 +281,7 @@ pwInput.addEventListener('input', function() {
       isAdmin = true;
       document.getElementById('adminLogin').style.display = 'none';
       document.getElementById('adminPanel').style.display = 'block';
-      loadSchedules();
+      renderCalendar();
     } else {
       lockError.classList.add('show');
       this.value = '';
@@ -256,7 +290,102 @@ pwInput.addEventListener('input', function() {
   }
 });
 
-/* SCHEDULE CRUD (Firebase) */
+/* CALENDAR */
+const MONTHS = ['JANUARY','FEBRUARY','MARCH','APRIL','MAY','JUNE','JULY','AUGUST','SEPTEMBER','OCTOBER','NOVEMBER','DECEMBER'];
+const DAYS = ['SUN','MON','TUE','WED','THU','FRI','SAT'];
+let curYear, curMonth;
+let events = [];
+
+(function init() {
+  const now = new Date();
+  curYear = now.getFullYear();
+  curMonth = now.getMonth();
+  loadEvents();
+})();
+
+function changeMonth(dir) {
+  curMonth += dir;
+  if (curMonth < 0) { curMonth = 11; curYear--; }
+  if (curMonth > 11) { curMonth = 0; curYear++; }
+  renderCalendar();
+}
+
+async function loadEvents() {
+  try {
+    const snap = await schCol.orderBy('date').get();
+    events = [];
+    snap.forEach(doc => { events.push({ id: doc.id, ...doc.data() }); });
+  } catch(e) { events = []; }
+  renderCalendar();
+}
+
+function renderCalendar() {
+  document.getElementById('calMonth').textContent = MONTHS[curMonth] + ' ' + curYear;
+  const grid = document.getElementById('calGrid');
+  let html = '';
+  DAYS.forEach(d => { html += `<div class="cal-day-head">${d}</div>`; });
+
+  const first = new Date(curYear, curMonth, 1);
+  const last = new Date(curYear, curMonth + 1, 0);
+  const startDay = first.getDay();
+  const totalDays = last.getDate();
+  const today = new Date();
+  const todayStr = today.getFullYear() + '-' + String(today.getMonth()+1).padStart(2,'0') + '-' + String(today.getDate()).padStart(2,'0');
+
+  // prev month fill
+  const prevLast = new Date(curYear, curMonth, 0).getDate();
+  for (let i = startDay - 1; i >= 0; i--) {
+    html += `<div class="cal-day other"><div class="cal-day-num">${prevLast - i}</div></div>`;
+  }
+
+  // current month
+  for (let d = 1; d <= totalDays; d++) {
+    const dateStr = curYear + '-' + String(curMonth+1).padStart(2,'0') + '-' + String(d).padStart(2,'0');
+    const isToday = dateStr === todayStr;
+    const dayEvents = events.filter(e => e.date === dateStr);
+    html += `<div class="cal-day${isToday ? ' today' : ''}">`;
+    html += `<div class="cal-day-num">${d}</div>`;
+    dayEvents.forEach(ev => {
+      html += `<div class="cal-event" onclick="showPopup('${ev.id}')">${ev.title}</div>`;
+    });
+    html += '</div>';
+  }
+
+  // next month fill
+  const remaining = (7 - ((startDay + totalDays) % 7)) % 7;
+  for (let i = 1; i <= remaining; i++) {
+    html += `<div class="cal-day other"><div class="cal-day-num">${i}</div></div>`;
+  }
+
+  grid.innerHTML = html;
+}
+
+/* POPUP */
+function showPopup(id) {
+  const ev = events.find(e => e.id === id);
+  if (!ev) return;
+  popupDocId = id;
+  document.getElementById('popupDate').textContent = ev.date;
+  document.getElementById('popupTitle').textContent = ev.title;
+  document.getElementById('popupDesc').textContent = ev.desc || '';
+  document.getElementById('popupDel').style.display = isAdmin ? 'inline-block' : 'none';
+  document.getElementById('calPopup').classList.add('open');
+}
+function closePopup() {
+  document.getElementById('calPopup').classList.remove('open');
+  popupDocId = null;
+}
+async function deleteFromPopup() {
+  if (!popupDocId) return;
+  await schCol.doc(popupDocId).delete();
+  closePopup();
+  loadEvents();
+}
+document.getElementById('calPopup').addEventListener('click', function(e) {
+  if (e.target === this) closePopup();
+});
+
+/* ADD SCHEDULE */
 async function addSchedule() {
   const date = document.getElementById('schDate').value;
   const title = document.getElementById('schTitle').value.trim();
@@ -266,36 +395,8 @@ async function addSchedule() {
   document.getElementById('schDate').value = '';
   document.getElementById('schTitle').value = '';
   document.getElementById('schDesc').value = '';
-  loadSchedules();
+  loadEvents();
 }
-async function deleteSchedule(id) {
-  await schCol.doc(id).delete();
-  loadSchedules();
-}
-async function loadSchedules() {
-  const snap = await schCol.orderBy('date').get();
-  const el = document.getElementById('schList');
-  if (snap.empty) {
-    el.innerHTML = '<div class="sch-empty">등록된 스케줄이 없습니다</div>';
-    return;
-  }
-  let html = '<div class="sch-list">';
-  snap.forEach(doc => {
-    const s = doc.data();
-    html += `
-    <div class="sch-item">
-      <div class="sch-item-left">
-        <div class="sch-date">${s.date}</div>
-        <div class="sch-title">${s.title}</div>
-        ${s.desc ? `<div class="sch-desc">${s.desc}</div>` : ''}
-      </div>
-      ${isAdmin ? `<button class="sch-del" onclick="deleteSchedule('${doc.id}')">DELETE</button>` : ''}
-    </div>`;
-  });
-  html += '</div>';
-  el.innerHTML = html;
-}
-loadSchedules();
 
 /* AUDIO PLAYER */
 const audio = document.getElementById('audio');
