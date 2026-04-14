@@ -100,7 +100,7 @@ select.sch-input{appearance:none;-webkit-appearance:none;cursor:pointer;}
 .sch-btn{background:transparent;border:1px solid rgba(184,168,130,.3);color:var(--g);font-size:10px;letter-spacing:4px;padding:12px 32px;cursor:pointer;text-transform:uppercase;transition:background .3s,color .3s;}
 .sch-btn:hover{background:var(--g);color:var(--b);}
 
-footer{padding:80px 48px 100px;border-top:1px solid rgba(255,255,255,.06);}
+footer{padding:80px 48px 56px;border-top:1px solid rgba(255,255,255,.06);}
 .ft-grid{display:flex;justify-content:space-between;align-items:flex-start;max-width:1200px;margin:0 auto;}
 .ft-logo{font-family:'Splash',cursive;font-size:36px;letter-spacing:4px;color:var(--g);text-decoration:none;}
 .ft-tagline{font-size:9px;letter-spacing:4px;color:rgba(255,255,255,.25);margin-top:12px;text-transform:uppercase;}
@@ -116,19 +116,26 @@ footer{padding:80px 48px 100px;border-top:1px solid rgba(255,255,255,.06);}
 .ft-copy{font-size:9px;letter-spacing:3px;color:rgba(255,255,255,.12);line-height:2;}
 
 /* PLAYER */
-#player{position:fixed;bottom:0;left:0;right:0;z-index:600;background:rgba(8,8,8,.92);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-top:1px solid rgba(255,255,255,.06);}
-.pl-progress{position:absolute;top:-2px;left:0;right:0;height:2px;background:rgba(255,255,255,.06);cursor:pointer;}
-.pl-progress-bar{height:100%;width:0%;background:var(--g);transition:width .3s linear;}
-.pl-inner{display:flex;align-items:center;justify-content:space-between;padding:12px 48px;}
-.pl-left{display:flex;align-items:center;gap:14px;}
-.pl-btn{width:36px;height:36px;border:1px solid rgba(255,255,255,.15);border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:border-color .3s,background .3s;}
-.pl-btn:hover{border-color:rgba(255,255,255,.5);background:rgba(255,255,255,.04);}
-.pl-icon{width:12px;height:12px;fill:var(--w);}
-.pl-info{line-height:1.5;}
-.pl-track{font-size:10px;letter-spacing:3px;color:var(--g);}
-.pl-status{font-size:9px;letter-spacing:2px;color:rgba(255,255,255,.2);}
-.pl-right{display:flex;align-items:center;gap:16px;}
-.pl-time{font-size:10px;letter-spacing:2px;color:rgba(255,255,255,.3);font-family:'Bebas Neue';}
+#player {
+  position:fixed; bottom:32px; left:48px;
+  z-index:600;
+  display:flex; align-items:center; gap:14px;
+  cursor:pointer;
+}
+.pl-btn {
+  width:42px; height:42px;
+  border:1px solid rgba(240,236,228,.15); border-radius:50%;
+  display:flex; align-items:center; justify-content:center;
+  transition:border-color .3s, background .3s;
+}
+#player:hover .pl-btn {
+  border-color:rgba(240,236,228,.5);
+  background:rgba(240,236,228,.04);
+}
+.pl-icon { width:12px; height:12px; fill:var(--w); }
+.pl-info { line-height:1.5; }
+.pl-track { font-size:10px; letter-spacing:3px; color:var(--g); }
+.pl-status { font-size:9px; letter-spacing:2px; color:rgba(240,236,228,.2); }
 .eq{display:flex;align-items:flex-end;gap:2px;height:14px;}
 .eq-b{width:2px;background:var(--g);border-radius:1px;animation:eqAnim .7s ease-in-out infinite alternate;}
 .eq-b:nth-child(1){animation-duration:.5s;}.eq-b:nth-child(2){animation-duration:.8s;}.eq-b:nth-child(3){animation-duration:.45s;}.eq-b:nth-child(4){animation-duration:.65s;}
@@ -157,18 +164,21 @@ footer{padding:80px 48px 100px;border-top:1px solid rgba(255,255,255,.06);}
   .cal-event{font-size:7px;padding:2px 3px;}
   .cal-day-head{font-size:8px;padding:8px 2px;}
   .sch-row{flex-direction:column;gap:12px;}
-  footer{padding:60px 24px 100px;}
+  footer{padding:60px 24px 40px;}
   .ft-grid{flex-direction:column;gap:32px;align-items:flex-start;}
   .ft-right{text-align:left;}
   .ft-social{justify-content:flex-start;}
   .ft-logo{font-size:30px;}
   .ft-copy{font-size:8px;}
-  .pl-inner{padding:10px 16px;}
-  .pl-btn{width:32px;height:32px;}
-  .pl-track{font-size:9px;}
-  .pl-status{font-size:8px;}
-  .pl-time{display:none;}
-  .eq{display:none;}
+  #player {
+    left: 16px;
+    bottom: 20px;
+    gap: 10px;
+  }
+  .pl-btn { width:36px; height:36px; }
+  .pl-track { font-size:9px; }
+  .pl-status { font-size:8px; }
+  .eq { display:none; }
 }
 /* PAGE TRANSITION */
 body{animation:pageIn .5s ease;}
@@ -285,19 +295,22 @@ body.page-out{animation:pageOut .3s ease forwards;}
   </div>
 </footer>
 
-<div id="player">
-  <div class="pl-progress" onclick="seekAudio(event)"><div class="pl-progress-bar" id="plProgress"></div></div>
-  <div class="pl-inner">
-    <div class="pl-left">
-      <div class="pl-btn" onclick="togglePlay()">
-        <svg class="pl-icon" id="plIcon" viewBox="0 0 24 24"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>
-      </div>
-      <div class="pl-info"><div class="pl-track">JEFF HARDY</div><div class="pl-status" id="plStatus">NOW PLAYING</div></div>
-    </div>
-    <div class="pl-right">
-      <div class="pl-time" id="plTime">0:00</div>
-      <div class="eq" id="eq"><div class="eq-b" style="height:6px"></div><div class="eq-b" style="height:10px"></div><div class="eq-b" style="height:4px"></div><div class="eq-b" style="height:12px"></div></div>
-    </div>
+<div id="player" onclick="togglePlay()">
+  <div class="pl-btn">
+    <svg class="pl-icon" id="plIcon" viewBox="0 0 24 24">
+      <rect x="6" y="4" width="4" height="16"/>
+      <rect x="14" y="4" width="4" height="16"/>
+    </svg>
+  </div>
+  <div class="pl-info">
+    <div class="pl-track">JEFF HARDY</div>
+    <div class="pl-status" id="plStatus">NOW PLAYING</div>
+  </div>
+  <div class="eq" id="eq">
+    <div class="eq-b" style="height:6px"></div>
+    <div class="eq-b" style="height:10px"></div>
+    <div class="eq-b" style="height:4px"></div>
+    <div class="eq-b" style="height:12px"></div>
   </div>
 </div>
 
@@ -527,10 +540,6 @@ document.querySelectorAll('a[href]').forEach(a => {
   }
 });
 const siteNav=document.querySelector('nav');window.addEventListener('scroll',()=>{if(siteNav)siteNav.classList.toggle('nav-scrolled',window.scrollY>100);});
-const plProgress=document.getElementById('plProgress');
-const plTime=document.getElementById('plTime');
-audio.addEventListener('timeupdate',()=>{if(audio.duration){plProgress.style.width=(audio.currentTime/audio.duration*100)+'%';const m=Math.floor(audio.currentTime/60);const s=Math.floor(audio.currentTime%60);plTime.textContent=m+':'+(s<10?'0':'')+s;}});
-function seekAudio(e){const rect=e.currentTarget.getBoundingClientRect();const pct=(e.clientX-rect.left)/rect.width;if(audio.duration)audio.currentTime=pct*audio.duration;}
 </script>
 </body>
 </html>
