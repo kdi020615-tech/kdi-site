@@ -358,24 +358,44 @@ video::-webkit-media-controls-play-button { display:none !important; }
   padding-bottom:16px;
 }
 
-/* ── PLAYER BAR ── */
+/* ── VINYL PLAYER ── */
 #player {
   position:fixed; bottom:32px; left:48px;
   z-index:600;
-  display:flex; align-items:center; gap:14px;
+  display:flex; align-items:center; gap:18px;
   cursor:pointer;
 }
-.pl-btn {
-  width:42px; height:42px;
-  border:1px solid rgba(240,236,228,.15); border-radius:50%;
-  display:flex; align-items:center; justify-content:center;
-  transition:border-color .3s, background .3s;
+.vinyl-wrap {
+  position:relative; width:56px; height:56px;
 }
-#player:hover .pl-btn {
-  border-color:rgba(240,236,228,.5);
-  background:rgba(240,236,228,.04);
+.vinyl-disc {
+  width:56px; height:56px; border-radius:50%;
+  background:
+    radial-gradient(circle, var(--b) 8px, transparent 8px),
+    radial-gradient(circle, var(--g) 10px, transparent 10px),
+    repeating-radial-gradient(circle, rgba(240,236,228,.03) 0px, rgba(240,236,228,.03) 1px, transparent 1px, transparent 3px),
+    linear-gradient(135deg, #1a1a1a, #111);
+  border:1px solid rgba(240,236,228,.1);
+  animation:vinylSpin 2s linear infinite;
+  animation-play-state:paused;
 }
-.pl-icon { width:12px; height:12px; fill:var(--w); }
+.vinyl-disc.spinning { animation-play-state:running; }
+.vinyl-arm {
+  position:absolute; top:-2px; right:-4px;
+  width:2px; height:24px;
+  background:var(--g);
+  transform-origin:top center;
+  transform:rotate(-30deg);
+  transition:transform .5s;
+  border-radius:1px;
+}
+.vinyl-arm.on { transform:rotate(-10deg); }
+.vinyl-arm::after {
+  content:''; position:absolute; bottom:-2px; left:-1px;
+  width:4px; height:4px; border-radius:50%;
+  background:var(--g);
+}
+@keyframes vinylSpin { to { transform:rotate(360deg); } }
 .pl-info { line-height:1.5; }
 .pl-track { font-size:10px; letter-spacing:3px; color:var(--g); }
 .pl-status { font-size:9px; letter-spacing:2px; color:rgba(240,236,228,.2); }
@@ -389,6 +409,84 @@ video::-webkit-media-controls-play-button { display:none !important; }
 .eq-b:nth-child(3){animation-duration:.45s;}
 .eq-b:nth-child(4){animation-duration:.65s;}
 .eq-b.off { animation-play-state:paused; height:2px !important; }
+
+/* ── TYPING LYRICS ── */
+#lyrics-section {
+  padding:100px 48px;
+  border-top:1px solid rgba(240,236,228,.06);
+  text-align:center;
+  min-height:200px;
+  display:flex; flex-direction:column; align-items:center; justify-content:center;
+}
+.lyrics-tag { font-size:9px; letter-spacing:5px; color:var(--g); margin-bottom:32px; }
+.lyrics-line {
+  font-family:'Bebas Neue';
+  font-size:clamp(28px, 5vw, 56px);
+  line-height:1.3;
+  color:var(--w);
+  min-height:1.3em;
+}
+.lyrics-cursor {
+  display:inline-block; width:2px; height:.9em;
+  background:var(--g); margin-left:4px;
+  animation:blink 1s step-end infinite;
+  vertical-align:middle;
+}
+@keyframes blink { 50% { opacity:0; } }
+.lyrics-credit {
+  font-size:9px; letter-spacing:3px;
+  color:rgba(240,236,228,.2); margin-top:24px;
+}
+
+/* ── DRUM PAD (Easter Egg) ── */
+#drum-pad {
+  display:none;
+  position:fixed; inset:0; z-index:7500;
+  background:rgba(8,8,8,.95);
+  backdrop-filter:blur(20px);
+  flex-direction:column; align-items:center; justify-content:center; gap:24px;
+}
+#drum-pad.open { display:flex; }
+.dp-title {
+  font-family:'Bebas Neue'; font-size:36px; letter-spacing:6px; color:var(--g);
+}
+.dp-sub { font-size:9px; letter-spacing:4px; color:rgba(240,236,228,.3); margin-bottom:16px; }
+.dp-grid {
+  display:grid; grid-template-columns:repeat(4,1fr); gap:12px;
+}
+.dp-pad {
+  width:80px; height:80px;
+  background:rgba(240,236,228,.03);
+  border:1px solid rgba(240,236,228,.08);
+  border-radius:8px;
+  display:flex; flex-direction:column; align-items:center; justify-content:center; gap:6px;
+  transition:transform .08s, background .08s, border-color .08s;
+  cursor:pointer;
+  user-select:none;
+}
+.dp-pad:active, .dp-pad.hit {
+  transform:scale(.92);
+  background:rgba(184,168,130,.15);
+  border-color:var(--g);
+}
+.dp-pad .dp-key {
+  font-family:'Bebas Neue'; font-size:20px; color:var(--w);
+}
+.dp-pad .dp-label {
+  font-size:7px; letter-spacing:2px; color:rgba(240,236,228,.3); text-transform:uppercase;
+}
+.dp-close {
+  margin-top:24px; font-size:9px; letter-spacing:4px;
+  color:rgba(240,236,228,.3); cursor:pointer;
+  transition:color .3s;
+}
+.dp-close:hover { color:var(--g); }
+.dp-hint {
+  position:fixed; bottom:32px; right:48px; z-index:600;
+  font-size:8px; letter-spacing:3px; color:rgba(240,236,228,.12);
+  cursor:pointer; transition:color .3s;
+}
+.dp-hint:hover { color:rgba(240,236,228,.3); }
 
 /* ── FOOTER ── */
 footer {
@@ -570,10 +668,16 @@ footer {
     bottom: 20px;
     gap: 10px;
   }
-  .pl-btn { width:36px; height:36px; }
+  .vinyl-wrap { width:44px; height:44px; }
+  .vinyl-disc { width:44px; height:44px; }
+  .vinyl-arm { height:18px; }
   .pl-track { font-size:9px; }
   .pl-status { font-size:8px; }
   .eq { display:none; }
+  #lyrics-section { padding:60px 24px; }
+  .lyrics-line { font-size:clamp(20px, 6vw, 32px); }
+  .dp-pad { width:64px; height:64px; }
+  .dp-hint { display:none; }
 
   footer { padding:60px 24px 40px; }
   .ft-grid {
@@ -778,6 +882,13 @@ body.page-out{animation:pageOut .3s ease forwards;}
   </div>
 </section>
 
+<!-- TYPING LYRICS -->
+<section id="lyrics-section">
+  <div class="lyrics-tag rv">// LYRICS</div>
+  <div class="lyrics-line" id="lyricsLine"><span class="lyrics-cursor"></span></div>
+  <div class="lyrics-credit" id="lyricsCredit"></div>
+</section>
+
 <!-- FOOTER -->
 <footer>
   <div class="ft-grid">
@@ -810,12 +921,11 @@ body.page-out{animation:pageOut .3s ease forwards;}
   </div>
 </footer>
 
+<!-- VINYL PLAYER -->
 <div id="player" onclick="togglePlay()">
-  <div class="pl-btn">
-    <svg class="pl-icon" id="plIcon" viewBox="0 0 24 24">
-      <rect x="6" y="4" width="4" height="16"/>
-      <rect x="14" y="4" width="4" height="16"/>
-    </svg>
+  <div class="vinyl-wrap">
+    <div class="vinyl-disc" id="vinylDisc"></div>
+    <div class="vinyl-arm" id="vinylArm"></div>
   </div>
   <div class="pl-info">
     <div class="pl-track">JEFF HARDY</div>
@@ -827,6 +937,26 @@ body.page-out{animation:pageOut .3s ease forwards;}
     <div class="eq-b" style="height:4px"></div>
     <div class="eq-b" style="height:12px"></div>
   </div>
+</div>
+
+<!-- DRUM PAD HINT -->
+<div class="dp-hint" onclick="openDrumPad()">PRESS B FOR BEATS</div>
+
+<!-- DRUM PAD -->
+<div id="drum-pad">
+  <div class="dp-title">MPC</div>
+  <div class="dp-sub">PRESS KEYS OR TAP PADS</div>
+  <div class="dp-grid">
+    <div class="dp-pad" data-key="q" data-sound="kick"><div class="dp-key">Q</div><div class="dp-label">Kick</div></div>
+    <div class="dp-pad" data-key="w" data-sound="snare"><div class="dp-key">W</div><div class="dp-label">Snare</div></div>
+    <div class="dp-pad" data-key="e" data-sound="hihat"><div class="dp-key">E</div><div class="dp-label">Hi-Hat</div></div>
+    <div class="dp-pad" data-key="r" data-sound="clap"><div class="dp-key">R</div><div class="dp-label">Clap</div></div>
+    <div class="dp-pad" data-key="a" data-sound="tom"><div class="dp-key">A</div><div class="dp-label">Tom</div></div>
+    <div class="dp-pad" data-key="s" data-sound="rim"><div class="dp-key">S</div><div class="dp-label">Rim</div></div>
+    <div class="dp-pad" data-key="d" data-sound="crash"><div class="dp-key">D</div><div class="dp-label">Crash</div></div>
+    <div class="dp-pad" data-key="f" data-sound="808"><div class="dp-key">F</div><div class="dp-label">808</div></div>
+  </div>
+  <div class="dp-close" onclick="closeDrumPad()">ESC TO CLOSE</div>
 </div>
 
 <script>
@@ -856,41 +986,39 @@ document.querySelectorAll('a,.artist-hero,#player,.enter-btn').forEach(el=>{
 
 /* ENTER */
 const audio = document.getElementById('audio');
-const plIcon = document.getElementById('plIcon');
 const plStatus = document.getElementById('plStatus');
 const eqBars = document.querySelectorAll('.eq-b');
+const vinylDisc = document.getElementById('vinylDisc');
+const vinylArm = document.getElementById('vinylArm');
 let playing = false;
+
+function setPlayState(on) {
+  playing = on;
+  if (on) {
+    plStatus.textContent = 'NOW PLAYING';
+    vinylDisc.classList.add('spinning');
+    vinylArm.classList.add('on');
+    eqBars.forEach(b => b.classList.remove('off'));
+  } else {
+    plStatus.textContent = 'PAUSED';
+    vinylDisc.classList.remove('spinning');
+    vinylArm.classList.remove('on');
+    eqBars.forEach(b => b.classList.add('off'));
+  }
+}
 
 function enterSite() {
   document.getElementById('enter-screen').classList.add('hide');
-
-  // 모든 video 태그 일괄 재생 (iOS 유저 제스처 필요)
   document.querySelectorAll('video').forEach(v => {
     v.muted = true;
     v.play().catch(()=>{});
   });
-
-  audio.play().then(() => {
-    playing = true;
-    plStatus.textContent = 'NOW PLAYING';
-    plIcon.innerHTML = '<rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/>';
-    eqBars.forEach(b => b.classList.remove('off'));
-  }).catch(() => {});
+  audio.play().then(() => setPlayState(true)).catch(() => {});
 }
 
 function togglePlay() {
-  if (playing) {
-    audio.pause();
-    plIcon.innerHTML = '<polygon points="5,3 19,12 5,21"/>';
-    plStatus.textContent = 'PAUSED';
-    eqBars.forEach(b => b.classList.add('off'));
-  } else {
-    audio.play();
-    plIcon.innerHTML = '<rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/>';
-    plStatus.textContent = 'NOW PLAYING';
-    eqBars.forEach(b => b.classList.remove('off'));
-  }
-  playing = !playing;
+  if (playing) { audio.pause(); setPlayState(false); }
+  else { audio.play(); setPlayState(true); }
 }
 
 /* YOUTUBE PLAY (배경음악 끄고 유튜브 재생) */
@@ -898,11 +1026,8 @@ let ytPlaying = false;
 
 function playYoutube() {
   audio.pause();
-  playing = false;
+  setPlayState(false);
   ytPlaying = true;
-  plIcon.innerHTML = '<polygon points="5,3 19,12 5,21"/>';
-  plStatus.textContent = 'PAUSED';
-  eqBars.forEach(b => b.classList.add('off'));
 
   document.getElementById('cv-cover').style.display = 'none';
   document.getElementById('cv-close').style.display = 'flex';
@@ -919,13 +1044,7 @@ function closeYoutube() {
   document.getElementById('cv-close').style.display = 'none';
   ytPlaying = false;
 
-  // 배경 음악 다시 재생
-  audio.play().then(() => {
-    playing = true;
-    plIcon.innerHTML = '<rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/>';
-    plStatus.textContent = 'NOW PLAYING';
-    eqBars.forEach(b => b.classList.remove('off'));
-  }).catch(()=>{});
+  audio.play().then(() => setPlayState(true)).catch(()=>{});
 }
 
 /* VIDEO PLAYLIST */
@@ -1063,6 +1182,147 @@ const siteNav = document.querySelector('nav');
 window.addEventListener('scroll', () => {
   if(siteNav) siteNav.classList.toggle('nav-scrolled', window.scrollY > 100);
 });
+
+/* ── TYPING LYRICS ── */
+(function(){
+  const lyrics = [
+    { text: "I GOT THE FLOW, I GOT THE VIBE", credit: "— KDI, JEFF HARDY" },
+    { text: "WE DON'T STOP, WE KEEP IT REAL", credit: "— KDI RECORDS" },
+    { text: "FROM THE BOTTOM TO THE TOP", credit: "— KDI, KDI FLOW" },
+    { text: "DREAM BIG, GRIND HARDER", credit: "— KDI CREW" },
+    { text: "MUSIC IS MY LANGUAGE", credit: "— MYR" },
+    { text: "NO LIMITS, NO BOUNDARIES", credit: "— JYS" }
+  ];
+  const lineEl = document.getElementById('lyricsLine');
+  const creditEl = document.getElementById('lyricsCredit');
+  let idx = 0;
+  function typeLyric() {
+    const lyric = lyrics[idx];
+    lineEl.innerHTML = '<span class="lyrics-cursor"></span>';
+    creditEl.textContent = '';
+    let i = 0;
+    const iv = setInterval(() => {
+      if (i < lyric.text.length) {
+        lineEl.innerHTML = lyric.text.slice(0, i + 1) + '<span class="lyrics-cursor"></span>';
+        i++;
+      } else {
+        clearInterval(iv);
+        creditEl.textContent = lyric.credit;
+        setTimeout(() => {
+          // erase
+          let j = lyric.text.length;
+          const ev = setInterval(() => {
+            if (j > 0) {
+              j--;
+              lineEl.innerHTML = lyric.text.slice(0, j) + '<span class="lyrics-cursor"></span>';
+            } else {
+              clearInterval(ev);
+              creditEl.textContent = '';
+              idx = (idx + 1) % lyrics.length;
+              setTimeout(typeLyric, 400);
+            }
+          }, 30);
+        }, 2500);
+      }
+    }, 80);
+  }
+  // Start when lyrics section is visible
+  const lyObs = new IntersectionObserver(es => {
+    if (es[0].isIntersecting) { lyObs.disconnect(); typeLyric(); }
+  }, { threshold: .3 });
+  lyObs.observe(document.getElementById('lyrics-section'));
+})();
+
+/* ── DRUM PAD (Easter Egg) ── */
+(function(){
+  const actx = new (window.AudioContext || window.webkitAudioContext)();
+  function playSound(type) {
+    const now = actx.currentTime;
+    if (type === 'kick') {
+      const osc = actx.createOscillator(); const g = actx.createGain();
+      osc.type = 'sine'; osc.frequency.setValueAtTime(150, now);
+      osc.frequency.exponentialRampToValueAtTime(30, now + .15);
+      g.gain.setValueAtTime(.8, now); g.gain.exponentialRampToValueAtTime(.01, now + .3);
+      osc.connect(g); g.connect(actx.destination);
+      osc.start(now); osc.stop(now + .3);
+    } else if (type === 'snare') {
+      const buf = actx.createBufferSource(); const n = actx.createBuffer(1, actx.sampleRate * .15, actx.sampleRate);
+      const d = n.getChannelData(0); for(let i=0;i<d.length;i++) d[i]=(Math.random()*2-1)*.6;
+      buf.buffer = n; const g = actx.createGain();
+      g.gain.setValueAtTime(.5, now); g.gain.exponentialRampToValueAtTime(.01, now + .15);
+      buf.connect(g); g.connect(actx.destination); buf.start(now);
+      const osc = actx.createOscillator(); const g2 = actx.createGain();
+      osc.type='triangle'; osc.frequency.setValueAtTime(200,now);
+      g2.gain.setValueAtTime(.3,now); g2.gain.exponentialRampToValueAtTime(.01,now+.08);
+      osc.connect(g2); g2.connect(actx.destination); osc.start(now); osc.stop(now+.08);
+    } else if (type === 'hihat') {
+      const buf = actx.createBufferSource(); const n = actx.createBuffer(1, actx.sampleRate * .05, actx.sampleRate);
+      const d = n.getChannelData(0); for(let i=0;i<d.length;i++) d[i]=(Math.random()*2-1)*.3;
+      buf.buffer = n; const g = actx.createGain(); const hp = actx.createBiquadFilter();
+      hp.type='highpass'; hp.frequency.value=7000;
+      g.gain.setValueAtTime(.3,now); g.gain.exponentialRampToValueAtTime(.01,now+.05);
+      buf.connect(hp); hp.connect(g); g.connect(actx.destination); buf.start(now);
+    } else if (type === 'clap') {
+      for(let c=0;c<3;c++){
+        const buf = actx.createBufferSource(); const n = actx.createBuffer(1, actx.sampleRate*.02, actx.sampleRate);
+        const d = n.getChannelData(0); for(let i=0;i<d.length;i++) d[i]=(Math.random()*2-1)*.4;
+        buf.buffer=n; const g = actx.createGain(); const bp=actx.createBiquadFilter();
+        bp.type='bandpass'; bp.frequency.value=2000;
+        g.gain.setValueAtTime(.4,now+c*.01); g.gain.exponentialRampToValueAtTime(.01,now+c*.01+.08);
+        buf.connect(bp); bp.connect(g); g.connect(actx.destination); buf.start(now+c*.01);
+      }
+    } else if (type === 'tom') {
+      const osc=actx.createOscillator(); const g=actx.createGain();
+      osc.type='sine'; osc.frequency.setValueAtTime(200,now);
+      osc.frequency.exponentialRampToValueAtTime(60,now+.2);
+      g.gain.setValueAtTime(.6,now); g.gain.exponentialRampToValueAtTime(.01,now+.25);
+      osc.connect(g); g.connect(actx.destination); osc.start(now); osc.stop(now+.25);
+    } else if (type === 'rim') {
+      const osc=actx.createOscillator(); const g=actx.createGain();
+      osc.type='square'; osc.frequency.setValueAtTime(800,now);
+      g.gain.setValueAtTime(.3,now); g.gain.exponentialRampToValueAtTime(.01,now+.04);
+      osc.connect(g); g.connect(actx.destination); osc.start(now); osc.stop(now+.04);
+    } else if (type === 'crash') {
+      const buf=actx.createBufferSource(); const n=actx.createBuffer(1,actx.sampleRate*.4,actx.sampleRate);
+      const d=n.getChannelData(0); for(let i=0;i<d.length;i++) d[i]=(Math.random()*2-1)*.3;
+      buf.buffer=n; const g=actx.createGain(); const hp=actx.createBiquadFilter();
+      hp.type='highpass'; hp.frequency.value=5000;
+      g.gain.setValueAtTime(.3,now); g.gain.exponentialRampToValueAtTime(.01,now+.4);
+      buf.connect(hp); hp.connect(g); g.connect(actx.destination); buf.start(now);
+    } else if (type === '808') {
+      const osc=actx.createOscillator(); const g=actx.createGain();
+      osc.type='sine'; osc.frequency.setValueAtTime(55,now);
+      osc.frequency.exponentialRampToValueAtTime(30,now+.5);
+      g.gain.setValueAtTime(.9,now); g.gain.exponentialRampToValueAtTime(.01,now+.6);
+      osc.connect(g); g.connect(actx.destination); osc.start(now); osc.stop(now+.6);
+    }
+  }
+  const pads = document.querySelectorAll('.dp-pad');
+  pads.forEach(p => {
+    p.addEventListener('click', () => {
+      playSound(p.dataset.sound);
+      p.classList.add('hit'); setTimeout(()=>p.classList.remove('hit'), 100);
+    });
+  });
+  document.addEventListener('keydown', e => {
+    const dp = document.getElementById('drum-pad');
+    if (e.key === 'b' && !dp.classList.contains('open')) { openDrumPad(); return; }
+    if (e.key === 'Escape' && dp.classList.contains('open')) { closeDrumPad(); return; }
+    if (!dp.classList.contains('open')) return;
+    const pad = document.querySelector(`.dp-pad[data-key="${e.key.toLowerCase()}"]`);
+    if (pad) {
+      playSound(pad.dataset.sound);
+      pad.classList.add('hit'); setTimeout(()=>pad.classList.remove('hit'), 100);
+    }
+  });
+  window.openDrumPad = function() {
+    actx.resume();
+    document.getElementById('drum-pad').classList.add('open');
+  };
+  window.closeDrumPad = function() {
+    document.getElementById('drum-pad').classList.remove('open');
+  };
+})();
 
 </script>
 </body>
