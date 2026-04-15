@@ -140,35 +140,6 @@ footer{padding:80px 48px 56px;border-top:1px solid rgba(255,255,255,.06);}
   .pl-status{font-size:8px;}
   .eq{display:none;}
 }
-/* ── INTERACTIVE TIMELINE ── */
-#timeline{padding:120px 48px;max-width:1100px;margin:0 auto;position:relative;}
-.tl-head{text-align:center;margin-bottom:80px;}
-.tl-tag{font-size:9px;letter-spacing:5px;color:var(--g);margin-bottom:16px;text-transform:uppercase;}
-.tl-title{font-family:'Bebas Neue';font-size:clamp(48px,8vw,100px);letter-spacing:4px;line-height:1;}
-#timeline .tl-line{position:relative;padding:40px 0;}
-#timeline .tl-line::before{content:'';position:absolute;left:50%;top:0;bottom:0;width:1px;background:rgba(184,168,130,.18);transform:translateX(-50%);}
-#timeline .tl-item{position:relative;display:flex;justify-content:flex-end;padding-right:calc(50% + 40px);margin-bottom:64px;}
-#timeline .tl-item:nth-child(even){justify-content:flex-start;padding-right:0;padding-left:calc(50% + 40px);}
-#timeline .tl-dot{position:absolute;left:50%;top:8px;width:8px;height:8px;background:var(--g);border-radius:50%;transform:translateX(-50%);z-index:2;box-shadow:0 0 12px rgba(184,168,130,.3);}
-#timeline .tl-content{text-align:right;}
-#timeline .tl-item:nth-child(even) .tl-content{text-align:left;}
-#timeline .tl-year{font-family:'Bebas Neue';font-size:clamp(36px,5vw,56px);letter-spacing:3px;color:var(--g);line-height:1;margin-bottom:8px;}
-#timeline .tl-text{font-family:'Inter',sans-serif;font-size:14px;font-weight:300;line-height:1.8;color:rgba(255,255,255,.65);letter-spacing:.3px;}
-
-/* reveal animation */
-.rv{opacity:0;transform:translateY(30px);transition:opacity .7s ease,transform .7s ease;}
-.rv.visible{opacity:1;transform:translateY(0);}
-
-@media(max-width:768px){
-  #timeline{padding:80px 24px;}
-  .tl-head{margin-bottom:48px;}
-  #timeline .tl-line::before{left:12px;transform:none;}
-  #timeline .tl-item,#timeline .tl-item:nth-child(even){justify-content:flex-start;padding-right:0;padding-left:40px;}
-  #timeline .tl-dot{left:12px;transform:translateX(-50%);}
-  #timeline .tl-content,#timeline .tl-item:nth-child(even) .tl-content{text-align:left;}
-  #timeline .tl-year{font-size:32px;}
-  #timeline .tl-text{font-size:13px;}
-}
 
 /* PAGE TRANSITION */
 body{animation:pageIn .5s ease;}
@@ -307,72 +278,6 @@ body.page-out{animation:pageOut .3s ease forwards;}
 <audio id="audio" loop>
   <source src="main-bgm.mp3" type="audio/mpeg"/>
 </audio>
-
-<!-- INTERACTIVE TIMELINE -->
-<section id="timeline">
-  <div class="tl-head">
-    <div class="tl-tag">// OUR JOURNEY</div>
-    <h2 class="tl-title">TIMELINE</h2>
-  </div>
-  <div class="tl-line">
-    <div class="tl-item rv">
-      <div class="tl-dot"></div>
-      <div class="tl-content">
-        <div class="tl-year">2019</div>
-        <div class="tl-text">KDI 첫 앨범 [mostkiller] 발매</div>
-      </div>
-    </div>
-    <div class="tl-item rv">
-      <div class="tl-dot"></div>
-      <div class="tl-content">
-        <div class="tl-year">2020</div>
-        <div class="tl-text">음악적 실험과 성장의 해</div>
-      </div>
-    </div>
-    <div class="tl-item rv">
-      <div class="tl-dot"></div>
-      <div class="tl-content">
-        <div class="tl-year">2021</div>
-        <div class="tl-text">[Blah Blah], [바름바이오랩] 발매</div>
-      </div>
-    </div>
-    <div class="tl-item rv">
-      <div class="tl-dot"></div>
-      <div class="tl-content">
-        <div class="tl-year">2022</div>
-        <div class="tl-text">KDI FLOW 싱글 발매, 폭발적 반응</div>
-      </div>
-    </div>
-    <div class="tl-item rv">
-      <div class="tl-dot"></div>
-      <div class="tl-content">
-        <div class="tl-year">2023</div>
-        <div class="tl-text">IShowSpeed 라이브 출연 (20만 시청자)</div>
-      </div>
-    </div>
-    <div class="tl-item rv">
-      <div class="tl-dot"></div>
-      <div class="tl-content">
-        <div class="tl-year">2024</div>
-        <div class="tl-text">[KDI WORLD] 앨범 발매, KDI Records 설립</div>
-      </div>
-    </div>
-    <div class="tl-item rv">
-      <div class="tl-dot"></div>
-      <div class="tl-content">
-        <div class="tl-year">2025</div>
-        <div class="tl-text">JYS, MYR 합류, 크루 결성</div>
-      </div>
-    </div>
-    <div class="tl-item rv">
-      <div class="tl-dot"></div>
-      <div class="tl-content">
-        <div class="tl-year">2026</div>
-        <div class="tl-text">글로벌 진출 준비, 새 프로젝트 진행 중</div>
-      </div>
-    </div>
-  </div>
-</section>
 
 <!-- FOOTER -->
 <footer>
@@ -549,9 +454,6 @@ document.querySelectorAll('a[href]').forEach(a => {
 const siteNav=document.querySelector('nav');
 window.addEventListener('scroll',()=>{if(siteNav)siteNav.classList.toggle('nav-scrolled',window.scrollY>100);});
 
-/* ── SCROLL REVEAL (IntersectionObserver) ── */
-const rvObs=new IntersectionObserver((entries)=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');rvObs.unobserve(e.target);}});},{threshold:0.15});
-document.querySelectorAll('.rv').forEach(el=>rvObs.observe(el));
 </script>
 </body>
 </html>
