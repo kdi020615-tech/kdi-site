@@ -90,6 +90,13 @@ footer{padding:80px 48px 56px;border-top:1px solid rgba(255,255,255,.06);}
 .eq-b:nth-child(1){animation-duration:.5s;}.eq-b:nth-child(2){animation-duration:.8s;}.eq-b:nth-child(3){animation-duration:.45s;}.eq-b:nth-child(4){animation-duration:.65s;}
 .eq-b.off{animation-play-state:paused;height:2px !important;}
 @keyframes eqAnim{from{height:2px;}to{height:14px;}}
+.pl-controls { display:flex; align-items:center; gap:8px; }
+.pl-skip {
+  width:20px; height:20px; display:flex; align-items:center; justify-content:center;
+  cursor:pointer; opacity:.3; transition:opacity .3s;
+}
+.pl-skip:hover { opacity:.8; }
+.pl-skip svg { width:10px; height:10px; fill:var(--w); }
 
 /* HAMBURGER */
 .hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;z-index:600;padding:8px;}
@@ -186,7 +193,7 @@ body.page-out{animation:pageOut .3s ease forwards;}
   </div>
 </div>
 <!-- AUDIO -->
-<audio id="audio" loop>
+<audio id="audio">
   <source src="main-bgm.mp3" type="audio/mpeg"/>
 </audio>
 
@@ -205,16 +212,20 @@ body.page-out{animation:pageOut .3s ease forwards;}
   </div>
 </footer>
 
-<div id="player" onclick="togglePlay()">
-  <div class="pl-btn">
+<div id="player">
+  <div class="pl-btn" onclick="togglePlay()">
     <svg class="pl-icon" id="plIcon" viewBox="0 0 24 24">
       <rect x="6" y="4" width="4" height="16"/>
       <rect x="14" y="4" width="4" height="16"/>
     </svg>
   </div>
-  <div class="pl-info">
-    <div class="pl-track">JEFF HARDY</div>
+  <div class="pl-info" onclick="togglePlay()">
+    <div class="pl-track" id="plTrack">JEFF HARDY</div>
     <div class="pl-status" id="plStatus">NOW PLAYING</div>
+  </div>
+  <div class="pl-controls">
+    <div class="pl-skip" onclick="prevTrack()"><svg viewBox="0 0 24 24"><polygon points="19,20 9,12 19,4"/><rect x="5" y="4" width="2" height="16"/></svg></div>
+    <div class="pl-skip" onclick="nextTrack()"><svg viewBox="0 0 24 24"><polygon points="5,4 15,12 5,20"/><rect x="17" y="4" width="2" height="16"/></svg></div>
   </div>
   <div class="eq" id="eq">
     <div class="eq-b" style="height:6px"></div>
@@ -226,6 +237,16 @@ body.page-out{animation:pageOut .3s ease forwards;}
 
 <script>
 const audio = document.getElementById('audio');
+/* PLAYLIST */
+const plTrack = document.getElementById('plTrack');
+const playlist = [
+  { src: 'main-bgm.mp3', title: 'JEFF HARDY' },
+  { src: 'kdi-track2.mp3', title: 'KDI FLOW' },
+  { src: '인물사진 /케이디아이/음악/스컷 리마스터링.wav', title: 'BOSS' }
+];
+let currentTrack = 0;
+audio.loop = false;
+audio.addEventListener('ended', () => nextTrack());
 const plIcon = document.getElementById('plIcon');
 const plStatus = document.getElementById('plStatus');
 const eqBars = document.querySelectorAll('.eq-b');
@@ -265,6 +286,19 @@ function togglePlay() {
     eqBars.forEach(b => b.classList.remove('off'));
   }
   playing = !playing;
+}
+function loadTrack(idx) {
+  currentTrack = idx;
+  const wasPlaying = playing;
+  audio.src = playlist[idx].src;
+  plTrack.textContent = playlist[idx].title;
+  if (wasPlaying) { audio.play().catch(()=>{}); }
+}
+function nextTrack() {
+  loadTrack((currentTrack + 1) % playlist.length);
+}
+function prevTrack() {
+  loadTrack((currentTrack - 1 + playlist.length) % playlist.length);
 }
 
 /* ARTIST DROPDOWN POSITION */
