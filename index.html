@@ -448,6 +448,55 @@ video::-webkit-media-controls-play-button { display:none !important; }
   font-weight:400;
 }
 
+/* ── MEMBER VOTE ── */
+#vote-section {
+  padding:100px 48px;
+  border-top:1px solid rgba(240,236,228,.06);
+}
+.vote-head { text-align:center; margin-bottom:60px; }
+.vote-tag { font-size:9px; letter-spacing:5px; color:var(--g); margin-bottom:16px; }
+.vote-title {
+  font-family:'Bebas Neue'; font-size:clamp(48px, 8vw, 80px);
+  letter-spacing:4px; line-height:1;
+}
+.vote-grid {
+  display:grid; grid-template-columns:repeat(3,1fr); gap:32px;
+  max-width:900px; margin:0 auto;
+}
+.vote-card {
+  border:1px solid rgba(240,236,228,.06);
+  padding:40px 24px; text-align:center;
+  transition:border-color .3s, background .3s;
+}
+.vote-card:hover { border-color:rgba(184,168,130,.2); background:rgba(184,168,130,.02); }
+.vote-name {
+  font-family:'Bebas Neue'; font-size:36px; letter-spacing:3px; color:var(--w);
+  margin-bottom:8px;
+}
+.vote-role { font-size:9px; letter-spacing:3px; color:rgba(240,236,228,.3); margin-bottom:24px; }
+.vote-count {
+  font-family:'Bebas Neue'; font-size:48px; color:var(--g); margin-bottom:8px;
+}
+.vote-bar-wrap {
+  width:100%; height:3px; background:rgba(240,236,228,.06); margin-bottom:24px; border-radius:2px;
+}
+.vote-bar {
+  height:100%; background:var(--g); border-radius:2px;
+  transition:width .6s ease; width:0%;
+}
+.vote-btn {
+  font-size:9px; letter-spacing:4px; text-transform:uppercase;
+  color:var(--g); border:1px solid rgba(184,168,130,.3);
+  padding:12px 28px; background:transparent; cursor:pointer;
+  transition:background .3s, color .3s;
+}
+.vote-btn:hover { background:rgba(184,168,130,.1); color:var(--w); }
+.vote-btn:disabled { opacity:.3; cursor:default; }
+.vote-total {
+  text-align:center; margin-top:40px;
+  font-size:9px; letter-spacing:4px; color:rgba(240,236,228,.2);
+}
+
 /* ── DRUM PAD (Easter Egg) ── */
 #drum-pad {
   display:none;
@@ -689,6 +738,10 @@ footer {
   .lyrics-line { font-size:clamp(20px, 6vw, 32px); }
   .dp-pad { width:64px; height:64px; }
   .dp-hint { right:16px; bottom:20px; font-size:7px; }
+  #vote-section { padding:60px 24px; }
+  .vote-grid { grid-template-columns:1fr; gap:24px; }
+  .vote-name { font-size:28px; }
+  .vote-count { font-size:36px; }
 
   footer { padding:60px 24px 40px; }
   .ft-grid {
@@ -898,6 +951,38 @@ body.page-out{animation:pageOut .3s ease forwards;}
   <div class="lyrics-tag rv">// KDI RECORDS 어록</div>
   <div class="lyrics-line" id="lyricsLine"><span class="lyrics-cursor"></span></div>
   <div class="lyrics-credit" id="lyricsCredit"></div>
+</section>
+
+<!-- MEMBER VOTE -->
+<section id="vote-section">
+  <div class="vote-head rv">
+    <div class="vote-tag">// WHO'S YOUR PICK?</div>
+    <h2 class="vote-title">VOTE</h2>
+  </div>
+  <div class="vote-grid">
+    <div class="vote-card rv">
+      <div class="vote-name">KDI</div>
+      <div class="vote-role">RAPPER / DIRECTOR / FOUNDER</div>
+      <div class="vote-count" id="voteKdi">0</div>
+      <div class="vote-bar-wrap"><div class="vote-bar" id="barKdi"></div></div>
+      <button class="vote-btn" onclick="castVote('kdi')">VOTE</button>
+    </div>
+    <div class="vote-card rv d1">
+      <div class="vote-name">JYS</div>
+      <div class="vote-role">RAPPER / SONGWRITER</div>
+      <div class="vote-count" id="voteJys">0</div>
+      <div class="vote-bar-wrap"><div class="vote-bar" id="barJys"></div></div>
+      <button class="vote-btn" onclick="castVote('jys')">VOTE</button>
+    </div>
+    <div class="vote-card rv d2">
+      <div class="vote-name">MYR</div>
+      <div class="vote-role">PRODUCER / ARTIST</div>
+      <div class="vote-count" id="voteMyr">0</div>
+      <div class="vote-bar-wrap"><div class="vote-bar" id="barMyr"></div></div>
+      <button class="vote-btn" onclick="castVote('myr')">VOTE</button>
+    </div>
+  </div>
+  <div class="vote-total" id="voteTotal"></div>
 </section>
 
 <!-- FOOTER -->
@@ -1364,6 +1449,60 @@ window.addEventListener('scroll', () => {
   };
 })();
 
+</script>
+
+<!-- FIREBASE (투표용) -->
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+<script>
+firebase.initializeApp({
+  apiKey: "AIzaSyDv0MTq95kwXo6Bq0qGn4yGVo6XPLn4vVo",
+  authDomain: "kdi-site.firebaseapp.com",
+  projectId: "kdi-site",
+  storageBucket: "kdi-site.firebasestorage.app",
+  messagingSenderId: "803075660446",
+  appId: "1:803075660446:web:d767f20a2684b139d9398f"
+});
+const db = firebase.firestore();
+const voteRef = db.collection('votes').doc('members');
+
+/* 실시간 투표 결과 감지 */
+voteRef.onSnapshot(doc => {
+  if (!doc.exists) return;
+  const d = doc.data();
+  const kdi = d.kdi || 0, jys = d.jys || 0, myr = d.myr || 0;
+  const total = kdi + jys + myr || 1;
+  document.getElementById('voteKdi').textContent = kdi;
+  document.getElementById('voteJys').textContent = jys;
+  document.getElementById('voteMyr').textContent = myr;
+  document.getElementById('barKdi').style.width = (kdi / total * 100) + '%';
+  document.getElementById('barJys').style.width = (jys / total * 100) + '%';
+  document.getElementById('barMyr').style.width = (myr / total * 100) + '%';
+  document.getElementById('voteTotal').textContent = 'TOTAL VOTES: ' + (kdi + jys + myr);
+});
+
+/* 초기 문서 없으면 생성 */
+voteRef.get().then(doc => {
+  if (!doc.exists) voteRef.set({ kdi: 0, jys: 0, myr: 0 });
+});
+
+function castVote(member) {
+  if (localStorage.getItem('kdi-voted')) {
+    alert('이미 투표하셨습니다!');
+    return;
+  }
+  voteRef.update({
+    [member]: firebase.firestore.FieldValue.increment(1)
+  }).then(() => {
+    localStorage.setItem('kdi-voted', member);
+    document.querySelectorAll('.vote-btn').forEach(b => { b.disabled = true; b.textContent = 'VOTED'; });
+  });
+}
+
+/* 이미 투표했으면 버튼 비활성화 */
+if (localStorage.getItem('kdi-voted')) {
+  document.querySelectorAll('.vote-btn').forEach(b => { b.disabled = true; b.textContent = 'VOTED'; });
+}
 </script>
 </body>
 </html>
