@@ -4,13 +4,13 @@
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <meta name="description" content="KDI Records — Creative Hip-Hop Label. KDI, JYS, MYR"/>
-<meta property="og:title" content="KDI Records"/>
+<meta property="og:title" content="KDI Records — News"/>
 <meta property="og:description" content="Creative Hip-Hop Label — KDI, JYS, MYR"/>
 <meta property="og:type" content="website"/>
 <meta property="og:url" content="https://kdi020615-tech.github.io/kdi-site/"/>
 <meta property="og:image" content="https://kdi020615-tech.github.io/kdi-site/hf_20260411_224131_9914dd79-a943-4c95-9079-d63a7cacb8ff.png"/>
 <meta name="theme-color" content="#0d0812"/>
-<title>KDI — Schedule</title>
+<title>KDI — News</title>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400&display=swap');
 @font-face { font-family:'Splash'; src:url('Splash-Regular.ttf') format('truetype'); }
@@ -20,7 +20,7 @@
 html{scroll-behavior:smooth;}
 body{background:var(--b);color:var(--w);font-family:'Inter',sans-serif;font-weight:300;overflow-x:hidden;}
 body::before{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;background:url('hf_20260411_224131_9914dd79-a943-4c95-9079-d63a7cacb8ff.png') center/cover no-repeat fixed;opacity:.15;mix-blend-mode:screen;}
-body::after{content:'';position:fixed;inset:0;z-index:9000;pointer-events:none;opacity:.04;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");background-size:160px;}
+body::after{content:'';position:fixed;inset:0;z-index:9000;pointer-events:none;opacity:.04;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");background-size:160px;}
 nav{position:fixed;top:0;left:0;right:0;z-index:500;padding:28px 48px;display:flex;justify-content:space-between;align-items:center;mix-blend-mode:difference;transition:background .4s,padding .4s,mix-blend-mode .4s,backdrop-filter .4s;}
 nav.nav-scrolled{mix-blend-mode:normal;background:rgba(8,8,8,.85);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);padding:20px 48px;}
 .nav-logo{font-family:'Splash',cursive;font-size:26px;letter-spacing:3px;color:var(--w);text-decoration:none;}
@@ -48,37 +48,22 @@ nav.nav-scrolled{mix-blend-mode:normal;background:rgba(8,8,8,.85);backdrop-filte
 .page-title{font-family:'Bebas Neue';font-size:clamp(64px,12vw,140px);line-height:.9;letter-spacing:-1px;text-align:center;}
 .page-content{padding:80px 48px;max-width:900px;margin:0 auto;}
 
-/* CALENDAR */
-.cal-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:32px;}
-.cal-month{font-family:'Bebas Neue';font-size:clamp(28px,5vw,42px);letter-spacing:3px;}
-.cal-nav{display:flex;gap:12px;}
-.cal-nav button{background:transparent;border:1px solid rgba(255,255,255,.15);color:var(--w);font-size:18px;width:40px;height:40px;cursor:pointer;transition:border-color .3s,background .3s;display:flex;align-items:center;justify-content:center;}
-.cal-nav button:hover{border-color:var(--g);background:rgba(184,168,130,.1);}
-.cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:1px;background:rgba(255,255,255,.05);}
-.cal-day-head{padding:12px 4px;text-align:center;font-size:10px;letter-spacing:3px;color:var(--g);background:var(--b);}
-.cal-day{min-height:90px;padding:8px;background:rgba(13,8,18,.9);position:relative;cursor:default;transition:background .3s;}
-.cal-day:hover{background:rgba(184,168,130,.05);}
-.cal-day.other{opacity:.25;}
-.cal-day.today{background:rgba(184,168,130,.08);border:1px solid rgba(184,168,130,.3);}
-.cal-day-num{font-family:'Bebas Neue';font-size:16px;letter-spacing:1px;color:rgba(255,255,255,.5);margin-bottom:4px;}
-.cal-day.today .cal-day-num{color:var(--g);}
-.cal-event{font-size:9px;letter-spacing:1px;padding:3px 5px;margin-bottom:2px;background:rgba(184,168,130,.15);color:var(--g);border-left:2px solid var(--g);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;cursor:pointer;transition:background .3s;}
-.cal-event:hover{background:rgba(184,168,130,.3);}
-.cal-event.ev-kdi{background:rgba(184,168,130,.15);color:#b8a882;border-left-color:#b8a882;}
-.cal-event.ev-jys{background:rgba(107,138,173,.15);color:#6b8aad;border-left-color:#6b8aad;}
-.cal-event.ev-myr{background:rgba(173,107,107,.15);color:#ad6b6b;border-left-color:#ad6b6b;}
-
-/* EVENT DETAIL POPUP */
-.cal-popup{display:none;position:fixed;inset:0;z-index:7000;background:rgba(0,0,0,.7);align-items:center;justify-content:center;}
-.cal-popup.open{display:flex;}
-.cal-popup-box{background:var(--b);border:1px solid rgba(184,168,130,.2);padding:40px;max-width:400px;width:90%;position:relative;}
-.cal-popup-close{position:absolute;top:16px;right:16px;background:none;border:none;color:rgba(255,255,255,.5);font-size:20px;cursor:pointer;}
-.cal-popup-close:hover{color:var(--w);}
-.cal-popup-date{font-family:'Bebas Neue';font-size:20px;letter-spacing:3px;color:var(--g);margin-bottom:8px;}
-.cal-popup-title{font-family:'Bebas Neue';font-size:28px;letter-spacing:2px;color:var(--w);margin-bottom:8px;}
-.cal-popup-desc{font-size:13px;color:rgba(255,255,255,.5);line-height:1.6;}
-.cal-popup-del{margin-top:20px;background:none;border:1px solid rgba(255,68,68,.3);color:#ff4444;font-size:9px;letter-spacing:2px;padding:8px 16px;cursor:pointer;transition:background .3s;}
-.cal-popup-del:hover{background:rgba(255,68,68,.1);}
+/* NEWS LIST */
+.news-empty{padding:80px 24px;text-align:center;font-size:11px;letter-spacing:4px;color:rgba(255,255,255,.25);text-transform:uppercase;border:1px dashed rgba(255,255,255,.1);}
+.news-list{display:flex;flex-direction:column;gap:24px;}
+.news-card{padding:28px 32px;border:1px solid rgba(184,168,130,.15);background:rgba(184,168,130,.03);position:relative;transition:border-color .3s,background .3s;}
+.news-card:hover{border-color:rgba(184,168,130,.35);background:rgba(184,168,130,.05);}
+.news-date{font-family:'Bebas Neue';font-size:13px;letter-spacing:4px;color:var(--g);margin-bottom:10px;}
+.news-title{font-family:'Bebas Neue';font-size:clamp(22px,3vw,30px);letter-spacing:2px;color:var(--w);margin-bottom:14px;line-height:1.1;}
+.news-body{font-size:13px;line-height:1.8;color:rgba(255,255,255,.7);white-space:pre-wrap;word-break:break-word;}
+.news-body.clamped{display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;}
+.news-toggle{display:inline-block;margin-top:12px;font-size:9px;letter-spacing:3px;color:var(--g);cursor:pointer;text-transform:uppercase;border:none;background:none;padding:0;}
+.news-toggle:hover{color:var(--w);}
+.news-actions{margin-top:16px;display:flex;gap:10px;}
+.news-act{background:none;border:1px solid rgba(255,255,255,.12);color:rgba(255,255,255,.6);font-size:9px;letter-spacing:3px;padding:6px 14px;cursor:pointer;text-transform:uppercase;transition:border-color .3s,color .3s;}
+.news-act:hover{border-color:var(--g);color:var(--g);}
+.news-act.del{border-color:rgba(255,68,68,.25);color:#ff6666;}
+.news-act.del:hover{background:rgba(255,68,68,.1);}
 
 /* ADMIN */
 .lock-label{font-size:9px;letter-spacing:6px;color:var(--g);text-transform:uppercase;}
@@ -89,16 +74,16 @@ nav.nav-scrolled{mix-blend-mode:normal;background:rgba(8,8,8,.85);backdrop-filte
 .lock-error.show{opacity:1;}
 .sch-form{margin-top:40px;padding:32px;border:1px solid rgba(184,168,130,.15);background:rgba(184,168,130,.03);}
 .sch-form-title{font-size:9px;letter-spacing:5px;color:var(--g);text-transform:uppercase;margin-bottom:24px;}
-.sch-row{display:flex;gap:16px;margin-bottom:16px;}
-.sch-input{flex:1;background:transparent;border:1px solid rgba(255,255,255,.1);color:var(--w);font-family:'Inter',sans-serif;font-size:13px;padding:12px 16px;outline:none;transition:border-color .3s;}
+.sch-input{width:100%;background:transparent;border:1px solid rgba(255,255,255,.1);color:var(--w);font-family:'Inter',sans-serif;font-size:13px;padding:12px 16px;outline:none;transition:border-color .3s;margin-bottom:16px;}
 .sch-input:focus{border-color:var(--g);}
-select.sch-input{appearance:none;-webkit-appearance:none;cursor:pointer;}
 .sch-input::placeholder{color:rgba(255,255,255,.2);}
-.sch-textarea{width:100%;background:transparent;border:1px solid rgba(255,255,255,.1);color:var(--w);font-family:'Inter',sans-serif;font-size:13px;padding:12px 16px;outline:none;resize:vertical;min-height:80px;margin-bottom:16px;transition:border-color .3s;}
+.sch-textarea{width:100%;background:transparent;border:1px solid rgba(255,255,255,.1);color:var(--w);font-family:'Inter',sans-serif;font-size:13px;padding:12px 16px;outline:none;resize:vertical;min-height:120px;margin-bottom:16px;transition:border-color .3s;}
 .sch-textarea:focus{border-color:var(--g);}
 .sch-textarea::placeholder{color:rgba(255,255,255,.2);}
 .sch-btn{background:transparent;border:1px solid rgba(184,168,130,.3);color:var(--g);font-size:10px;letter-spacing:4px;padding:12px 32px;cursor:pointer;text-transform:uppercase;transition:background .3s,color .3s;}
 .sch-btn:hover{background:var(--g);color:var(--b);}
+.sch-btn.cancel{margin-left:8px;border-color:rgba(255,255,255,.1);color:rgba(255,255,255,.5);}
+.sch-btn.cancel:hover{background:rgba(255,255,255,.05);color:var(--w);}
 
 footer{padding:80px 48px 56px;border-top:1px solid rgba(255,255,255,.06);}
 .ft-grid{display:flex;justify-content:space-between;align-items:flex-start;max-width:1200px;margin:0 auto;}
@@ -116,22 +101,9 @@ footer{padding:80px 48px 56px;border-top:1px solid rgba(255,255,255,.06);}
 .ft-copy{font-size:9px;letter-spacing:3px;color:rgba(255,255,255,.12);line-height:2;}
 
 /* PLAYER */
-#player {
-  position:fixed; bottom:32px; left:48px;
-  z-index:600;
-  display:flex; align-items:center; gap:14px;
-  cursor:pointer;
-}
-.pl-btn {
-  width:42px; height:42px;
-  border:1px solid rgba(240,236,228,.15); border-radius:50%;
-  display:flex; align-items:center; justify-content:center;
-  transition:border-color .3s, background .3s;
-}
-#player:hover .pl-btn {
-  border-color:rgba(240,236,228,.5);
-  background:rgba(240,236,228,.04);
-}
+#player { position:fixed; bottom:32px; left:48px; z-index:600; display:flex; align-items:center; gap:14px; cursor:pointer; }
+.pl-btn { width:42px; height:42px; border:1px solid rgba(240,236,228,.15); border-radius:50%; display:flex; align-items:center; justify-content:center; transition:border-color .3s, background .3s; }
+#player:hover .pl-btn { border-color:rgba(240,236,228,.5); background:rgba(240,236,228,.04); }
 .pl-icon { width:12px; height:12px; fill:var(--w); }
 .pl-info { line-height:1.5; }
 .pl-track { font-size:10px; letter-spacing:3px; color:var(--g); }
@@ -142,10 +114,7 @@ footer{padding:80px 48px 56px;border-top:1px solid rgba(255,255,255,.06);}
 .eq-b.off{animation-play-state:paused;height:2px !important;}
 @keyframes eqAnim{from{height:2px;}to{height:14px;}}
 .pl-controls { display:flex; align-items:center; gap:8px; }
-.pl-skip {
-  width:20px; height:20px; display:flex; align-items:center; justify-content:center;
-  cursor:pointer; opacity:.3; transition:opacity .3s;
-}
+.pl-skip { width:20px; height:20px; display:flex; align-items:center; justify-content:center; cursor:pointer; opacity:.3; transition:opacity .3s; }
 .pl-skip:hover { opacity:.8; }
 .pl-skip svg { width:10px; height:10px; fill:var(--w); }
 
@@ -166,27 +135,20 @@ footer{padding:80px 48px 56px;border-top:1px solid rgba(255,255,255,.06);}
   .hamburger{display:flex;}
   .page-content{padding:60px 24px;}
   .page-hero{height:40vh;padding-bottom:40px;}
-  .cal-day{min-height:60px;padding:4px;}
-  .cal-day-num{font-size:13px;}
-  .cal-event{font-size:7px;padding:2px 3px;}
-  .cal-day-head{font-size:8px;padding:8px 2px;}
-  .sch-row{flex-direction:column;gap:12px;}
+  .news-card{padding:20px 20px;}
   footer{padding:60px 24px 40px;}
   .ft-grid{flex-direction:column;gap:32px;align-items:flex-start;}
   .ft-right{text-align:left;}
   .ft-social{justify-content:flex-start;}
   .ft-logo{font-size:30px;}
   .ft-copy{font-size:8px;}
-  #player {
-    left: 16px;
-    bottom: 20px;
-    gap: 10px;
-  }
+  #player { left:16px; bottom:20px; gap:10px; }
   .pl-btn { width:36px; height:36px; }
   .pl-track { font-size:9px; }
   .pl-status { font-size:8px; }
   .eq { display:none; }
 }
+
 /* PAGE TRANSITION */
 body{animation:pageIn .5s ease;}
 @keyframes pageIn{from{opacity:0;}to{opacity:1;}}
@@ -211,8 +173,8 @@ body.page-out{animation:pageOut .3s ease forwards;}
     </li>
     <li><a href="shop.html">Shop</a></li>
     <li><a href="contact.html">Contact</a></li>
-    <li><a href="schedule.html" class="active">Schedule</a></li>
-    <li><a href="news.html">News</a></li>
+    <li><a href="schedule.html">Schedule</a></li>
+    <li><a href="news.html" class="active">News</a></li>
   </ul>
   <div class="hamburger" id="hamburger" onclick="document.getElementById('hamburger').classList.toggle('open');document.getElementById('mobileMenu').classList.toggle('open');">
     <span></span><span></span><span></span>
@@ -226,25 +188,17 @@ body.page-out{animation:pageOut .3s ease forwards;}
   <a href="myr.html">MYR</a>
   <a href="shop.html">Shop</a>
   <a href="contact.html">Contact</a>
-  <a href="schedule.html" class="active">Schedule</a>
-  <a href="news.html">News</a>
+  <a href="schedule.html">Schedule</a>
+  <a href="news.html" class="active">News</a>
 </div>
 
 <div class="page-hero">
-  <div class="page-tag">// SCHEDULE</div>
-  <h1 class="page-title">SCHEDULE</h1>
+  <div class="page-tag">// KDI RECORDS NEWS</div>
+  <h1 class="page-title">NEWS</h1>
 </div>
 
 <div class="page-content">
-  <!-- CALENDAR -->
-  <div class="cal-header">
-    <div class="cal-month" id="calMonth"></div>
-    <div class="cal-nav">
-      <button onclick="changeMonth(-1)">&#8249;</button>
-      <button onclick="changeMonth(1)">&#8250;</button>
-    </div>
-  </div>
-  <div class="cal-grid" id="calGrid"></div>
+  <div id="newsList" class="news-list"></div>
 
   <!-- ADMIN -->
   <div style="margin-top:60px;text-align:center;">
@@ -257,30 +211,12 @@ body.page-out{animation:pageOut .3s ease forwards;}
   </div>
   <div id="adminPanel" style="display:none;">
     <div class="sch-form">
-      <div class="sch-form-title">// Add Schedule</div>
-      <div class="sch-row">
-        <select class="sch-input" id="schMember">
-          <option value="KDI">KDI</option>
-          <option value="JYS">JYS</option>
-          <option value="MYR">MYR</option>
-        </select>
-        <input type="date" class="sch-input" id="schDate"/>
-        <input type="text" class="sch-input" id="schTitle" placeholder="제목"/>
-      </div>
-      <textarea class="sch-textarea" id="schDesc" placeholder="내용 (선택)"></textarea>
-      <button class="sch-btn" onclick="addSchedule()">등록</button>
+      <div class="sch-form-title" id="formTitle">// New Post</div>
+      <input type="text" class="sch-input" id="newsTitle" placeholder="제목"/>
+      <textarea class="sch-textarea" id="newsBody" placeholder="본문"></textarea>
+      <button class="sch-btn" id="saveBtn" onclick="savePost()">등록</button>
+      <button class="sch-btn cancel" id="cancelBtn" style="display:none;" onclick="cancelEdit()">취소</button>
     </div>
-  </div>
-</div>
-
-<!-- EVENT DETAIL POPUP -->
-<div class="cal-popup" id="calPopup">
-  <div class="cal-popup-box">
-    <button class="cal-popup-close" onclick="closePopup()">&times;</button>
-    <div class="cal-popup-date" id="popupDate"></div>
-    <div class="cal-popup-title" id="popupTitle"></div>
-    <div class="cal-popup-desc" id="popupDesc"></div>
-    <button class="cal-popup-del" id="popupDel" style="display:none;" onclick="deleteFromPopup()">DELETE</button>
   </div>
 </div>
 
@@ -340,11 +276,13 @@ firebase.initializeApp({
   appId: "1:803075660446:web:d767f20a2684b139d9398f"
 });
 const db = firebase.firestore();
-const schCol = db.collection('schedules');
+const newsCol = db.collection('news');
 
 /* ADMIN */
 let isAdmin = false;
-let popupDocId = null;
+let editingId = null;
+let posts = [];
+
 function showAdminLogin() {
   document.getElementById('adminLogin').style.display = 'block';
   document.getElementById('adminToggleBtn').style.display = 'none';
@@ -358,7 +296,7 @@ pwInput.addEventListener('input', function() {
       isAdmin = true;
       document.getElementById('adminLogin').style.display = 'none';
       document.getElementById('adminPanel').style.display = 'block';
-      renderCalendar();
+      render();
     } else {
       lockError.classList.add('show');
       this.value = '';
@@ -367,127 +305,113 @@ pwInput.addEventListener('input', function() {
   }
 });
 
-/* CALENDAR */
-const MONTHS = ['JANUARY','FEBRUARY','MARCH','APRIL','MAY','JUNE','JULY','AUGUST','SEPTEMBER','OCTOBER','NOVEMBER','DECEMBER'];
-const DAYS = ['SUN','MON','TUE','WED','THU','FRI','SAT'];
-let curYear, curMonth;
-let events = [];
-
-(function init() {
-  const now = new Date();
-  curYear = now.getFullYear();
-  curMonth = now.getMonth();
-  loadEvents();
-})();
-
-function changeMonth(dir) {
-  curMonth += dir;
-  if (curMonth < 0) { curMonth = 11; curYear--; }
-  if (curMonth > 11) { curMonth = 0; curYear++; }
-  renderCalendar();
+/* RENDER */
+function escapeHtml(s) {
+  return String(s||'').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 }
 
-async function loadEvents() {
-  try {
-    const snap = await schCol.orderBy('date').get();
-    events = [];
-    snap.forEach(doc => { events.push({ id: doc.id, ...doc.data() }); });
-  } catch(e) { events = []; }
-  renderCalendar();
+function fmtDate(ts) {
+  if (!ts) return '';
+  const d = ts.toDate ? ts.toDate() : new Date(ts);
+  const y = d.getFullYear();
+  const m = String(d.getMonth()+1).padStart(2,'0');
+  const day = String(d.getDate()).padStart(2,'0');
+  return `${y}.${m}.${day}`;
 }
 
-function renderCalendar() {
-  document.getElementById('calMonth').textContent = MONTHS[curMonth] + ' ' + curYear;
-  const grid = document.getElementById('calGrid');
-  let html = '';
-  DAYS.forEach(d => { html += `<div class="cal-day-head">${d}</div>`; });
-
-  const first = new Date(curYear, curMonth, 1);
-  const last = new Date(curYear, curMonth + 1, 0);
-  const startDay = first.getDay();
-  const totalDays = last.getDate();
-  const today = new Date();
-  const todayStr = today.getFullYear() + '-' + String(today.getMonth()+1).padStart(2,'0') + '-' + String(today.getDate()).padStart(2,'0');
-
-  // prev month fill
-  const prevLast = new Date(curYear, curMonth, 0).getDate();
-  for (let i = startDay - 1; i >= 0; i--) {
-    html += `<div class="cal-day other"><div class="cal-day-num">${prevLast - i}</div></div>`;
+function render() {
+  const list = document.getElementById('newsList');
+  if (!posts.length) {
+    list.innerHTML = '<div class="news-empty">아직 소식이 없어요</div>';
+    return;
   }
+  list.innerHTML = posts.map(p => {
+    const date = fmtDate(p.createdAt);
+    const body = escapeHtml(p.body || '');
+    const lineCount = (p.body||'').split('\n').length;
+    const isLong = lineCount > 3 || (p.body||'').length > 180;
+    const actions = isAdmin
+      ? `<div class="news-actions">
+          <button class="news-act" onclick="startEdit('${p.id}')">수정</button>
+          <button class="news-act del" onclick="deletePost('${p.id}')">삭제</button>
+         </div>`
+      : '';
+    return `
+      <article class="news-card">
+        <div class="news-date">${date}</div>
+        <div class="news-title">${escapeHtml(p.title || '')}</div>
+        <div class="news-body${isLong ? ' clamped' : ''}" id="body-${p.id}">${body}</div>
+        ${isLong ? `<button class="news-toggle" onclick="toggleBody('${p.id}', this)">더보기</button>` : ''}
+        ${actions}
+      </article>`;
+  }).join('');
+}
 
-  // current month
-  for (let d = 1; d <= totalDays; d++) {
-    const dateStr = curYear + '-' + String(curMonth+1).padStart(2,'0') + '-' + String(d).padStart(2,'0');
-    const isToday = dateStr === todayStr;
-    const dayEvents = events.filter(e => e.date === dateStr);
-    html += `<div class="cal-day${isToday ? ' today' : ''}" onclick="selectDate('${dateStr}')">`;
-    html += `<div class="cal-day-num">${d}</div>`;
-    dayEvents.forEach(ev => {
-      const mc = ev.member ? ' ev-' + ev.member.toLowerCase() : '';
-      html += `<div class="cal-event${mc}" onclick="showPopup('${ev.id}')">${ev.member ? ev.member + ' ' : ''}${ev.title}</div>`;
-    });
-    html += '</div>';
+function toggleBody(id, btn) {
+  const el = document.getElementById('body-' + id);
+  if (el.classList.contains('clamped')) {
+    el.classList.remove('clamped');
+    btn.textContent = '접기';
+  } else {
+    el.classList.add('clamped');
+    btn.textContent = '더보기';
   }
-
-  // next month fill
-  const remaining = (7 - ((startDay + totalDays) % 7)) % 7;
-  for (let i = 1; i <= remaining; i++) {
-    html += `<div class="cal-day other"><div class="cal-day-num">${i}</div></div>`;
-  }
-
-  grid.innerHTML = html;
 }
 
-/* POPUP */
-function showPopup(id) {
-  const ev = events.find(e => e.id === id);
-  if (!ev) return;
-  popupDocId = id;
-  document.getElementById('popupDate').textContent = (ev.member ? ev.member + ' — ' : '') + ev.date;
-  document.getElementById('popupTitle').textContent = ev.title;
-  document.getElementById('popupDesc').textContent = ev.desc || '';
-  document.getElementById('popupDel').style.display = isAdmin ? 'inline-block' : 'none';
-  document.getElementById('calPopup').classList.add('open');
-}
-function closePopup() {
-  document.getElementById('calPopup').classList.remove('open');
-  popupDocId = null;
-}
-async function deleteFromPopup() {
-  if (!popupDocId) return;
-  await schCol.doc(popupDocId).delete();
-  closePopup();
-  loadEvents();
-}
-document.getElementById('calPopup').addEventListener('click', function(e) {
-  if (e.target === this) closePopup();
+/* SUBSCRIBE */
+newsCol.orderBy('createdAt', 'desc').onSnapshot(snap => {
+  posts = [];
+  snap.forEach(doc => posts.push({ id: doc.id, ...doc.data() }));
+  render();
+}, err => {
+  document.getElementById('newsList').innerHTML = '<div class="news-empty">불러오기 실패</div>';
 });
 
-/* SELECT DATE FROM CALENDAR */
-function selectDate(dateStr) {
-  if (!isAdmin) return;
-  document.getElementById('schDate').value = dateStr;
-  document.getElementById('adminPanel').scrollIntoView({ behavior: 'smooth' });
-  document.getElementById('schTitle').focus();
+/* CRUD */
+async function savePost() {
+  const title = document.getElementById('newsTitle').value.trim();
+  const body = document.getElementById('newsBody').value.trim();
+  if (!title || !body) return;
+  const now = firebase.firestore.FieldValue.serverTimestamp();
+  if (editingId) {
+    await newsCol.doc(editingId).update({ title, body, updatedAt: now });
+    cancelEdit();
+  } else {
+    await newsCol.add({ title, body, createdAt: now, updatedAt: now });
+    document.getElementById('newsTitle').value = '';
+    document.getElementById('newsBody').value = '';
+  }
 }
 
-/* ADD SCHEDULE */
-async function addSchedule() {
-  const member = document.getElementById('schMember').value;
-  const date = document.getElementById('schDate').value;
-  const title = document.getElementById('schTitle').value.trim();
-  const desc = document.getElementById('schDesc').value.trim();
-  if (!date || !title) return;
-  await schCol.add({ member, date, title, desc, createdAt: Date.now() });
-  document.getElementById('schDate').value = '';
-  document.getElementById('schTitle').value = '';
-  document.getElementById('schDesc').value = '';
-  loadEvents();
+function startEdit(id) {
+  const p = posts.find(x => x.id === id);
+  if (!p) return;
+  editingId = id;
+  document.getElementById('newsTitle').value = p.title || '';
+  document.getElementById('newsBody').value = p.body || '';
+  document.getElementById('formTitle').textContent = '// Edit Post';
+  document.getElementById('saveBtn').textContent = '저장';
+  document.getElementById('cancelBtn').style.display = 'inline-block';
+  document.getElementById('adminPanel').scrollIntoView({ behavior: 'smooth' });
+  document.getElementById('newsTitle').focus();
+}
+
+function cancelEdit() {
+  editingId = null;
+  document.getElementById('newsTitle').value = '';
+  document.getElementById('newsBody').value = '';
+  document.getElementById('formTitle').textContent = '// New Post';
+  document.getElementById('saveBtn').textContent = '등록';
+  document.getElementById('cancelBtn').style.display = 'none';
+}
+
+async function deletePost(id) {
+  if (!confirm('이 소식을 삭제할까요?')) return;
+  await newsCol.doc(id).delete();
 }
 
 /* AUDIO PLAYER */
 const audio = document.getElementById('audio');
-/* PLAYLIST */
 const plTrack = document.getElementById('plTrack');
 const playlist = [
   { src: 'main-bgm.mp3', title: 'JEFF HARDY' },
@@ -544,12 +468,8 @@ function loadTrack(idx) {
   plTrack.textContent = playlist[idx].title;
   if (wasPlaying) { audio.play().catch(()=>{}); }
 }
-function nextTrack() {
-  loadTrack((currentTrack + 1) % playlist.length);
-}
-function prevTrack() {
-  loadTrack((currentTrack - 1 + playlist.length) % playlist.length);
-}
+function nextTrack() { loadTrack((currentTrack + 1) % playlist.length); }
+function prevTrack() { loadTrack((currentTrack - 1 + playlist.length) % playlist.length); }
 
 /* ARTIST DROPDOWN */
 const navArtist = document.getElementById('navArtist');
