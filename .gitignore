@@ -1,0 +1,19 @@
+.DS_Store
+
+# 백업·작업용 폴더
+_원본백업/
+_editor/
+_legacy/
+_admin/
+서버 동작/
+
+# 의뢰 결과물 시안 (Firebase API 키·비번 잠금 코드 노출 → 절대 푸시 금지)
+KDI-디자인-의뢰/
+
+# 작업 노트·시스템 문서 (공개 불필요)
+HANDOFF.md
+CLAUDE.md
+DESIGN.md
+
+# 영상 원본
+*_orig.mp4

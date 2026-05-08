@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>KDI / SHOP — MERCH HQ</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&family=Black+Han+Sans&family=Bungee&family=Archivo+Black&family=Anton&display=swap" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css" rel="stylesheet">
+<link href="v1-shared.css" rel="stylesheet">
+<script src="mobile-gate.js"></script></head><body>
+<div class="bg-stars"></div>
+<div class="cur"></div><div class="cur-ring"></div><div class="cur-label">★</div>
+<audio id="audio" loop preload="metadata"><source src="main-bgm.mp3" type="audio/mpeg"/></audio>
+<nav class="site-nav">
+  <a href="index.html" class="nav-logo">KDI★</a>
+  <div class="nav-time"><span class="dot"></span><span id="navClock">KR · 00:00:00</span></div>
+  <ul class="nav-links">
+    <li><a href="index.html">HOME</a></li>
+    <li><a href="artist.html">ARTIST</a></li><li><a href="about.html">ABOUT</a></li>
+    <li><a href="news.html">NEWS</a></li>
+    <li><a href="shop.html" class="cur">SHOP</a></li>
+    <li><a href="schedule.html">LIVE</a></li>
+    <li><a href="contact.html">CONTACT</a></li>
+  </ul>
+  <div class="hamburger" id="hb"><span></span><span></span><span></span></div>
+</nav>
+<div class="mobile-menu" id="mm">
+  <a href="index.html">HOME</a><a href="artist.html">ARTIST</a><a href="about.html">ABOUT</a><a href="news.html">NEWS</a>
+  <a href="shop.html">SHOP</a><a href="schedule.html">LIVE</a><a href="contact.html">CONTACT</a>
+</div>
+<header class="page-head">
+  <div class="ph-bg-num">003</div>
+  <div class="ph-eyebrow"><span class="pink">●</span><span>FILE / 003</span><span>—</span><span>OFFICIAL MERCH</span><span class="lime blink">▮</span></div>
+  <h1 class="ph-title">SHOP<br/>THE GANG</h1>
+  <div class="ph-sub">VOL.01 SEASON · DROPS WEEKLY</div>
+</header>
+<section style="padding:60px 32px 80px; max-width:1280px; margin:0 auto;">
+  <div class="rv" style="display:grid; grid-template-columns:repeat(auto-fit, minmax(280px, 1fr)); gap:18px; margin-bottom:32px;">
+    <div style="border:2.5px solid var(--w); outline:3px solid #000; outline-offset:3px; background:var(--lime); color:#000; padding:18px 20px; box-shadow:6px 6px 0 var(--pink);">
+      <div style="font-family:'Bungee',sans-serif; font-size:10px; letter-spacing:2px; margin-bottom:10px;">// PAYMENT</div>
+      <div style="font-family:'Anton',sans-serif; font-size:22px; letter-spacing:1px; line-height:1; margin-bottom:6px;">카카오뱅크</div>
+      <div style="font-family:'JetBrains Mono',monospace; font-size:18px; letter-spacing:1px; word-break:keep-all;">3333-12-8665707</div>
+      <div style="font-family:'JetBrains Mono',monospace; font-size:12px; letter-spacing:1px; margin-top:6px; opacity:.85;">예금주 · 김도일</div>
+    </div>
+    <div style="border:2.5px solid var(--w); outline:3px solid #000; outline-offset:3px; background:#000; color:var(--w); padding:18px 20px; box-shadow:6px 6px 0 var(--blue);">
+      <div style="font-family:'Bungee',sans-serif; font-size:10px; letter-spacing:2px; color:var(--pink); margin-bottom:10px;">// HOW TO ORDER</div>
+      <div style="font-family:'Anton',sans-serif; font-size:22px; letter-spacing:1px; line-height:1; margin-bottom:8px;">DM TO ORDER</div>
+      <div style="font-family:'JetBrains Mono',monospace; font-size:11px; line-height:1.6; letter-spacing:.5px; opacity:.85;">상품 · 사이즈 · 수량 DM →<br/>입금 확인 후 발송</div>
+    </div>
+  </div>
+  <div class="rv" style="display:flex; gap:10px; flex-wrap:wrap; margin-bottom:36px; font-family:'Bungee',sans-serif; font-size:10px; letter-spacing:2px;">
+    <span class="shop-stat-all" style="padding:8px 14px; background:var(--lime); color:#000; box-shadow:3px 3px 0 var(--pink);">ALL 0</span>
+  </div>
+  <div id="shop-list" class="rv" style="display:grid; grid-template-columns:repeat(auto-fill, minmax(260px, 1fr)); gap:24px;">
+    <div class="empty-data" style="grid-column:1/-1; padding:60px 20px; text-align:center; color:var(--dim); font-family:'Inter',sans-serif;">곧 업데이트됩니다.</div>
+  </div>
+</section>
+<div style="display:none;" aria-hidden="true">
+  <div class="rv" style="display:grid; grid-template-columns:repeat(auto-fill, minmax(260px, 1fr)); gap:24px;">
+    <a href="#" data-cur="GRAB" style="text-decoration:none; color:var(--w); display:block; ">
+        <div style="position:relative; aspect-ratio:1/1; background:linear-gradient(135deg, var(--pink) 0%, var(--blue) 100%); border:2.5px solid var(--w); outline:3px solid #000; outline-offset:3px; box-shadow:6px 6px 0 var(--pink); padding:18px; overflow:hidden;">
+          <div style="position:absolute; top:10px; left:10px; font-family:'JetBrains Mono',monospace; font-size:9px; color:#000; letter-spacing:1.5px; background:rgba(255,255,255,.85); padding:3px 6px;">№001</div>
+          <div style="position:absolute; top:10px; right:10px; font-family:'Bungee',sans-serif; font-size:8px; padding:4px 8px; background:#000; color:var(--lime); letter-spacing:1.5px;">★ HOT</div>
+          <div style="position:absolute; inset:50% 18px auto 18px; transform:translateY(-50%); text-align:center;">
+            <div style="font-family:'Anton',sans-serif; font-size:48px; line-height:.85; color:#000; letter-spacing:-1px; text-shadow:2px 2px 0 #fff;">TEE</div>
+            <div style="font-family:'Bungee',sans-serif; font-size:10px; color:#000; margin-top:8px; letter-spacing:2px;">[ PHOTO TBD ]</div>
+          </div>
+          <div style="position:absolute; bottom:10px; left:10px; right:10px; font-family:'JetBrains Mono',monospace; font-size:9px; color:#000; background:rgba(255,255,255,.85); padding:4px 8px; letter-spacing:1px;">BACK PRINT · OVERSIZED FIT</div>
+        </div>
+        <div style="padding:14px 4px 0; display:flex; justify-content:space-between; align-items:flex-start; gap:12px;">
+          <div><div style="font-family:'Anton',sans-serif; font-size:18px; line-height:1.05; letter-spacing:0; color:var(--w);">3 KILLAS LOADED TEE</div><div style="font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--blue); margin-top:4px; letter-spacing:1px;">TEE</div></div>
+          <div style="font-family:'Bungee',sans-serif; font-size:14px; color:var(--lime); white-space:nowrap;">₩045,000</div>
+        </div>
+        <div style="margin-top:10px; padding:8px 12px; background:var(--pink); color:#fff; font-family:'Bungee',sans-serif; font-size:10px; letter-spacing:2px; text-align:center; box-shadow:3px 3px 0 var(--blue);">GRAB IT ⭢</div>
+      </a><a href="#" data-cur="GRAB" style="text-decoration:none; color:var(--w); display:block; ">
+        <div style="position:relative; aspect-ratio:1/1; background:linear-gradient(135deg, var(--lime) 0%, var(--pink) 100%); border:2.5px solid var(--w); outline:3px solid #000; outline-offset:3px; box-shadow:6px 6px 0 var(--pink); padding:18px; overflow:hidden;">
+          <div style="position:absolute; top:10px; left:10px; font-family:'JetBrains Mono',monospace; font-size:9px; color:#000; letter-spacing:1.5px; background:rgba(255,255,255,.85); padding:3px 6px;">№002</div>
+          
+          <div style="position:absolute; inset:50% 18px auto 18px; transform:translateY(-50%); text-align:center;">
+            <div style="font-family:'Anton',sans-serif; font-size:48px; line-height:.85; color:#000; letter-spacing:-1px; text-shadow:2px 2px 0 #fff;">HOOD</div>
+            <div style="font-family:'Bungee',sans-serif; font-size:10px; color:#000; margin-top:8px; letter-spacing:2px;">[ PHOTO TBD ]</div>
+          </div>
+          <div style="position:absolute; bottom:10px; left:10px; right:10px; font-family:'JetBrains Mono',monospace; font-size:9px; color:#000; background:rgba(255,255,255,.85); padding:4px 8px; letter-spacing:1px;">EMBROIDERY · 320GSM</div>
+        </div>
+        <div style="padding:14px 4px 0; display:flex; justify-content:space-between; align-items:flex-start; gap:12px;">
+          <div><div style="font-family:'Anton',sans-serif; font-size:18px; line-height:1.05; letter-spacing:0; color:var(--w);">PENALTY HOODIE BLACK</div><div style="font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--blue); margin-top:4px; letter-spacing:1px;">HOOD</div></div>
+          <div style="font-family:'Bungee',sans-serif; font-size:14px; color:var(--lime); white-space:nowrap;">₩120,000</div>
+        </div>
+        <div style="margin-top:10px; padding:8px 12px; background:var(--pink); color:#fff; font-family:'Bungee',sans-serif; font-size:10px; letter-spacing:2px; text-align:center; box-shadow:3px 3px 0 var(--blue);">GRAB IT ⭢</div>
+      </a><a href="#" data-cur="GRAB" style="text-decoration:none; color:var(--w); display:block; ">
+        <div style="position:relative; aspect-ratio:1/1; background:linear-gradient(135deg, var(--blue) 0%, var(--lime) 100%); border:2.5px solid var(--w); outline:3px solid #000; outline-offset:3px; box-shadow:6px 6px 0 var(--pink); padding:18px; overflow:hidden;">
+          <div style="position:absolute; top:10px; left:10px; font-family:'JetBrains Mono',monospace; font-size:9px; color:#000; letter-spacing:1.5px; background:rgba(255,255,255,.85); padding:3px 6px;">№003</div>
+          <div style="position:absolute; top:10px; right:10px; font-family:'Bungee',sans-serif; font-size:8px; padding:4px 8px; background:#000; color:var(--lime); letter-spacing:1.5px;">★ LOW STOCK</div>
+          <div style="position:absolute; inset:50% 18px auto 18px; transform:translateY(-50%); text-align:center;">
+            <div style="font-family:'Anton',sans-serif; font-size:48px; line-height:.85; color:#000; letter-spacing:-1px; text-shadow:2px 2px 0 #fff;">CAP</div>
+            <div style="font-family:'Bungee',sans-serif; font-size:10px; color:#000; margin-top:8px; letter-spacing:2px;">[ PHOTO TBD ]</div>
+          </div>
+          <div style="position:absolute; bottom:10px; left:10px; right:10px; font-family:'JetBrains Mono',monospace; font-size:9px; color:#000; background:rgba(255,255,255,.85); padding:4px 8px; letter-spacing:1px;">MESH BACK · ADJUSTABLE</div>
+        </div>
+        <div style="padding:14px 4px 0; display:flex; justify-content:space-between; align-items:flex-start; gap:12px;">
+          <div><div style="font-family:'Anton',sans-serif; font-size:18px; line-height:1.05; letter-spacing:0; color:var(--w);">LSD CAP — RED</div><div style="font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--blue); margin-top:4px; letter-spacing:1px;">CAP</div></div>
+          <div style="font-family:'Bungee',sans-serif; font-size:14px; color:var(--lime); white-space:nowrap;">₩059,000</div>
+        </div>
+        <div style="margin-top:10px; padding:8px 12px; background:var(--pink); color:#fff; font-family:'Bungee',sans-serif; font-size:10px; letter-spacing:2px; text-align:center; box-shadow:3px 3px 0 var(--blue);">GRAB IT ⭢</div>
+      </a><a href="#" data-cur="GRAB" style="text-decoration:none; color:var(--w); display:block; ">
+        <div style="position:relative; aspect-ratio:1/1; background:linear-gradient(135deg, var(--pink) 0%, var(--lime) 100%); border:2.5px solid var(--w); outline:3px solid #000; outline-offset:3px; box-shadow:6px 6px 0 var(--pink); padding:18px; overflow:hidden;">
+          <div style="position:absolute; top:10px; left:10px; font-family:'JetBrains Mono',monospace; font-size:9px; color:#000; letter-spacing:1.5px; background:rgba(255,255,255,.85); padding:3px 6px;">№004</div>
+          <div style="position:absolute; top:10px; right:10px; font-family:'Bungee',sans-serif; font-size:8px; padding:4px 8px; background:#000; color:var(--lime); letter-spacing:1.5px;">★ LIMITED</div>
+          <div style="position:absolute; inset:50% 18px auto 18px; transform:translateY(-50%); text-align:center;">
+            <div style="font-family:'Anton',sans-serif; font-size:48px; line-height:.85; color:#000; letter-spacing:-1px; text-shadow:2px 2px 0 #fff;">MUSIC</div>
+            <div style="font-family:'Bungee',sans-serif; font-size:10px; color:#000; margin-top:8px; letter-spacing:2px;">[ PHOTO TBD ]</div>
+          </div>
+          <div style="position:absolute; bottom:10px; left:10px; right:10px; font-family:'JetBrains Mono',monospace; font-size:9px; color:#000; background:rgba(255,255,255,.85); padding:4px 8px; letter-spacing:1px;">DOUBLE LP · GOLD WAX</div>
+        </div>
+        <div style="padding:14px 4px 0; display:flex; justify-content:space-between; align-items:flex-start; gap:12px;">
+          <div><div style="font-family:'Anton',sans-serif; font-size:18px; line-height:1.05; letter-spacing:0; color:var(--w);">KDI WORLD VINYL LP</div><div style="font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--blue); margin-top:4px; letter-spacing:1px;">MUSIC</div></div>
+          <div style="font-family:'Bungee',sans-serif; font-size:14px; color:var(--lime); white-space:nowrap;">₩052,000</div>
+        </div>
+        <div style="margin-top:10px; padding:8px 12px; background:var(--pink); color:#fff; font-family:'Bungee',sans-serif; font-size:10px; letter-spacing:2px; text-align:center; box-shadow:3px 3px 0 var(--blue);">GRAB IT ⭢</div>
+      </a><a href="#" data-cur="GRAB" style="text-decoration:none; color:var(--w); display:block; ">
+        <div style="position:relative; aspect-ratio:1/1; background:linear-gradient(135deg, var(--lime) 0%, var(--pink) 100%); border:2.5px solid var(--w); outline:3px solid #000; outline-offset:3px; box-shadow:6px 6px 0 var(--pink); padding:18px; overflow:hidden;">
+          <div style="position:absolute; top:10px; left:10px; font-family:'JetBrains Mono',monospace; font-size:9px; color:#000; letter-spacing:1.5px; background:rgba(255,255,255,.85); padding:3px 6px;">№005</div>
+          
+          <div style="position:absolute; inset:50% 18px auto 18px; transform:translateY(-50%); text-align:center;">
+            <div style="font-family:'Anton',sans-serif; font-size:48px; line-height:.85; color:#000; letter-spacing:-1px; text-shadow:2px 2px 0 #fff;">PRINT</div>
+            <div style="font-family:'Bungee',sans-serif; font-size:10px; color:#000; margin-top:8px; letter-spacing:2px;">[ PHOTO TBD ]</div>
+          </div>
+          <div style="position:absolute; bottom:10px; left:10px; right:10px; font-family:'JetBrains Mono',monospace; font-size:9px; color:#000; background:rgba(255,255,255,.85); padding:4px 8px; letter-spacing:1px;">A1 · MATTE BLACK INK</div>
+        </div>
+        <div style="padding:14px 4px 0; display:flex; justify-content:space-between; align-items:flex-start; gap:12px;">
+          <div><div style="font-family:'Anton',sans-serif; font-size:18px; line-height:1.05; letter-spacing:0; color:var(--w);">THE FORBIDDEN TOUCH POSTER</div><div style="font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--blue); margin-top:4px; letter-spacing:1px;">PRINT</div></div>
+          <div style="font-family:'Bungee',sans-serif; font-size:14px; color:var(--lime); white-space:nowrap;">₩025,000</div>
+        </div>
+        <div style="margin-top:10px; padding:8px 12px; background:var(--pink); color:#fff; font-family:'Bungee',sans-serif; font-size:10px; letter-spacing:2px; text-align:center; box-shadow:3px 3px 0 var(--blue);">GRAB IT ⭢</div>
+      </a><a href="#" data-cur="GRAB" style="text-decoration:none; color:var(--w); display:block; ">
+        <div style="position:relative; aspect-ratio:1/1; background:linear-gradient(135deg, var(--blue) 0%, var(--pink) 100%); border:2.5px solid var(--w); outline:3px solid #000; outline-offset:3px; box-shadow:6px 6px 0 var(--pink); padding:18px; overflow:hidden;">
+          <div style="position:absolute; top:10px; left:10px; font-family:'JetBrains Mono',monospace; font-size:9px; color:#000; letter-spacing:1.5px; background:rgba(255,255,255,.85); padding:3px 6px;">№006</div>
+          <div style="position:absolute; top:10px; right:10px; font-family:'Bungee',sans-serif; font-size:8px; padding:4px 8px; background:#000; color:var(--lime); letter-spacing:1.5px;">★ PRE</div>
+          <div style="position:absolute; inset:50% 18px auto 18px; transform:translateY(-50%); text-align:center;">
+            <div style="font-family:'Anton',sans-serif; font-size:48px; line-height:.85; color:#000; letter-spacing:-1px; text-shadow:2px 2px 0 #fff;">MUSIC</div>
+            <div style="font-family:'Bungee',sans-serif; font-size:10px; color:#000; margin-top:8px; letter-spacing:2px;">[ PHOTO TBD ]</div>
+          </div>
+          <div style="position:absolute; bottom:10px; left:10px; right:10px; font-family:'JetBrains Mono',monospace; font-size:9px; color:#000; background:rgba(255,255,255,.85); padding:4px 8px; letter-spacing:1px;">C60 · NEON YELLOW</div>
+        </div>
+        <div style="padding:14px 4px 0; display:flex; justify-content:space-between; align-items:flex-start; gap:12px;">
+          <div><div style="font-family:'Anton',sans-serif; font-size:18px; line-height:1.05; letter-spacing:0; color:var(--w);">MYR BEAT TAPE CASSETTE</div><div style="font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--blue); margin-top:4px; letter-spacing:1px;">MUSIC</div></div>
+          <div style="font-family:'Bungee',sans-serif; font-size:14px; color:var(--lime); white-space:nowrap;">₩038,000</div>
+        </div>
+        <div style="margin-top:10px; padding:8px 12px; background:var(--pink); color:#fff; font-family:'Bungee',sans-serif; font-size:10px; letter-spacing:2px; text-align:center; box-shadow:3px 3px 0 var(--blue);">GRAB IT ⭢</div>
+      </a><a href="#" data-cur="GRAB" style="text-decoration:none; color:var(--w); display:block; ">
+        <div style="position:relative; aspect-ratio:1/1; background:linear-gradient(135deg, var(--pink) 0%, var(--blue) 100%); border:2.5px solid var(--w); outline:3px solid #000; outline-offset:3px; box-shadow:6px 6px 0 var(--pink); padding:18px; overflow:hidden;">
+          <div style="position:absolute; top:10px; left:10px; font-family:'JetBrains Mono',monospace; font-size:9px; color:#000; letter-spacing:1.5px; background:rgba(255,255,255,.85); padding:3px 6px;">№007</div>
+          
+          <div style="position:absolute; inset:50% 18px auto 18px; transform:translateY(-50%); text-align:center;">
+            <div style="font-family:'Anton',sans-serif; font-size:48px; line-height:.85; color:#000; letter-spacing:-1px; text-shadow:2px 2px 0 #fff;">GOOD</div>
+            <div style="font-family:'Bungee',sans-serif; font-size:10px; color:#000; margin-top:8px; letter-spacing:2px;">[ PHOTO TBD ]</div>
+          </div>
+          <div style="position:absolute; bottom:10px; left:10px; right:10px; font-family:'JetBrains Mono',monospace; font-size:9px; color:#000; background:rgba(255,255,255,.85); padding:4px 8px; letter-spacing:1px;">3 PCS · ENAMEL</div>
+        </div>
+        <div style="padding:14px 4px 0; display:flex; justify-content:space-between; align-items:flex-start; gap:12px;">
+          <div><div style="font-family:'Anton',sans-serif; font-size:18px; line-height:1.05; letter-spacing:0; color:var(--w);">JYS DEMON HOOK PIN SET</div><div style="font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--blue); margin-top:4px; letter-spacing:1px;">GOOD</div></div>
+          <div style="font-family:'Bungee',sans-serif; font-size:14px; color:var(--lime); white-space:nowrap;">₩022,000</div>
+        </div>
+        <div style="margin-top:10px; padding:8px 12px; background:var(--pink); color:#fff; font-family:'Bungee',sans-serif; font-size:10px; letter-spacing:2px; text-align:center; box-shadow:3px 3px 0 var(--blue);">GRAB IT ⭢</div>
+      </a><a href="#" data-cur="GRAB" style="text-decoration:none; color:var(--w); display:block; ">
+        <div style="position:relative; aspect-ratio:1/1; background:linear-gradient(135deg, var(--blue) 0%, var(--lime) 100%); border:2.5px solid var(--w); outline:3px solid #000; outline-offset:3px; box-shadow:6px 6px 0 var(--pink); padding:18px; overflow:hidden;">
+          <div style="position:absolute; top:10px; left:10px; font-family:'JetBrains Mono',monospace; font-size:9px; color:#000; letter-spacing:1.5px; background:rgba(255,255,255,.85); padding:3px 6px;">№008</div>
+          <div style="position:absolute; top:10px; right:10px; font-family:'Bungee',sans-serif; font-size:8px; padding:4px 8px; background:#000; color:var(--lime); letter-spacing:1.5px;">★ HOT</div>
+          <div style="position:absolute; inset:50% 18px auto 18px; transform:translateY(-50%); text-align:center;">
+            <div style="font-family:'Anton',sans-serif; font-size:48px; line-height:.85; color:#000; letter-spacing:-1px; text-shadow:2px 2px 0 #fff;">TEE</div>
+            <div style="font-family:'Bungee',sans-serif; font-size:10px; color:#000; margin-top:8px; letter-spacing:2px;">[ PHOTO TBD ]</div>
+          </div>
+          <div style="position:absolute; bottom:10px; left:10px; right:10px; font-family:'JetBrains Mono',monospace; font-size:9px; color:#000; background:rgba(255,255,255,.85); padding:4px 8px; letter-spacing:1px;">PUFF PRINT FRONT/BACK</div>
+        </div>
+        <div style="padding:14px 4px 0; display:flex; justify-content:space-between; align-items:flex-start; gap:12px;">
+          <div><div style="font-family:'Anton',sans-serif; font-size:18px; line-height:1.05; letter-spacing:0; color:var(--w);">LOADED TOUR LONGSLEEVE</div><div style="font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--blue); margin-top:4px; letter-spacing:1px;">TEE</div></div>
+          <div style="font-family:'Bungee',sans-serif; font-size:14px; color:var(--lime); white-space:nowrap;">₩075,000</div>
+        </div>
+        <div style="margin-top:10px; padding:8px 12px; background:var(--pink); color:#fff; font-family:'Bungee',sans-serif; font-size:10px; letter-spacing:2px; text-align:center; box-shadow:3px 3px 0 var(--blue);">GRAB IT ⭢</div>
+      </a><a href="#" data-cur="GRAB" style="text-decoration:none; color:var(--w); display:block; ">
+        <div style="position:relative; aspect-ratio:1/1; background:linear-gradient(135deg, var(--lime) 0%, var(--pink) 100%); border:2.5px solid var(--w); outline:3px solid #000; outline-offset:3px; box-shadow:6px 6px 0 var(--pink); padding:18px; overflow:hidden;">
+          <div style="position:absolute; top:10px; left:10px; font-family:'JetBrains Mono',monospace; font-size:9px; color:#000; letter-spacing:1.5px; background:rgba(255,255,255,.85); padding:3px 6px;">№009</div>
+          
+          <div style="position:absolute; inset:50% 18px auto 18px; transform:translateY(-50%); text-align:center;">
+            <div style="font-family:'Anton',sans-serif; font-size:48px; line-height:.85; color:#000; letter-spacing:-1px; text-shadow:2px 2px 0 #fff;">GOOD</div>
+            <div style="font-family:'Bungee',sans-serif; font-size:10px; color:#000; margin-top:8px; letter-spacing:2px;">[ PHOTO TBD ]</div>
+          </div>
+          <div style="position:absolute; bottom:10px; left:10px; right:10px; font-family:'JetBrains Mono',monospace; font-size:9px; color:#000; background:rgba(255,255,255,.85); padding:4px 8px; letter-spacing:1px;">REFILLABLE · ENGRAVED</div>
+        </div>
+        <div style="padding:14px 4px 0; display:flex; justify-content:space-between; align-items:flex-start; gap:12px;">
+          <div><div style="font-family:'Anton',sans-serif; font-size:18px; line-height:1.05; letter-spacing:0; color:var(--w);">KDI RECORDS LIGHTER</div><div style="font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--blue); margin-top:4px; letter-spacing:1px;">GOOD</div></div>
+          <div style="font-family:'Bungee',sans-serif; font-size:14px; color:var(--lime); white-space:nowrap;">₩008,000</div>
+        </div>
+        <div style="margin-top:10px; padding:8px 12px; background:var(--pink); color:#fff; font-family:'Bungee',sans-serif; font-size:10px; letter-spacing:2px; text-align:center; box-shadow:3px 3px 0 var(--blue);">GRAB IT ⭢</div>
+      </a><a href="#" data-cur="GRAB" style="text-decoration:none; color:var(--w); display:block; opacity:.55;">
+        <div style="position:relative; aspect-ratio:1/1; background:linear-gradient(135deg, var(--pink) 0%, var(--blue) 100%); border:2.5px solid var(--w); outline:3px solid #000; outline-offset:3px; box-shadow:6px 6px 0 var(--pink); padding:18px; overflow:hidden;">
+          <div style="position:absolute; top:10px; left:10px; font-family:'JetBrains Mono',monospace; font-size:9px; color:#000; letter-spacing:1.5px; background:rgba(255,255,255,.85); padding:3px 6px;">№010</div>
+          <div style="position:absolute; top:10px; right:10px; font-family:'Bungee',sans-serif; font-size:8px; padding:4px 8px; background:#000; color:var(--lime); letter-spacing:1.5px;">★ SOLD</div>
+          <div style="position:absolute; inset:50% 18px auto 18px; transform:translateY(-50%); text-align:center;">
+            <div style="font-family:'Anton',sans-serif; font-size:48px; line-height:.85; color:#000; letter-spacing:-1px; text-shadow:2px 2px 0 #fff;">GOOD</div>
+            <div style="font-family:'Bungee',sans-serif; font-size:10px; color:#000; margin-top:8px; letter-spacing:2px;">[ PHOTO TBD ]</div>
+          </div>
+          <div style="position:absolute; bottom:10px; left:10px; right:10px; font-family:'JetBrains Mono',monospace; font-size:9px; color:#000; background:rgba(255,255,255,.85); padding:4px 8px; letter-spacing:1px;">100% COTTON · 55×55</div>
+        </div>
+        <div style="padding:14px 4px 0; display:flex; justify-content:space-between; align-items:flex-start; gap:12px;">
+          <div><div style="font-family:'Anton',sans-serif; font-size:18px; line-height:1.05; letter-spacing:0; color:var(--w);">BLOOD-RED BANDANA</div><div style="font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--blue); margin-top:4px; letter-spacing:1px;">GOOD</div></div>
+          <div style="font-family:'Bungee',sans-serif; font-size:14px; color:var(--lime); white-space:nowrap;">₩015,000</div>
+        </div>
+        <div style="margin-top:10px; padding:8px 12px; background:#1a1a2a; color:var(--dim); font-family:'Bungee',sans-serif; font-size:10px; letter-spacing:2px; text-align:center; box-shadow:none;">SOLD OUT</div>
+      </a>
+  </div>
+  <div class="rv" style="margin-top:60px; padding:28px; background:#000; border:2px solid var(--lime); box-shadow:8px 8px 0 var(--pink); display:grid; grid-template-columns:1fr auto; gap:24px; align-items:center;">
+    <div>
+      <div style="font-family:'Bungee',sans-serif; font-size:11px; letter-spacing:3px; color:var(--lime); margin-bottom:8px;">// VIP DROP LIST</div>
+      <div style="font-family:'Anton',sans-serif; font-size:32px; color:var(--w); letter-spacing:-1px; text-shadow:2px 2px 0 var(--pink);">신상 떨어지면 가장 먼저 알려드림</div>
+      <div style="font-family:'Inter',sans-serif; font-weight:600; font-size:13px; color:var(--dim); margin-top:8px;">이메일만 적으세요. 광고 메일 안 보냅니다. 신상 알람만 갑니다.</div>
+    </div>
+    <a href="contact.html" data-cur="JOIN" style="text-decoration:none; padding:18px 28px; background:var(--lime); color:#000; font-family:'Bungee',sans-serif; font-size:14px; letter-spacing:2px; box-shadow:6px 6px 0 var(--pink); white-space:nowrap;">JOIN ★ FREE</a>
+  </div>
+</div>
+<footer class="site-footer">
+  <div class="ft-mega">SEE YOU<br/>SOON ★</div>
+  <div class="ft-grid">
+    <div><div class="ft-tag">// LABEL</div><div class="ft-logo">KDI</div><div class="ft-tag-line">creative hip-hop label · est 2024<br/>3 demons · 1 empire</div></div>
+    <div><div class="ft-tag">// EXPLORE</div><div class="ft-links">
+      <a href="index.html">HOME</a><a href="about.html">ABOUT</a><a href="kdi.html">KDI</a>
+      <a href="jys.html">JYS</a><a href="myr.html">MYR</a></div></div>
+    <div><div class="ft-tag">// CONTENTS</div><div class="ft-links">
+      <a href="news.html">NEWS</a><a href="shop.html">SHOP</a><a href="schedule.html">LIVE</a>
+      <a href="contact.html">CONTACT</a></div></div>
+    <div><div class="ft-tag">// SOCIAL</div><div class="ft-links">
+      <a href="#" target="_blank">INSTAGRAM</a>
+      <a href="#" target="_blank">YOUTUBE</a>
+      <a href="#" target="_blank">SOUNDCLOUD</a></div></div>
+  </div>
+  <div class="ft-bottom"><span>© 2026 <span style="color:var(--pink)">KDI</span> · ALL RIGHTS RESERVED</span><span>SEOUL · OMOKCHEON · JOWON · SERYU</span><span>VOL.01 — Y2K EDITION</span></div>
+</footer>
+<div id="player">
+  <div class="vinyl-wrap" onclick="togglePlay()" data-cur="PLAY">
+    <div class="vinyl-disc" id="vinylDisc"></div>
+    <svg class="vinyl-prog" viewBox="0 0 64 64"><circle cx="32" cy="32" r="27"/><circle class="fill" cx="32" cy="32" r="27"/></svg>
+  </div>
+  <div class="pl-info" onclick="togglePlay()">
+    <div class="pl-track" id="plTrack">JEFF HARDY</div>
+    <div class="pl-status" id="plStatus"><span class="blink-dot"></span><span id="plStatusText">PRESS TO PLAY</span></div>
+    <div class="pl-time" id="plTime">00:00 / --:--</div>
+  </div>
+  <div class="pl-controls"><div class="pl-skip" onclick="prevTrack()" data-cur="PREV">◀</div><div class="pl-skip" onclick="nextTrack()" data-cur="NEXT">▶</div></div>
+  <div class="eq"><div class="eq-b off"></div><div class="eq-b off"></div><div class="eq-b off"></div><div class="eq-b off"></div></div>
+</div>
+<script src="v1-shared.js"></script>
+<script>
+/* SHOP 동적 렌더 — data/shop.json */
+(async function () {
+  const list = document.getElementById('shop-list');
+  if (!list) return;
+  let data = [];
+  try { const r = await fetch('data/shop.json', { cache: 'no-store' }); if (r.ok) data = await r.json(); } catch (_) {}
+  if (!Array.isArray(data) || !data.length) return;
+  const ESC = s => String(s == null ? '' : s).replace(/[<>&"']/g, c => ({'<':'&lt;','>':'&gt;','&':'&amp;','"':'&quot;',"'":'&#39;'}[c]));
+  const GRADIENTS = [
+    ['var(--pink)', 'var(--blue)'],
+    ['var(--lime)', 'var(--pink)'],
+    ['var(--blue)', 'var(--lime)'],
+    ['var(--pink)', 'var(--lime)'],
+  ];
+  const STATUS_BG = {
+    'HOT': { bg:'#000', color:'var(--lime)' },
+    'LOW STOCK': { bg:'#000', color:'var(--pink)' },
+    'LIMITED': { bg:'var(--lime)', color:'#000' },
+    'PRE-ORDER': { bg:'var(--blue)', color:'#000' },
+    'SOLD OUT': { bg:'#1a1a2a', color:'var(--dim)' },
+    'ON SALE': { bg:'#000', color:'var(--blue)' },
+  };
+
+  list.innerHTML = data.map((it, i) => {
+    const g = GRADIENTS[i % GRADIENTS.length];
+    const s = STATUS_BG[(it.status || '').toUpperCase()] || STATUS_BG['ON SALE'];
+    const soldOut = (it.status || '').toUpperCase() === 'SOLD OUT';
+    return `<a href="#" data-cur="GRAB" style="text-decoration:none; color:var(--w); display:block; ${soldOut ? 'opacity:.5;' : ''}">
+      <div style="position:relative; aspect-ratio:1/1; background:linear-gradient(135deg, ${g[0]} 0%, ${g[1]} 100%); border:2.5px solid var(--w); outline:3px solid #000; outline-offset:3px; box-shadow:6px 6px 0 var(--pink); padding:18px; overflow:hidden;">
+        <div style="position:absolute; top:10px; left:10px; font-family:'JetBrains Mono',monospace; font-size:9px; color:#000; letter-spacing:1.5px; background:rgba(255,255,255,.85); padding:3px 6px;">№${ESC(it.number)}</div>
+        <div style="position:absolute; top:10px; right:10px; font-family:'Bungee',sans-serif; font-size:8px; padding:4px 8px; background:${s.bg}; color:${s.color}; letter-spacing:1.5px;">${ESC(it.status)}</div>
+        ${it.image ? `<img src="${ESC(it.image)}" alt="${ESC(it.name)}" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover;"/>` : `<div style="position:absolute; inset:50% 18px auto 18px; transform:translateY(-50%); text-align:center;">
+          <div style="font-family:'Anton',sans-serif; font-size:48px; line-height:.85; color:#000; letter-spacing:-1px; text-shadow:2px 2px 0 #fff;">${ESC(it.type)}</div>
+          <div style="font-family:'Bungee',sans-serif; font-size:10px; color:#000; margin-top:8px; letter-spacing:2px;">[ PHOTO TBD ]</div>
+        </div>`}
+        <div style="position:absolute; bottom:10px; left:10px; right:10px; font-family:'JetBrains Mono',monospace; font-size:9px; color:#000; background:rgba(255,255,255,.85); padding:4px 8px; letter-spacing:1px;">${ESC(it.specs)}</div>
+      </div>
+      <div style="padding:12px 4px;">
+        <div style="font-family:'Bungee',sans-serif; font-size:13px; color:var(--w); letter-spacing:1px; line-height:1.2;">${ESC(it.name)}</div>
+        <div style="margin-top:6px; display:flex; justify-content:space-between; align-items:center;">
+          <div style="font-family:'Anton',sans-serif; font-size:20px; color:var(--lime); letter-spacing:0;">₩${ESC(it.price)}</div>
+        </div>
+      </div>
+    </a>`;
+  }).join('');
+
+  const stat = document.querySelector('.shop-stat-all');
+  if (stat) stat.textContent = `ALL ${String(data.length).padStart(2,'0')}`;
+})();
+</script>
+</body></html>

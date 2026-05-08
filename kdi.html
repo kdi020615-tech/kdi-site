@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>KDI / KDI — TRAP GOD</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&family=Black+Han+Sans&family=Bungee&family=Archivo+Black&family=Anton&display=swap" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css" rel="stylesheet">
+<link href="v1-shared.css" rel="stylesheet">
+<script src="mobile-gate.js"></script></head><body>
+<div class="bg-stars"></div>
+<div class="cur"></div><div class="cur-ring"></div><div class="cur-label">★</div>
+<audio id="audio" loop preload="metadata"><source src="main-bgm.mp3" type="audio/mpeg"/></audio>
+<nav class="site-nav">
+  <a href="index.html" class="nav-logo">KDI★</a>
+  <div class="nav-time"><span class="dot"></span><span id="navClock">KR · 00:00:00</span></div>
+  <ul class="nav-links">
+    <li><a href="index.html">HOME</a></li>
+    <li><a href="artist.html">ARTIST</a></li><li><a href="about.html">ABOUT</a></li>
+    <li><a href="news.html">NEWS</a></li>
+    <li><a href="shop.html">SHOP</a></li>
+    <li><a href="schedule.html">LIVE</a></li>
+    <li><a href="contact.html">CONTACT</a></li>
+  </ul>
+  <div class="hamburger" id="hb"><span></span><span></span><span></span></div>
+</nav>
+<div class="mobile-menu" id="mm">
+  <a href="index.html">HOME</a><a href="artist.html">ARTIST</a><a href="about.html">ABOUT</a><a href="news.html">NEWS</a>
+  <a href="shop.html">SHOP</a><a href="schedule.html">LIVE</a><a href="contact.html">CONTACT</a>
+</div>
+<header class="page-head" style="padding-bottom:40px;">
+  <div class="ph-bg-num">001</div>
+  <div class="ph-eyebrow"><span class="pink">●</span><span>FILE / 001</span><span>—</span><span>MEMBER · TRAP GOD</span><span class="lime blink">▮</span></div>
+  <h1 class="ph-title" style="font-size:clamp(80px, 14vw, 220px);">KDI</h1>
+  <div class="ph-sub">KILLA DA ILLA · 케이디아이</div>
+</header>
+
+<section style="padding:40px 32px 60px; max-width:1280px; margin:0 auto;">
+  <div class="rv" style="display:grid; grid-template-columns:1fr 1.2fr; gap:48px; align-items:start;">
+    <div>
+      <div style="aspect-ratio:3/4; background:linear-gradient(135deg, var(--pink) 0%, var(--blue) 100%); border:3px solid var(--w); outline:3px solid #000; outline-offset:4px; box-shadow:10px 10px 0 var(--pink), 20px 20px 0 var(--blue); display:flex; align-items:center; justify-content:center; position:relative; overflow:hidden;">
+        <video class="portrait-video" autoplay muted loop playsinline preload="metadata">
+          <source src="hf_20260409_180125_cb4da553-be48-4c13-ba53-e6e592c5268e.mp4" type="video/mp4">
+        </video>
+        <div class="portrait-video-overlay"></div>
+        <div style="position:absolute; top:14px; left:14px; font-family:'JetBrains Mono',monospace; font-size:10px; background:#000; color:var(--lime); padding:4px 8px; letter-spacing:1.5px; z-index:2;">VIDEO · 001</div>
+        <div style="position:absolute; top:14px; right:14px; font-family:'Bungee',sans-serif; font-size:9px; background:#fff; color:#000; padding:4px 8px; letter-spacing:1.5px; z-index:2;">★ MEMBER</div>
+        <div style="position:absolute; bottom:14px; left:14px; right:14px; display:flex; justify-content:space-between; font-family:'JetBrains Mono',monospace; font-size:10px; color:#fff; z-index:2;">
+          <span style="background:rgba(0,0,0,.7); padding:4px 8px;">FILE №001</span>
+          <span style="background:rgba(0,0,0,.7); padding:4px 8px;">2026</span>
+        </div>
+      </div>
+      <div style="display:grid; grid-template-columns:repeat(3, 1fr); gap:10px; margin-top:18px;">
+        <div style="padding:14px; background:#000; border:2px solid var(--pink); text-align:center;"><div style="font-family:'Anton',sans-serif; font-size:32px; line-height:1; color:var(--pink);">7</div><div style="font-family:'JetBrains Mono',monospace; font-size:9px; color:var(--dim); margin-top:4px; letter-spacing:1.5px;">GOLD</div></div><div style="padding:14px; background:#000; border:2px solid var(--blue); text-align:center;"><div style="font-family:'Anton',sans-serif; font-size:32px; line-height:1; color:var(--blue);">200K</div><div style="font-family:'JetBrains Mono',monospace; font-size:9px; color:var(--dim); margin-top:4px; letter-spacing:1.5px;">MAX CROWD</div></div><div style="padding:14px; background:#000; border:2px solid var(--lime); text-align:center;"><div style="font-family:'Anton',sans-serif; font-size:32px; line-height:1; color:var(--lime);">11</div><div style="font-family:'JetBrains Mono',monospace; font-size:9px; color:var(--dim); margin-top:4px; letter-spacing:1.5px;">BANGERS</div></div>
+      </div>
+    </div>
+    
+    <div>
+      <div style="font-family:'Bungee',sans-serif; font-size:12px; letter-spacing:3px; color:var(--lime); margin-bottom:14px;">// PROFILE</div>
+      <div style="display:grid; grid-template-columns:auto 1fr; gap:14px 24px; font-family:'JetBrains Mono',monospace; font-size:13px; padding:20px; background:rgba(255,43,214,.06); border:2px dashed var(--pink); margin-bottom:24px;">
+        <div style="color:var(--blue);">CODENAME ▸</div><div style="color:var(--w);">TRAP GOD</div>
+        <div style="color:var(--blue);">REAL NAME ▸</div><div style="color:var(--w);">케이디아이 / KILLA DA ILLA</div>
+        <div style="color:var(--blue);">AGE ▸</div><div style="color:var(--w);">24</div>
+        <div style="color:var(--blue);">BORN ▸</div><div style="color:var(--w);">2002 · 세류</div>
+        <div style="color:var(--blue);">ROLE ▸</div><div style="display:flex; gap:6px; flex-wrap:wrap;"><span style="font-family:'Bungee',sans-serif; font-size:9px; padding:3px 8px; background:#000; border:1px solid var(--pink); color:var(--pink); letter-spacing:1.5px;">VOCAL</span><span style="font-family:'Bungee',sans-serif; font-size:9px; padding:3px 8px; background:#000; border:1px solid var(--pink); color:var(--pink); letter-spacing:1.5px;">RAPPER</span><span style="font-family:'Bungee',sans-serif; font-size:9px; padding:3px 8px; background:#000; border:1px solid var(--pink); color:var(--pink); letter-spacing:1.5px;">PRODUCER</span><span style="font-family:'Bungee',sans-serif; font-size:9px; padding:3px 8px; background:#000; border:1px solid var(--pink); color:var(--pink); letter-spacing:1.5px;">LABEL CEO</span></div>
+        <div style="color:var(--blue);">STATUS ▸</div><div style="color:var(--lime);"><span class="blink">●</span> LOADED</div>
+      </div>
+      
+      <div style="padding:24px; background:#000; border:2.5px solid var(--w); box-shadow:6px 6px 0 var(--pink); margin-bottom:24px; position:relative;">
+        <div style="position:absolute; top:-12px; left:14px; background:#000; padding:0 8px; font-family:'Bungee',sans-serif; font-size:10px; color:var(--lime); letter-spacing:2px;">★ DIRECT QUOTE</div>
+        <div style="font-family:'Anton',sans-serif; font-size:clamp(20px, 2.6vw, 30px); line-height:1.2; letter-spacing:-.5px; color:var(--w); text-shadow:2px 2px 0 var(--pink); word-break:keep-all;">"법보다 비트, 비트보다 무브. 그러니까 결국 무브가 짱이다."</div>
+        <div style="margin-top:14px; font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--dim); letter-spacing:1.5px;">— KDI, 2026 INTERVIEW</div>
+      </div>
+      
+      <div style="font-family:'Bungee',sans-serif; font-size:12px; letter-spacing:3px; color:var(--lime); margin-bottom:14px;">// BIO</div>
+      <p style="font-family:'Inter',sans-serif; font-weight:600; font-size:16px; line-height:1.7; color:var(--w); word-break:keep-all;">17세 학교 그만두고 작업실 텐트에서 침낭. 19세 데뷔 앨범 MOSTKILLER, 22세 KDI WORLD로 한국힙합 골드. 2024년 KDI Records를 차려 JYS·MYR을 합류시킴. 자칭 한국발 트랩 갓.</p>
+    </div>
+  </div>
+</section>
+
+<section style="padding:40px 32px 60px; max-width:1280px; margin:0 auto;">
+  <div class="rv" style="display:flex; align-items:baseline; justify-content:space-between; border-top:2px dashed var(--blue); padding-top:32px; margin-bottom:24px;">
+    <div style="font-family:'Bungee',sans-serif; font-size:12px; letter-spacing:3px; color:var(--lime);">// STORY</div>
+    <div style="font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--dim);">FILE · 01 — KDI</div>
+  </div>
+
+  <div class="rv" style="display:grid; grid-template-columns:repeat(4, 1fr); gap:14px; margin-bottom:32px;">
+    <div style="padding:20px 14px; background:#000; border:2.5px solid var(--pink); outline:3px solid #000; outline-offset:3px; box-shadow:5px 5px 0 var(--pink); text-align:center;">
+      <div style="font-family:'Anton',sans-serif; font-size:clamp(28px,4vw,48px); line-height:1; color:var(--pink);">2002</div>
+      <div style="font-family:'JetBrains Mono',monospace; font-size:10px; color:var(--dim); margin-top:6px; letter-spacing:1.5px;">BORN</div>
+    </div>
+    <div style="padding:20px 14px; background:#000; border:2.5px solid var(--blue); outline:3px solid #000; outline-offset:3px; box-shadow:5px 5px 0 var(--blue); text-align:center;">
+      <div style="font-family:'Anton',sans-serif; font-size:clamp(28px,4vw,48px); line-height:1; color:var(--blue);">04</div>
+      <div style="font-family:'JetBrains Mono',monospace; font-size:10px; color:var(--dim); margin-top:6px; letter-spacing:1.5px;">ALBUMS</div>
+    </div>
+    <div style="padding:20px 14px; background:#000; border:2.5px solid var(--lime); outline:3px solid #000; outline-offset:3px; box-shadow:5px 5px 0 var(--lime); text-align:center;">
+      <div style="font-family:'Anton',sans-serif; font-size:clamp(28px,4vw,48px); line-height:1; color:var(--lime);">200K</div>
+      <div style="font-family:'JetBrains Mono',monospace; font-size:10px; color:var(--dim); margin-top:6px; letter-spacing:1.5px;">LIVE AUDIENCE</div>
+    </div>
+    <div style="padding:20px 14px; background:#000; border:2.5px solid var(--pink); outline:3px solid #000; outline-offset:3px; box-shadow:5px 5px 0 var(--pink); text-align:center;">
+      <div style="font-family:'Anton',sans-serif; font-size:clamp(28px,4vw,48px); line-height:1; color:var(--pink);">∞</div>
+      <div style="font-family:'JetBrains Mono',monospace; font-size:10px; color:var(--dim); margin-top:6px; letter-spacing:1.5px;">EMPIRE</div>
+    </div>
+  </div>
+
+  <div class="rv" style="display:grid; gap:18px; margin-bottom:32px;">
+    <p style="font-family:'Pretendard',sans-serif; font-weight:500; font-size:16px; line-height:1.85; color:var(--w); word-break:keep-all;">2002년생이라는 어린 나이에 힙합 씬에 도전장을 내민 KDI는 2019년, 자신의 정체성을 투영한 첫 앨범 <em style="color:var(--pink); font-style:normal; font-weight:700;">[mostkiller]</em>를 통해 대담한 출사표를 던졌다. 비록 당시 대중의 즉각적인 선택을 받지는 못했으나, 이는 훗날 그가 구축할 거대한 음악 세계의 단단한 밑거름이 되었다. 이후 발표한 <em style="color:var(--pink); font-style:normal; font-weight:700;">[Blah Blah]</em>와 <em style="color:var(--pink); font-style:normal; font-weight:700;">[바름바이오랩]</em>을 통해 그는 끊임없는 사운드 실험과 장르적 변주를 시도했으며, 이러한 '성장통'의 과정은 그를 단순한 래퍼를 넘어선 완성형 아티스트로 진화시켰다.</p>
+    <p style="font-family:'Pretendard',sans-serif; font-weight:500; font-size:16px; line-height:1.85; color:var(--w); word-break:keep-all;">KDI의 음악적 잠재력은 싱글 <em style="color:var(--blue); font-style:normal; font-weight:700;">[KDI FLOW]</em>에서 폭발했다. 청각을 압도하는 특유의 그루브와 독창적인 플로우는 리스너들의 시선을 단숨에 사로잡았으며, 이때부터 그의 커리어는 유례없는 급상승 곡선을 그리기 시작했다. 특히 세계적인 스트리머 <em style="color:var(--blue); font-style:normal; font-weight:700;">아이쇼스피드(IShowSpeed)</em>의 라이브 방송에 출연, <em style="color:var(--lime); font-style:normal; font-weight:700;">20만 명의 실시간 시청자</em> 앞에서 압도적인 아우라를 뿜어내며 글로벌 팬덤에게 자신의 존재감을 각인시켰다.</p>
+    <p style="font-family:'Pretendard',sans-serif; font-weight:500; font-size:16px; line-height:1.85; color:var(--w); word-break:keep-all;">2024년, KDI는 자신의 커리어를 집대성한 명반 <em style="color:var(--lime); font-style:normal; font-weight:700;">[KDI WORLD]</em>를 발표하며 힙합 씬의 판도를 완전히 바꿨다. 이 앨범은 평단과 대중으로부터 "KDI가 구축한 완벽한 음악적 유토피아"라는 극찬을 이끌어냈으며, 전곡 프로듀싱과 디렉팅을 진두지휘한 그의 역량은 그를 '사장'이자 '아티스트'로서 완벽한 위치에 올려놓았다.</p>
+    <p style="font-family:'Pretendard',sans-serif; font-weight:500; font-size:16px; line-height:1.85; color:var(--w); word-break:keep-all;">현재 KDI는 자신의 크루를 이끄는 경영자로서의 냉철함과, 마이크 앞에서의 뜨거운 예술성을 동시에 보유한 대체 불가능한 아이콘으로 자리매김했다. 그는 이제 국내를 넘어 글로벌 시장이 주목하는 <em style="color:var(--pink); font-style:normal; font-weight:700;">'차세대 힙합 엠파이어의 설계자'</em>로서 한 발 더 나아갈 준비를 마쳤다.</p>
+  </div>
+
+  <div class="rv" style="padding:32px 28px; background:#000; border:3px solid var(--lime); outline:3px solid #000; outline-offset:3px; box-shadow:8px 8px 0 var(--blue); position:relative;">
+    <div style="position:absolute; top:-12px; left:14px; background:#000; padding:0 8px; font-family:'Bungee',sans-serif; font-size:10px; color:var(--pink); letter-spacing:2px;">★ STATEMENT</div>
+    <div style="font-family:'Anton',sans-serif; font-size:clamp(22px, 3vw, 36px); line-height:1.25; color:var(--w); text-shadow:3px 3px 0 var(--pink); word-break:keep-all;">"뜻을 정하는 순간 그건 '정의'가 되지만, 우린 원래 정의롭지 못하니까."</div>
+    <div style="margin-top:14px; font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--lime); letter-spacing:1.5px;">— KDI</div>
+  </div>
+</section>
+
+<section style="padding:40px 32px 60px; max-width:1280px; margin:0 auto;">
+  <div class="rv" style="display:flex; align-items:baseline; justify-content:space-between; border-top:2px dashed var(--pink); padding-top:32px; margin-bottom:24px;">
+    <div style="font-family:'Bungee',sans-serif; font-size:12px; letter-spacing:3px; color:var(--lime);">// DISCOGRAPHY</div>
+    <div style="font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--dim);">5 RELEASES</div>
+  </div>
+  <div class="rv" style="display:grid; grid-template-columns:repeat(auto-fill, minmax(220px, 1fr)); gap:20px;">
+    <div style="position:relative; aspect-ratio:1/1; background:linear-gradient(135deg, var(--pink) 0%, #000 100%); border:2.5px solid var(--w); outline:3px solid #000; outline-offset:3px; padding:18px; box-shadow:5px 5px 0 var(--pink); display:flex; flex-direction:column; justify-content:space-between;">
+        <div style="display:flex; justify-content:space-between; font-family:'JetBrains Mono',monospace; font-size:10px;">
+          <span style="background:#000; color:var(--lime); padding:3px 6px; letter-spacing:1.5px;">2019</span>
+          <span style="background:#fff; color:#000; padding:3px 6px; letter-spacing:1.5px;">LP</span>
+        </div>
+        <div>
+          <div style="font-family:'Anton',sans-serif; font-size:24px; line-height:1; color:#000; letter-spacing:0; text-shadow:2px 2px 0 #fff;">MOSTKILLER</div>
+          <div style="font-family:'Bungee',sans-serif; font-size:9px; color:#fff; margin-top:6px; letter-spacing:2px;">▶ PLAY · ⭢ INFO</div>
+        </div>
+      </div><div style="position:relative; aspect-ratio:1/1; background:linear-gradient(135deg, var(--blue) 0%, #000 100%); border:2.5px solid var(--w); outline:3px solid #000; outline-offset:3px; padding:18px; box-shadow:5px 5px 0 var(--pink); display:flex; flex-direction:column; justify-content:space-between;">
+        <div style="display:flex; justify-content:space-between; font-family:'JetBrains Mono',monospace; font-size:10px;">
+          <span style="background:#000; color:var(--lime); padding:3px 6px; letter-spacing:1.5px;">2021</span>
+          <span style="background:#fff; color:#000; padding:3px 6px; letter-spacing:1.5px;">EP</span>
+        </div>
+        <div>
+          <div style="font-family:'Anton',sans-serif; font-size:24px; line-height:1; color:#000; letter-spacing:0; text-shadow:2px 2px 0 #fff;">BLAH BLAH</div>
+          <div style="font-family:'Bungee',sans-serif; font-size:9px; color:#fff; margin-top:6px; letter-spacing:2px;">▶ PLAY · ⭢ INFO</div>
+        </div>
+      </div><div style="position:relative; aspect-ratio:1/1; background:linear-gradient(135deg, var(--lime) 0%, #000 100%); border:2.5px solid var(--w); outline:3px solid #000; outline-offset:3px; padding:18px; box-shadow:5px 5px 0 var(--pink); display:flex; flex-direction:column; justify-content:space-between;">
+        <div style="display:flex; justify-content:space-between; font-family:'JetBrains Mono',monospace; font-size:10px;">
+          <span style="background:#000; color:var(--lime); padding:3px 6px; letter-spacing:1.5px;">2021</span>
+          <span style="background:#fff; color:#000; padding:3px 6px; letter-spacing:1.5px;">LP</span>
+        </div>
+        <div>
+          <div style="font-family:'Anton',sans-serif; font-size:24px; line-height:1; color:#000; letter-spacing:0; text-shadow:2px 2px 0 #fff;">바름바이오랩</div>
+          <div style="font-family:'Bungee',sans-serif; font-size:9px; color:#fff; margin-top:6px; letter-spacing:2px;">▶ PLAY · ⭢ INFO</div>
+        </div>
+      </div><div style="position:relative; aspect-ratio:1/1; background:linear-gradient(135deg, var(--pink) 0%, #000 100%); border:2.5px solid var(--w); outline:3px solid #000; outline-offset:3px; padding:18px; box-shadow:5px 5px 0 var(--pink); display:flex; flex-direction:column; justify-content:space-between;">
+        <div style="display:flex; justify-content:space-between; font-family:'JetBrains Mono',monospace; font-size:10px;">
+          <span style="background:#000; color:var(--lime); padding:3px 6px; letter-spacing:1.5px;">2023</span>
+          <span style="background:#fff; color:#000; padding:3px 6px; letter-spacing:1.5px;">SGL</span>
+        </div>
+        <div>
+          <div style="font-family:'Anton',sans-serif; font-size:24px; line-height:1; color:#000; letter-spacing:0; text-shadow:2px 2px 0 #fff;">KDI FLOW</div>
+          <div style="font-family:'Bungee',sans-serif; font-size:9px; color:#fff; margin-top:6px; letter-spacing:2px;">▶ PLAY · ⭢ INFO</div>
+        </div>
+      </div><div style="position:relative; aspect-ratio:1/1; background:linear-gradient(135deg, var(--blue) 0%, #000 100%); border:2.5px solid var(--w); outline:3px solid #000; outline-offset:3px; padding:18px; box-shadow:5px 5px 0 var(--pink); display:flex; flex-direction:column; justify-content:space-between;">
+        <div style="display:flex; justify-content:space-between; font-family:'JetBrains Mono',monospace; font-size:10px;">
+          <span style="background:#000; color:var(--lime); padding:3px 6px; letter-spacing:1.5px;">2024</span>
+          <span style="background:#fff; color:#000; padding:3px 6px; letter-spacing:1.5px;">LP</span>
+        </div>
+        <div>
+          <div style="font-family:'Anton',sans-serif; font-size:24px; line-height:1; color:#000; letter-spacing:0; text-shadow:2px 2px 0 #fff;">KDI WORLD</div>
+          <div style="font-family:'Bungee',sans-serif; font-size:9px; color:#fff; margin-top:6px; letter-spacing:2px;">▶ PLAY · ⭢ INFO</div>
+        </div>
+      </div>
+  </div>
+</section>
+
+<section style="padding:40px 32px 60px; max-width:1280px; margin:0 auto;">
+  <div class="rv" style="display:flex; align-items:baseline; justify-content:space-between; border-top:2px dashed var(--pink); padding-top:32px; margin-bottom:24px;">
+    <div style="font-family:'Bungee',sans-serif; font-size:12px; letter-spacing:3px; color:var(--lime);">// VIDEOS</div>
+    <div style="font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--dim);">WATCH · 3</div>
+  </div>
+  <div class="rv" style="display:grid; grid-template-columns:repeat(auto-fit, minmax(280px, 1fr)); gap:18px;">
+    <div style="background:#000; border:2.5px solid var(--w); outline:3px solid #000; outline-offset:3px; box-shadow:5px 5px 0 var(--pink); aspect-ratio:16/9; overflow:hidden;">
+      <iframe src="https://www.youtube.com/embed/MW_gyzK88bk?rel=0" style="width:100%; height:100%; border:0; display:block;" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    </div>
+    <div style="background:#000; border:2.5px solid var(--w); outline:3px solid #000; outline-offset:3px; box-shadow:5px 5px 0 var(--blue); aspect-ratio:16/9; overflow:hidden;">
+      <iframe src="https://www.youtube.com/embed/MtwgWnDKviw?rel=0" style="width:100%; height:100%; border:0; display:block;" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    </div>
+    <div style="background:#000; border:2.5px solid var(--w); outline:3px solid #000; outline-offset:3px; box-shadow:5px 5px 0 var(--lime); aspect-ratio:16/9; overflow:hidden;">
+      <iframe src="https://www.youtube.com/embed/Ct2gjY5TdxA?rel=0" style="width:100%; height:100%; border:0; display:block;" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    </div>
+  </div>
+</section>
+
+<section style="padding:40px 32px 60px; max-width:1280px; margin:0 auto;">
+  <div class="rv" style="display:flex; align-items:baseline; justify-content:space-between; border-top:2px dashed var(--lime); padding-top:32px; margin-bottom:24px;">
+    <div style="font-family:'Bungee',sans-serif; font-size:12px; letter-spacing:3px; color:var(--lime);">// TRACKS</div>
+    <div style="font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--dim);">4 SONGS</div>
+  </div>
+  <div class="rv" style="display:grid; gap:12px;">
+    <div onclick="window.kdiPlay&&window.kdiPlay('kdi-track2.mp3','KDI FLOW')" data-cur="PLAY" style="display:grid; grid-template-columns:60px 1fr 50px; gap:18px; align-items:center; padding:18px 22px; background:#000; border:2px solid var(--pink); cursor:pointer; transition:transform .15s;">
+      <div style="font-family:'Anton',sans-serif; font-size:28px; color:var(--pink);">01</div>
+      <div style="font-family:'Anton',sans-serif; font-size:clamp(22px,2.4vw,32px); letter-spacing:0; color:var(--w);">KDI FLOW</div>
+      <div style="font-family:'Bungee',sans-serif; font-size:18px; color:var(--lime); text-align:right;">▶</div>
+    </div>
+    <div onclick="window.kdiPlay&&window.kdiPlay('archive/kdi-track3.mp3','Blah Blah')" data-cur="PLAY" style="display:grid; grid-template-columns:60px 1fr 50px; gap:18px; align-items:center; padding:18px 22px; background:#000; border:2px solid var(--blue); cursor:pointer; transition:transform .15s;">
+      <div style="font-family:'Anton',sans-serif; font-size:28px; color:var(--blue);">02</div>
+      <div style="font-family:'Anton',sans-serif; font-size:clamp(22px,2.4vw,32px); letter-spacing:0; color:var(--w);">Blah Blah</div>
+      <div style="font-family:'Bungee',sans-serif; font-size:18px; color:var(--lime); text-align:right;">▶</div>
+    </div>
+    <div onclick="window.kdiPlay&&window.kdiPlay('kdi-track4.mp3','나는세계최강의귀요미')" data-cur="PLAY" style="display:grid; grid-template-columns:60px 1fr 50px; gap:18px; align-items:center; padding:18px 22px; background:#000; border:2px solid var(--lime); cursor:pointer; transition:transform .15s;">
+      <div style="font-family:'Anton',sans-serif; font-size:28px; color:var(--lime);">03</div>
+      <div style="font-family:'Anton',sans-serif; font-size:clamp(22px,2.4vw,32px); letter-spacing:0; color:var(--w); word-break:keep-all;">나는세계최강의귀요미</div>
+      <div style="font-family:'Bungee',sans-serif; font-size:18px; color:var(--lime); text-align:right;">▶</div>
+    </div>
+    <div onclick="window.kdiPlay&&window.kdiPlay('인물사진 /케이디아이/음악/스컷 리마스터링.wav','BOSS')" data-cur="PLAY" style="display:grid; grid-template-columns:60px 1fr 50px; gap:18px; align-items:center; padding:18px 22px; background:#000; border:2px solid var(--pink); cursor:pointer; transition:transform .15s;">
+      <div style="font-family:'Anton',sans-serif; font-size:28px; color:var(--pink);">04</div>
+      <div style="font-family:'Anton',sans-serif; font-size:clamp(22px,2.4vw,32px); letter-spacing:0; color:var(--w);">BOSS</div>
+      <div style="font-family:'Bungee',sans-serif; font-size:18px; color:var(--lime); text-align:right;">▶</div>
+    </div>
+  </div>
+</section>
+
+<section style="padding:40px 32px 80px; max-width:1280px; margin:0 auto;">
+  <div class="rv" style="border-top:2px dashed var(--blue); padding-top:32px; margin-bottom:24px; font-family:'Bungee',sans-serif; font-size:12px; letter-spacing:3px; color:var(--lime);">// MEET THE OTHER KILLAS</div>
+  <div class="rv" style="display:grid; grid-template-columns:1fr 1fr; gap:20px;">
+    
+      <a href="jys.html" data-cur="OPEN" style="text-decoration:none; display:block; padding:32px; background:linear-gradient(135deg, var(--lime) 0%, var(--pink) 100%); border:3px solid var(--w); outline:3px solid #000; outline-offset:3px; box-shadow:8px 8px 0 var(--pink); position:relative; overflow:hidden; min-height:200px;">
+        <div style="position:absolute; top:14px; left:14px; font-family:'JetBrains Mono',monospace; font-size:10px; background:#000; color:var(--lime); padding:4px 8px; letter-spacing:1.5px;">FILE / 002</div>
+        <div style="position:absolute; top:14px; right:14px; font-family:'Bungee',sans-serif; font-size:9px; background:#fff; color:#000; padding:4px 8px; letter-spacing:1.5px;">BODY WEAPON</div>
+        <div style="display:flex; align-items:flex-end; height:100%; min-height:160px;">
+          <div>
+            <div style="font-family:'Anton',sans-serif; font-size:clamp(80px, 10vw, 140px); line-height:.85; color:#000; letter-spacing:-2px; text-shadow:4px 4px 0 #fff;">JYS</div>
+            <div style="font-family:'Bungee',sans-serif; font-size:11px; color:#000; margin-top:8px; letter-spacing:2px;">VIEW PROFILE ⭢</div>
+          </div>
+        </div>
+      </a>
+      <a href="myr.html" data-cur="OPEN" style="text-decoration:none; display:block; padding:32px; background:linear-gradient(135deg, var(--blue) 0%, var(--lime) 100%); border:3px solid var(--w); outline:3px solid #000; outline-offset:3px; box-shadow:8px 8px 0 var(--pink); position:relative; overflow:hidden; min-height:200px;">
+        <div style="position:absolute; top:14px; left:14px; font-family:'JetBrains Mono',monospace; font-size:10px; background:#000; color:var(--lime); padding:4px 8px; letter-spacing:1.5px;">FILE / 003</div>
+        <div style="position:absolute; top:14px; right:14px; font-family:'Bungee',sans-serif; font-size:9px; background:#fff; color:#000; padding:4px 8px; letter-spacing:1.5px;">BEAT WIZARD</div>
+        <div style="display:flex; align-items:flex-end; height:100%; min-height:160px;">
+          <div>
+            <div style="font-family:'Anton',sans-serif; font-size:clamp(80px, 10vw, 140px); line-height:.85; color:#000; letter-spacing:-2px; text-shadow:4px 4px 0 #fff;">MYR</div>
+            <div style="font-family:'Bungee',sans-serif; font-size:11px; color:#000; margin-top:8px; letter-spacing:2px;">VIEW PROFILE ⭢</div>
+          </div>
+        </div>
+      </a>
+  </div>
+</section>
+
+<div class="mq"><div class="mq-inner">
+  <span>★</span> KDI ★ TRAP GOD ★ <span class="lime">FILE №001</span> ★ <span class="blue">LOADED</span> ★ </span> ★ <span class="blue">LOADED</span> ★ </span> ★ <span class="blue">LOADED</span> ★ </span> ★ <span class="blue">LOADED</span> ★ </span> ★ <span class="blue">LOADED</span> ★ </span> ★ <span class="blue">LOADED</span> ★ </span> ★ <span class="blue">LOADED</span> ★ </span> ★ <span class="blue">LOADED</span> ★ 
+</div></div>
+<footer class="site-footer">
+  <div class="ft-mega">SEE YOU<br/>SOON ★</div>
+  <div class="ft-grid">
+    <div><div class="ft-tag">// LABEL</div><div class="ft-logo">KDI</div><div class="ft-tag-line">creative hip-hop label · est 2024<br/>3 demons · 1 empire</div></div>
+    <div><div class="ft-tag">// EXPLORE</div><div class="ft-links">
+      <a href="index.html">HOME</a><a href="about.html">ABOUT</a><a href="kdi.html">KDI</a>
+      <a href="jys.html">JYS</a><a href="myr.html">MYR</a></div></div>
+    <div><div class="ft-tag">// CONTENTS</div><div class="ft-links">
+      <a href="news.html">NEWS</a><a href="shop.html">SHOP</a><a href="schedule.html">LIVE</a>
+      <a href="contact.html">CONTACT</a></div></div>
+    <div><div class="ft-tag">// SOCIAL</div><div class="ft-links">
+      <a href="#" target="_blank">INSTAGRAM</a>
+      <a href="#" target="_blank">YOUTUBE</a>
+      <a href="#" target="_blank">SOUNDCLOUD</a></div></div>
+  </div>
+  <div class="ft-bottom"><span>© 2026 <span style="color:var(--pink)">KDI</span> · ALL RIGHTS RESERVED</span><span>SEOUL · OMOKCHEON · JOWON · SERYU</span><span>VOL.01 — Y2K EDITION</span></div>
+</footer>
+<div id="player">
+  <div class="vinyl-wrap" onclick="togglePlay()" data-cur="PLAY">
+    <div class="vinyl-disc" id="vinylDisc"></div>
+    <svg class="vinyl-prog" viewBox="0 0 64 64"><circle cx="32" cy="32" r="27"/><circle class="fill" cx="32" cy="32" r="27"/></svg>
+  </div>
+  <div class="pl-info" onclick="togglePlay()">
+    <div class="pl-track" id="plTrack">JEFF HARDY</div>
+    <div class="pl-status" id="plStatus"><span class="blink-dot"></span><span id="plStatusText">PRESS TO PLAY</span></div>
+    <div class="pl-time" id="plTime">00:00 / --:--</div>
+  </div>
+  <div class="pl-controls"><div class="pl-skip" onclick="prevTrack()" data-cur="PREV">◀</div><div class="pl-skip" onclick="nextTrack()" data-cur="NEXT">▶</div></div>
+  <div class="eq"><div class="eq-b off"></div><div class="eq-b off"></div><div class="eq-b off"></div><div class="eq-b off"></div></div>
+</div>
+<script src="v1-shared.js"></script>
+<script>
+window.kdiPlay = (function(){
+  let trackAudio = null;
+  let activeBtn = null;
+  function findBtn(name) {
+    const rows = document.querySelectorAll('[onclick*="kdiPlay"]');
+    for (const r of rows) {
+      if (r.getAttribute('onclick').includes("'" + name + "'")) {
+        return r.querySelector('div:last-child');
+      }
+    }
+    return null;
+  }
+  return function(src, name) {
+    const bgm = document.getElementById('audio');
+    const btn = findBtn(name);
+    if (activeBtn === btn && trackAudio && !trackAudio.paused) {
+      trackAudio.pause();
+      if (btn) btn.textContent = '▶';
+      activeBtn = null;
+      return;
+    }
+    if (activeBtn) activeBtn.textContent = '▶';
+    if (bgm && !bgm.paused) bgm.pause();
+    if (!trackAudio) trackAudio = new Audio();
+    trackAudio.src = src;
+    trackAudio.play().catch(e => console.error('재생 실패:', e));
+    if (btn) btn.textContent = '■';
+    activeBtn = btn;
+    trackAudio.onended = () => {
+      if (btn) btn.textContent = '▶';
+      activeBtn = null;
+    };
+  };
+})();
+</script>
+</body></html>

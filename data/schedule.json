@@ -1,0 +1,62 @@
+[
+  {
+    "date": "2026.05.30",
+    "day": "SAT",
+    "time": "20:00",
+    "title": "<span style=\"color:#c7ff00\">VOL.01</span> SHOWCASE",
+    "city": "SEOUL",
+    "venue": "TBA",
+    "artists": "KDI, JYS, MYR",
+    "status": "TBA"
+  },
+  {
+    "date": "2026.06.20",
+    "day": "SAT",
+    "time": "21:00",
+    "title": "<span style=\"color:#ff2bd6\">3 KILLAS</span> LIVE",
+    "city": "SEOUL",
+    "venue": "TBA",
+    "artists": "KDI, JYS, MYR",
+    "status": "TBA"
+  },
+  {
+    "date": "2026.07.10",
+    "day": "FRI",
+    "time": "20:30",
+    "title": "<span style=\"color:#ff2bd6\">MYR</span> SOLO SET",
+    "city": "BUSAN",
+    "venue": "TBA",
+    "artists": "MYR",
+    "status": "TBA"
+  },
+  {
+    "date": "2026.07.25",
+    "day": "SAT",
+    "time": "19:00",
+    "title": "FESTIVAL <span style=\"color:#00e5ff\">GUEST</span>",
+    "city": "TBA",
+    "venue": "TBA",
+    "artists": "KDI",
+    "status": "TBA"
+  },
+  {
+    "date": "2026.08.15",
+    "day": "SAT",
+    "time": "22:00",
+    "title": "NIGHT MODE — <span style=\"color:#ff2bd6\">JYS</span> DJ SET",
+    "city": "SEOUL",
+    "venue": "TBA",
+    "artists": "JYS",
+    "status": "TBA"
+  },
+  {
+    "date": "2026.09.05",
+    "day": "SAT",
+    "time": "20:00",
+    "title": "<span style=\"color:#c7ff00\">VOL.01</span> RELEASE PARTY",
+    "city": "SEOUL",
+    "venue": "TBA",
+    "artists": "KDI, JYS, MYR",
+    "status": "TBA"
+  }
+]

@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>KDI / CONTACT — DM HQ</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&family=Black+Han+Sans&family=Bungee&family=Archivo+Black&family=Anton&display=swap" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css" rel="stylesheet">
+<link href="v1-shared.css" rel="stylesheet">
+<script src="mobile-gate.js"></script></head><body>
+<div class="bg-stars"></div>
+<div class="cur"></div><div class="cur-ring"></div><div class="cur-label">★</div>
+<audio id="audio" loop preload="metadata"><source src="main-bgm.mp3" type="audio/mpeg"/></audio>
+<nav class="site-nav">
+  <a href="index.html" class="nav-logo">KDI★</a>
+  <div class="nav-time"><span class="dot"></span><span id="navClock">KR · 00:00:00</span></div>
+  <ul class="nav-links">
+    <li><a href="index.html">HOME</a></li>
+    <li><a href="artist.html">ARTIST</a></li><li><a href="about.html">ABOUT</a></li>
+    <li><a href="news.html">NEWS</a></li>
+    <li><a href="shop.html">SHOP</a></li>
+    <li><a href="schedule.html">LIVE</a></li>
+    <li><a href="contact.html" class="cur">CONTACT</a></li>
+  </ul>
+  <div class="hamburger" id="hb"><span></span><span></span><span></span></div>
+</nav>
+<div class="mobile-menu" id="mm">
+  <a href="index.html">HOME</a><a href="artist.html">ARTIST</a><a href="about.html">ABOUT</a><a href="news.html">NEWS</a>
+  <a href="shop.html">SHOP</a><a href="schedule.html">LIVE</a><a href="contact.html">CONTACT</a>
+</div>
+<header class="page-head">
+  <div class="ph-bg-num">005</div>
+  <div class="ph-eyebrow"><span class="pink">●</span><span>FILE / 005</span><span>—</span><span>SLIDE INTO DMs</span><span class="lime blink">▮</span></div>
+  <h1 class="ph-title">CONTACT<br/>THE GANG</h1>
+  <div class="ph-sub">BUSINESS · BOOKING · FAN MAIL</div>
+</header>
+<section style="padding:60px 32px 80px; max-width:900px; margin:0 auto;">
+  <div id="contact-content" class="rv" style="display:grid; gap:32px;">
+    <div class="empty-data" style="padding:60px 20px; text-align:center; color:var(--dim); font-family:'Inter',sans-serif;">곧 업데이트됩니다.</div>
+  </div>
+</section>
+<div style="display:none;" aria-hidden="true">
+  <div class="rv" style="display:grid; grid-template-columns:1.2fr 1fr; gap:48px; align-items:start;">
+    <form onsubmit="event.preventDefault();" style="display:grid; gap:18px;">
+      <div>
+        <label style="font-family:'Bungee',sans-serif; font-size:10px; letter-spacing:2px; color:var(--lime); display:block; margin-bottom:8px;">// YOUR NAME *</label>
+        <input type="text" required placeholder="홍길동 / John Doe" style="width:100%; padding:14px 16px; background:#000; border:2px solid var(--w); color:var(--w); font-family:'JetBrains Mono',monospace; font-size:14px; outline:none;" onfocus="this.style.borderColor='var(--pink)'; this.style.boxShadow='4px 4px 0 var(--pink)'" onblur="this.style.borderColor='var(--w)'; this.style.boxShadow='none'"/>
+      </div>
+      <div>
+        <label style="font-family:'Bungee',sans-serif; font-size:10px; letter-spacing:2px; color:var(--lime); display:block; margin-bottom:8px;">// EMAIL *</label>
+        <input type="email" required placeholder="you@email.com" style="width:100%; padding:14px 16px; background:#000; border:2px solid var(--w); color:var(--w); font-family:'JetBrains Mono',monospace; font-size:14px; outline:none;" onfocus="this.style.borderColor='var(--pink)'; this.style.boxShadow='4px 4px 0 var(--pink)'" onblur="this.style.borderColor='var(--w)'; this.style.boxShadow='none'"/>
+      </div>
+      <div>
+        <label style="font-family:'Bungee',sans-serif; font-size:10px; letter-spacing:2px; color:var(--lime); display:block; margin-bottom:8px;">// REASON</label>
+        <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(120px, 1fr)); gap:8px;">
+          
+            <label style="cursor:pointer;"><input type="radio" name="reason" checked style="display:none;" onchange="document.querySelectorAll('[data-tag]').forEach(x=>{x.style.background='#000'; x.style.color='var(--w)';}); this.parentElement.querySelector('[data-tag]').style.background='var(--pink)'; this.parentElement.querySelector('[data-tag]').style.color='#fff';"/>
+            <span data-tag style="display:block; padding:10px 12px; background:var(--pink); color:#fff; border:2px solid var(--blue); font-family:'Bungee',sans-serif; font-size:10px; letter-spacing:1.5px; text-align:center; transition:all .15s;">BOOKING</span></label>
+            <label style="cursor:pointer;"><input type="radio" name="reason"  style="display:none;" onchange="document.querySelectorAll('[data-tag]').forEach(x=>{x.style.background='#000'; x.style.color='var(--w)';}); this.parentElement.querySelector('[data-tag]').style.background='var(--pink)'; this.parentElement.querySelector('[data-tag]').style.color='#fff';"/>
+            <span data-tag style="display:block; padding:10px 12px; background:#000; color:var(--w); border:2px solid var(--blue); font-family:'Bungee',sans-serif; font-size:10px; letter-spacing:1.5px; text-align:center; transition:all .15s;">BUSINESS</span></label>
+            <label style="cursor:pointer;"><input type="radio" name="reason"  style="display:none;" onchange="document.querySelectorAll('[data-tag]').forEach(x=>{x.style.background='#000'; x.style.color='var(--w)';}); this.parentElement.querySelector('[data-tag]').style.background='var(--pink)'; this.parentElement.querySelector('[data-tag]').style.color='#fff';"/>
+            <span data-tag style="display:block; padding:10px 12px; background:#000; color:var(--w); border:2px solid var(--blue); font-family:'Bungee',sans-serif; font-size:10px; letter-spacing:1.5px; text-align:center; transition:all .15s;">PRESS</span></label>
+            <label style="cursor:pointer;"><input type="radio" name="reason"  style="display:none;" onchange="document.querySelectorAll('[data-tag]').forEach(x=>{x.style.background='#000'; x.style.color='var(--w)';}); this.parentElement.querySelector('[data-tag]').style.background='var(--pink)'; this.parentElement.querySelector('[data-tag]').style.color='#fff';"/>
+            <span data-tag style="display:block; padding:10px 12px; background:#000; color:var(--w); border:2px solid var(--blue); font-family:'Bungee',sans-serif; font-size:10px; letter-spacing:1.5px; text-align:center; transition:all .15s;">COLLAB</span></label>
+            <label style="cursor:pointer;"><input type="radio" name="reason"  style="display:none;" onchange="document.querySelectorAll('[data-tag]').forEach(x=>{x.style.background='#000'; x.style.color='var(--w)';}); this.parentElement.querySelector('[data-tag]').style.background='var(--pink)'; this.parentElement.querySelector('[data-tag]').style.color='#fff';"/>
+            <span data-tag style="display:block; padding:10px 12px; background:#000; color:var(--w); border:2px solid var(--blue); font-family:'Bungee',sans-serif; font-size:10px; letter-spacing:1.5px; text-align:center; transition:all .15s;">FAN MAIL</span></label>
+            <label style="cursor:pointer;"><input type="radio" name="reason"  style="display:none;" onchange="document.querySelectorAll('[data-tag]').forEach(x=>{x.style.background='#000'; x.style.color='var(--w)';}); this.parentElement.querySelector('[data-tag]').style.background='var(--pink)'; this.parentElement.querySelector('[data-tag]').style.color='#fff';"/>
+            <span data-tag style="display:block; padding:10px 12px; background:#000; color:var(--w); border:2px solid var(--blue); font-family:'Bungee',sans-serif; font-size:10px; letter-spacing:1.5px; text-align:center; transition:all .15s;">OTHER</span></label>
+        </div>
+      </div>
+      <div>
+        <label style="font-family:'Bungee',sans-serif; font-size:10px; letter-spacing:2px; color:var(--lime); display:block; margin-bottom:8px;">// MESSAGE *</label>
+        <textarea required rows="6" placeholder="여기다 다 적으셈. 욕도 OK. 단 AI 영업은 자동 차단됨." style="width:100%; padding:14px 16px; background:#000; border:2px solid var(--w); color:var(--w); font-family:'JetBrains Mono',monospace; font-size:13px; resize:vertical; outline:none;" onfocus="this.style.borderColor='var(--pink)'; this.style.boxShadow='4px 4px 0 var(--pink)'" onblur="this.style.borderColor='var(--w)'; this.style.boxShadow='none'"></textarea>
+      </div>
+      <button type="submit" data-cur="SEND" style="padding:18px 28px; background:var(--lime); color:#000; border:none; font-family:'Bungee',sans-serif; font-size:16px; letter-spacing:2.5px; cursor:pointer; box-shadow:6px 6px 0 var(--pink); justify-self:start;">SEND IT ⭢</button>
+    </form>
+
+    <aside style="display:grid; gap:18px;">
+      <div style="padding:24px; background:rgba(255,43,214,.08); border:2px dashed var(--pink);">
+        <div style="font-family:'Bungee',sans-serif; font-size:10px; letter-spacing:2px; color:var(--blue); margin-bottom:10px;">// DIRECT LINES</div>
+        <div style="display:grid; gap:10px; font-family:'JetBrains Mono',monospace; font-size:13px;">
+          <div><span style="color:var(--lime);">EMAIL ▸</span> <a href="mailto:kdi020615@gmail.com" style="color:var(--w); text-decoration:underline; text-underline-offset:3px;">kdi020615@gmail.com</a></div>
+        </div>
+      </div>
+      <div style="padding:24px; background:rgba(0,229,255,.06); border:2px solid var(--blue);">
+        <div style="font-family:'Bungee',sans-serif; font-size:10px; letter-spacing:2px; color:var(--lime); margin-bottom:10px;">// HQ</div>
+        <div style="font-family:'Inter',sans-serif; font-weight:700; font-size:14px; color:var(--w); line-height:1.6;">서울 어딘가의 지하실<br/>SEOUL · BASEMENT · KR<br/><span style="font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--dim);">정확한 주소는 라이브 당일에만 공개</span></div>
+      </div>
+      <div style="padding:24px; background:#000; border:2px solid var(--lime); box-shadow:6px 6px 0 var(--pink);">
+        <div style="font-family:'Bungee',sans-serif; font-size:10px; letter-spacing:2px; color:var(--blue); margin-bottom:10px;">// SLIDE IN</div>
+        <div style="display:grid; gap:8px;">
+          <a href="#" target="_blank" style="display:flex; justify-content:space-between; align-items:center; padding:12px 14px; background:var(--pink); color:#fff; text-decoration:none; font-family:'Bungee',sans-serif; font-size:11px; letter-spacing:2px;"><span>INSTAGRAM</span><span>⭢</span></a>
+          <a href="#" target="_blank" style="display:flex; justify-content:space-between; align-items:center; padding:12px 14px; background:var(--lime); color:#000; text-decoration:none; font-family:'Bungee',sans-serif; font-size:11px; letter-spacing:2px;"><span>YOUTUBE</span><span>⭢</span></a>
+          <a href="#" target="_blank" style="display:flex; justify-content:space-between; align-items:center; padding:12px 14px; background:var(--blue); color:#000; text-decoration:none; font-family:'Bungee',sans-serif; font-size:11px; letter-spacing:2px;"><span>SOUNDCLOUD</span><span>⭢</span></a>
+        </div>
+      </div>
+      <div style="padding:18px; border:2px dashed var(--lime); font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--dim); line-height:1.7;">
+        ★ 답장 평균 <span style="color:var(--lime);">3-5일</span> 소요<br/>
+        ★ 영업 메일 자동 차단<br/>
+        ★ AI 협업 제안 자동 폐기<br/>
+        ★ 진심 어린 욕은 환영함
+      </div>
+    </aside>
+  </div>
+</div>
+<footer class="site-footer">
+  <div class="ft-mega">SEE YOU<br/>SOON ★</div>
+  <div class="ft-grid">
+    <div><div class="ft-tag">// LABEL</div><div class="ft-logo">KDI</div><div class="ft-tag-line">creative hip-hop label · est 2024<br/>3 demons · 1 empire</div></div>
+    <div><div class="ft-tag">// EXPLORE</div><div class="ft-links">
+      <a href="index.html">HOME</a><a href="about.html">ABOUT</a><a href="kdi.html">KDI</a>
+      <a href="jys.html">JYS</a><a href="myr.html">MYR</a></div></div>
+    <div><div class="ft-tag">// CONTENTS</div><div class="ft-links">
+      <a href="news.html">NEWS</a><a href="shop.html">SHOP</a><a href="schedule.html">LIVE</a>
+      <a href="contact.html">CONTACT</a></div></div>
+    <div><div class="ft-tag">// SOCIAL</div><div class="ft-links">
+      <a href="#" target="_blank">INSTAGRAM</a>
+      <a href="#" target="_blank">YOUTUBE</a>
+      <a href="#" target="_blank">SOUNDCLOUD</a></div></div>
+  </div>
+  <div class="ft-bottom"><span>© 2026 <span style="color:var(--pink)">KDI</span> · ALL RIGHTS RESERVED</span><span>SEOUL · OMOKCHEON · JOWON · SERYU</span><span>VOL.01 — Y2K EDITION</span></div>
+</footer>
+<div id="player">
+  <div class="vinyl-wrap" onclick="togglePlay()" data-cur="PLAY">
+    <div class="vinyl-disc" id="vinylDisc"></div>
+    <svg class="vinyl-prog" viewBox="0 0 64 64"><circle cx="32" cy="32" r="27"/><circle class="fill" cx="32" cy="32" r="27"/></svg>
+  </div>
+  <div class="pl-info" onclick="togglePlay()">
+    <div class="pl-track" id="plTrack">JEFF HARDY</div>
+    <div class="pl-status" id="plStatus"><span class="blink-dot"></span><span id="plStatusText">PRESS TO PLAY</span></div>
+    <div class="pl-time" id="plTime">00:00 / --:--</div>
+  </div>
+  <div class="pl-controls"><div class="pl-skip" onclick="prevTrack()" data-cur="PREV">◀</div><div class="pl-skip" onclick="nextTrack()" data-cur="NEXT">▶</div></div>
+  <div class="eq"><div class="eq-b off"></div><div class="eq-b off"></div><div class="eq-b off"></div><div class="eq-b off"></div></div>
+</div>
+<script src="v1-shared.js"></script>
+<script>
+/* CONTACT 동적 렌더 — data/contact.json */
+(async function () {
+  const root = document.getElementById('contact-content');
+  if (!root) return;
+  let data = null;
+  try { const r = await fetch('data/contact.json', { cache: 'no-store' }); if (r.ok) data = await r.json(); } catch (_) {}
+  if (!data) return;
+  const ESC = s => String(s == null ? '' : s).replace(/[<>&"']/g, c => ({'<':'&lt;','>':'&gt;','&':'&amp;','"':'&quot;',"'":'&#39;'}[c]));
+  const emails = Array.isArray(data.emails) ? data.emails.filter(e => e.address) : [];
+  const socials = Array.isArray(data.socials) ? data.socials.filter(s => s.url) : [];
+  const hq = data.hq && data.hq.address ? data.hq.address : '';
+  if (!emails.length && !socials.length && !hq) return;
+
+  let html = '';
+
+  // 이메일 블록
+  if (emails.length) {
+    const inner = emails.map(e =>
+      `<div><span style="color:var(--lime);">${ESC(e.type || '').toUpperCase()} ▸</span> <a href="mailto:${ESC(e.address)}" style="color:var(--w); text-decoration:underline; text-underline-offset:3px;">${ESC(e.address)}</a></div>`
+    ).join('');
+    html += `<div style="padding:24px; background:rgba(255,43,214,.08); border:2px dashed var(--pink);">
+      <div style="font-family:'Bungee',sans-serif; font-size:11px; color:var(--pink); letter-spacing:2px; margin-bottom:14px;">// EMAIL</div>
+      <div style="font-family:'JetBrains Mono',monospace; font-size:13px; color:var(--w); line-height:2;">${inner}</div>
+    </div>`;
+  }
+
+  // HQ
+  if (hq) {
+    html += `<div style="padding:24px; background:rgba(0,229,255,.06); border:2px solid var(--blue);">
+      <div style="font-family:'Bungee',sans-serif; font-size:11px; color:var(--blue); letter-spacing:2px; margin-bottom:14px;">// HQ</div>
+      <div style="font-family:'JetBrains Mono',monospace; font-size:13px; color:var(--w); line-height:1.7; white-space:pre-line;">${ESC(hq)}</div>
+    </div>`;
+  }
+
+  // SNS
+  if (socials.length) {
+    const COLORS = { 'INSTAGRAM':'var(--pink)', 'YOUTUBE':'var(--lime)', 'SOUNDCLOUD':'var(--blue)', 'TIKTOK':'var(--w)', 'X':'var(--w)', 'TWITTER':'var(--w)' };
+    const inner = socials.map(s => {
+      const platform = (s.platform || '').toUpperCase();
+      const c = COLORS[platform] || 'var(--lime)';
+      return `<a href="${ESC(s.url)}" target="_blank" rel="noopener" style="display:flex; justify-content:space-between; align-items:center; padding:12px 14px; background:${c}; color:#000; text-decoration:none; font-family:'Bungee',sans-serif; font-size:11px; letter-spacing:2px;"><span>${ESC(s.platform)}</span><span>⭢</span></a>`;
+    }).join('');
+    html += `<div style="padding:24px; background:#000; border:2px solid var(--lime); box-shadow:6px 6px 0 var(--pink);">
+      <div style="font-family:'Bungee',sans-serif; font-size:11px; color:var(--lime); letter-spacing:2px; margin-bottom:14px;">// SOCIAL</div>
+      <div style="display:grid; gap:10px;">${inner}</div>
+    </div>`;
+  }
+
+  root.innerHTML = html;
+})();
+</script>
+</body></html>

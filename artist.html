@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>KDI / ARTIST — THE CREW</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&family=Black+Han+Sans&family=Bungee&family=Archivo+Black&family=Anton&display=swap" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css" rel="stylesheet">
+<link href="v1-shared.css" rel="stylesheet">
+<script src="mobile-gate.js"></script></head><body>
+<div class="bg-stars"></div>
+<div class="cur"></div><div class="cur-ring"></div><div class="cur-label">★</div>
+<audio id="audio" loop preload="metadata"><source src="main-bgm.mp3" type="audio/mpeg"/></audio>
+<nav class="site-nav">
+  <a href="index.html" class="nav-logo">KDI★</a>
+  <div class="nav-time"><span class="dot"></span><span id="navClock">KR · 00:00:00</span></div>
+  <ul class="nav-links">
+    <li><a href="index.html">HOME</a></li>
+    <li><a href="artist.html" class="cur">ARTIST</a></li>
+    <li><a href="about.html">ABOUT</a></li>
+    <li><a href="news.html">NEWS</a></li>
+    <li><a href="shop.html">SHOP</a></li>
+    <li><a href="schedule.html">LIVE</a></li>
+    <li><a href="contact.html">CONTACT</a></li>
+  </ul>
+  <div class="hamburger" id="hb"><span></span><span></span><span></span></div>
+</nav>
+<div class="mobile-menu" id="mm">
+  <a href="index.html">HOME</a><a href="artist.html">ARTIST</a><a href="about.html">ABOUT</a><a href="news.html">NEWS</a>
+  <a href="shop.html">SHOP</a><a href="schedule.html">LIVE</a><a href="contact.html">CONTACT</a>
+</div>
+<header class="page-head">
+  <div class="ph-bg-num">★</div>
+  <div class="ph-eyebrow"><span class="pink">●</span><span>FILES · 001 / 002 / 003</span><span>—</span><span>THE CREW</span><span class="lime blink">▮</span></div>
+  <h1 class="ph-title">ARTIST<br/>FILES</h1>
+  <div class="ph-sub">KDI · JYS · MYR · 3 DEMONS, 1 EMPIRE</div>
+</header>
+<section style="padding:80px 32px; max-width:1200px; margin:0 auto;">
+  <div class="rv" id="crew" style="display:flex; align-items:baseline; justify-content:space-between; border-top:2px dashed var(--pink); padding-top:32px; margin-bottom:24px; scroll-margin-top:100px;">
+    <div style="font-family:'Bungee',sans-serif; font-size:11px; letter-spacing:3px; color:var(--lime);">// CREW</div>
+    <div style="font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--dim);">3 KILLAS</div>
+  </div>
+  <div class="rv" style="display:grid; grid-template-columns:repeat(auto-fill, minmax(280px, 1fr)); gap:18px; margin-bottom:60px;">
+    <a href="kdi.html" data-cur="VIEW KDI" style="text-decoration:none; padding:28px 24px; background:#000; border:2.5px solid var(--w); outline:3px solid #000; outline-offset:3px; box-shadow:6px 6px 0 var(--pink); display:block; position:relative; overflow:hidden;">
+      <div style="font-family:'JetBrains Mono',monospace; font-size:10px; color:var(--lime); letter-spacing:1.5px; margin-bottom:10px;">FILE / 001</div>
+      <div style="font-family:'Anton',sans-serif; font-size:clamp(64px,8vw,96px); line-height:.85; color:var(--w); letter-spacing:-1px; text-shadow:3px 3px 0 var(--pink); margin-bottom:10px;">KDI</div>
+      <div style="font-family:'Bungee',sans-serif; font-size:9px; color:var(--pink); letter-spacing:2px; margin-bottom:16px;">RAPPER · DIRECTOR · FOUNDER</div>
+      <p style="font-family:'Pretendard',sans-serif; font-weight:500; font-size:13.5px; line-height:1.7; color:var(--w); word-break:keep-all; margin-bottom:18px;">2002년생. KDI Records 설립자이자 메인 래퍼. IShowSpeed 라이브 출연, <em style="color:var(--lime); font-style:normal; font-weight:700;">[KDI WORLD]</em> 앨범으로 씬에 이름을 각인시킨 차세대 힙합 아이콘.</p>
+      <div style="font-family:'Bungee',sans-serif; font-size:10px; color:var(--lime); letter-spacing:2px;">VIEW PROFILE ⭢</div>
+    </a>
+    <a href="jys.html" data-cur="VIEW JYS" style="text-decoration:none; padding:28px 24px; background:#000; border:2.5px solid var(--w); outline:3px solid #000; outline-offset:3px; box-shadow:6px 6px 0 var(--blue); display:block; position:relative; overflow:hidden;">
+      <div style="font-family:'JetBrains Mono',monospace; font-size:10px; color:var(--lime); letter-spacing:1.5px; margin-bottom:10px;">FILE / 002</div>
+      <div style="font-family:'Anton',sans-serif; font-size:clamp(64px,8vw,96px); line-height:.85; color:var(--w); letter-spacing:-1px; text-shadow:3px 3px 0 var(--blue); margin-bottom:10px;">JYS</div>
+      <div style="font-family:'Bungee',sans-serif; font-size:9px; color:var(--blue); letter-spacing:2px; margin-bottom:16px;">RAPPER · SONGWRITER</div>
+      <p style="font-family:'Pretendard',sans-serif; font-weight:500; font-size:13.5px; line-height:1.7; color:var(--w); word-break:keep-all; margin-bottom:18px;">2002년생. 독보적인 댄스 메커니즘과 비주얼 디렉팅으로 스트릿 씬을 뒤흔드는 무브먼트 아티스트. <em style="color:var(--lime); font-style:normal; font-weight:700;">남서울대</em> 출신의 컬처럴 아이콘.</p>
+      <div style="font-family:'Bungee',sans-serif; font-size:10px; color:var(--lime); letter-spacing:2px;">VIEW PROFILE ⭢</div>
+    </a>
+    <a href="myr.html" data-cur="VIEW MYR" style="text-decoration:none; padding:28px 24px; background:#000; border:2.5px solid var(--w); outline:3px solid #000; outline-offset:3px; box-shadow:6px 6px 0 var(--lime); display:block; position:relative; overflow:hidden;">
+      <div style="font-family:'JetBrains Mono',monospace; font-size:10px; color:var(--lime); letter-spacing:1.5px; margin-bottom:10px;">FILE / 003</div>
+      <div style="font-family:'Anton',sans-serif; font-size:clamp(64px,8vw,96px); line-height:.85; color:var(--w); letter-spacing:-1px; text-shadow:3px 3px 0 var(--lime); margin-bottom:10px;">MYR</div>
+      <div style="font-family:'Bungee',sans-serif; font-size:9px; color:var(--lime); letter-spacing:2px; margin-bottom:16px;">PRODUCER · ARTIST</div>
+      <p style="font-family:'Pretendard',sans-serif; font-weight:500; font-size:13.5px; line-height:1.7; color:var(--w); word-break:keep-all; margin-bottom:18px;">2002년생. <em style="color:var(--blue); font-style:normal; font-weight:700;">동아방송예술대학교</em> 출신의 메인 프로듀서. 틀에 갇히지 않는 실험적 사운드로 차세대 뮤직 아키텍트의 탄생을 알린 천재.</p>
+      <div style="font-family:'Bungee',sans-serif; font-size:10px; color:var(--lime); letter-spacing:2px;">VIEW PROFILE ⭢</div>
+    </a>
+  </div>
+
+  </section>
+
+<div class="mq"><div class="mq-inner">
+  <span>★</span> KDI ★ JYS ★ MYR ★ <span class="lime">3 KILLAS</span> ★ <span class="blue">LOADED</span> ★ <span>★</span> KDI ★ JYS ★ MYR ★ <span class="lime">3 KILLAS</span> ★ <span class="blue">LOADED</span> ★ <span>★</span> KDI ★ JYS ★ MYR ★ <span class="lime">3 KILLAS</span> ★ <span class="blue">LOADED</span> ★ <span>★</span> KDI ★ JYS ★ MYR ★ <span class="lime">3 KILLAS</span> ★ <span class="blue">LOADED</span> ★ <span>★</span> KDI ★ JYS ★ MYR ★ <span class="lime">3 KILLAS</span> ★ <span class="blue">LOADED</span> ★ <span>★</span> KDI ★ JYS ★ MYR ★ <span class="lime">3 KILLAS</span> ★ <span class="blue">LOADED</span> ★ <span>★</span> KDI ★ JYS ★ MYR ★ <span class="lime">3 KILLAS</span> ★ <span class="blue">LOADED</span> ★ <span>★</span> KDI ★ JYS ★ MYR ★ <span class="lime">3 KILLAS</span> ★ <span class="blue">LOADED</span> ★ 
+</div></div>
+<footer class="site-footer">
+  <div class="ft-mega">SEE YOU<br/>SOON ★</div>
+  <div class="ft-grid">
+    <div><div class="ft-tag">// LABEL</div><div class="ft-logo">KDI</div><div class="ft-tag-line">creative hip-hop label · est 2024<br/>3 demons · 1 empire</div></div>
+    <div><div class="ft-tag">// EXPLORE</div><div class="ft-links">
+      <a href="index.html">HOME</a><a href="about.html">ABOUT</a><a href="kdi.html">KDI</a>
+      <a href="jys.html">JYS</a><a href="myr.html">MYR</a></div></div>
+    <div><div class="ft-tag">// CONTENTS</div><div class="ft-links">
+      <a href="news.html">NEWS</a><a href="shop.html">SHOP</a><a href="schedule.html">LIVE</a>
+      <a href="contact.html">CONTACT</a></div></div>
+    <div><div class="ft-tag">// SOCIAL</div><div class="ft-links">
+      <a href="#" target="_blank">INSTAGRAM</a>
+      <a href="#" target="_blank">YOUTUBE</a>
+      <a href="#" target="_blank">SOUNDCLOUD</a></div></div>
+  </div>
+  <div class="ft-bottom"><span>© 2026 <span style="color:var(--pink)">KDI</span> · ALL RIGHTS RESERVED</span><span>SEOUL · OMOKCHEON · JOWON · SERYU</span><span>VOL.01 — Y2K EDITION</span></div>
+</footer>
+<div id="player">
+  <div class="vinyl-wrap" onclick="togglePlay()" data-cur="PLAY">
+    <div class="vinyl-disc" id="vinylDisc"></div>
+    <svg class="vinyl-prog" viewBox="0 0 64 64"><circle cx="32" cy="32" r="27"/><circle class="fill" cx="32" cy="32" r="27"/></svg>
+  </div>
+  <div class="pl-info" onclick="togglePlay()">
+    <div class="pl-track" id="plTrack">JEFF HARDY</div>
+    <div class="pl-status" id="plStatus"><span class="blink-dot"></span><span id="plStatusText">PRESS TO PLAY</span></div>
+    <div class="pl-time" id="plTime">00:00 / --:--</div>
+  </div>
+  <div class="pl-controls"><div class="pl-skip" onclick="prevTrack()" data-cur="PREV">◀</div><div class="pl-skip" onclick="nextTrack()" data-cur="NEXT">▶</div></div>
+  <div class="eq"><div class="eq-b off"></div><div class="eq-b off"></div><div class="eq-b off"></div><div class="eq-b off"></div></div>
+</div>
+<script src="v1-shared.js"></script>
+</body></html>

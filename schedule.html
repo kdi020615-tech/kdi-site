@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>KDI / LIVE — TOUR SCHEDULE</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&family=Black+Han+Sans&family=Bungee&family=Archivo+Black&family=Anton&display=swap" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css" rel="stylesheet">
+<link href="v1-shared.css" rel="stylesheet">
+<script src="mobile-gate.js"></script></head><body>
+<div class="bg-stars"></div>
+<div class="cur"></div><div class="cur-ring"></div><div class="cur-label">★</div>
+<audio id="audio" loop preload="metadata"><source src="main-bgm.mp3" type="audio/mpeg"/></audio>
+<nav class="site-nav">
+  <a href="index.html" class="nav-logo">KDI★</a>
+  <div class="nav-time"><span class="dot"></span><span id="navClock">KR · 00:00:00</span></div>
+  <ul class="nav-links">
+    <li><a href="index.html">HOME</a></li>
+    <li><a href="artist.html">ARTIST</a></li><li><a href="about.html">ABOUT</a></li>
+    <li><a href="news.html">NEWS</a></li>
+    <li><a href="shop.html">SHOP</a></li>
+    <li><a href="schedule.html" class="cur">LIVE</a></li>
+    <li><a href="contact.html">CONTACT</a></li>
+  </ul>
+  <div class="hamburger" id="hb"><span></span><span></span><span></span></div>
+</nav>
+<div class="mobile-menu" id="mm">
+  <a href="index.html">HOME</a><a href="artist.html">ARTIST</a><a href="about.html">ABOUT</a><a href="news.html">NEWS</a>
+  <a href="shop.html">SHOP</a><a href="schedule.html">LIVE</a><a href="contact.html">CONTACT</a>
+</div>
+<header class="page-head">
+  <div class="ph-bg-num">004</div>
+  <div class="ph-eyebrow"><span class="pink">●</span><span>FILE / 004</span><span>—</span><span>LIVE NIGHTS</span><span class="lime blink">▮</span></div>
+  <h1 class="ph-title">LIVE<br/>NIGHTS</h1>
+  <div class="ph-sub">2026 TOUR · DEMONS ON STAGE</div>
+</header>
+<section style="padding:80px 32px; max-width:1200px; margin:0 auto;">
+  <div class="rv" style="display:flex; gap:14px; flex-wrap:wrap; margin-bottom:48px; font-family:'Bungee',sans-serif; font-size:10px; letter-spacing:2px;">
+    <span class="stat-all" style="padding:6px 12px; background:var(--lime); color:#000; box-shadow:3px 3px 0 var(--pink);">★ ALL 0</span>
+    <span class="stat-soldout" style="padding:6px 12px; border:1px solid var(--line); color:var(--w);">SOLD OUT 0</span>
+    <span class="stat-fewleft" style="padding:6px 12px; border:1px solid var(--line); color:var(--w);">FEW LEFT 0</span>
+    <span class="stat-onsale" style="padding:6px 12px; border:1px solid var(--blue); color:var(--blue);">UPCOMING 0</span>
+  </div>
+  <div id="schedule-list" class="rv" style="display:grid; gap:0;">
+    <div class="empty-data" style="padding:60px 20px; text-align:center; color:var(--dim); border-top:1px dashed var(--line); font-family:'Inter',sans-serif;">곧 업데이트됩니다.</div>
+  </div>
+  <div style="display:none;">
+    <div style="display:grid; grid-template-columns:140px 1fr 200px 140px 140px; gap:18px; padding:18px 14px; border-top:1px dashed var(--line); align-items:center; opacity:.55;">
+        <div><div style="font-family:'Anton',sans-serif; font-size:22px; color:var(--pink); letter-spacing:0; line-height:1;">2026.03.14</div><div style="font-family:'JetBrains Mono',monospace; font-size:10px; color:var(--blue); margin-top:4px;">FRI 21:00</div></div>
+        <div><div style="font-family:'Bungee',sans-serif; font-size:13px; color:var(--w); letter-spacing:1px;">LOADED · TOUR OPENER</div><div style="font-family:'Inter',sans-serif; font-weight:600; font-size:12px; color:var(--dim); margin-top:4px;">SEOUL · 오목천 베이스먼트</div></div>
+        <div style="display:flex; gap:6px; flex-wrap:wrap;"><span style="font-family:'Bungee',sans-serif; font-size:9px; padding:3px 8px; background:#000; border:1px solid var(--blue); color:var(--blue); letter-spacing:1px;">KDI</span><span style="font-family:'Bungee',sans-serif; font-size:9px; padding:3px 8px; background:#000; border:1px solid var(--blue); color:var(--blue); letter-spacing:1px;">JYS</span><span style="font-family:'Bungee',sans-serif; font-size:9px; padding:3px 8px; background:#000; border:1px solid var(--blue); color:var(--blue); letter-spacing:1px;">MYR</span></div>
+        <div style="font-family:'Bungee',sans-serif; font-size:10px; padding:6px 10px; background:#1a1a2a; border:1px solid var(--dim); color:var(--dim); letter-spacing:1.5px; text-align:center;">SOLD OUT</div>
+        <a href="contact.html" data-cur="GRAB" style="font-family:'Bungee',sans-serif; font-size:10px; padding:8px 12px; background:#000; color:var(--dim); text-decoration:none; letter-spacing:1.5px; text-align:center; box-shadow:none; pointer-events:none;">BYE BYE</a>
+      </div><div style="display:grid; grid-template-columns:140px 1fr 200px 140px 140px; gap:18px; padding:18px 14px; border-top:1px dashed var(--line); align-items:center; ">
+        <div><div style="font-family:'Anton',sans-serif; font-size:22px; color:var(--pink); letter-spacing:0; line-height:1;">2026.03.21</div><div style="font-family:'JetBrains Mono',monospace; font-size:10px; color:var(--blue); margin-top:4px;">FRI 22:00</div></div>
+        <div><div style="font-family:'Bungee',sans-serif; font-size:13px; color:var(--w); letter-spacing:1px;">PULL UP / KILL</div><div style="font-family:'Inter',sans-serif; font-weight:600; font-size:12px; color:var(--dim); margin-top:4px;">BUSAN · 조원 클럽 EX</div></div>
+        <div style="display:flex; gap:6px; flex-wrap:wrap;"><span style="font-family:'Bungee',sans-serif; font-size:9px; padding:3px 8px; background:#000; border:1px solid var(--blue); color:var(--blue); letter-spacing:1px;">KDI</span><span style="font-family:'Bungee',sans-serif; font-size:9px; padding:3px 8px; background:#000; border:1px solid var(--blue); color:var(--blue); letter-spacing:1px;">MYR</span></div>
+        <div style="font-family:'Bungee',sans-serif; font-size:10px; padding:6px 10px; background:rgba(199,255,0,.1); border:1px solid var(--lime); color:var(--lime); letter-spacing:1.5px; text-align:center;">FEW LEFT</div>
+        <a href="contact.html" data-cur="GRAB" style="font-family:'Bungee',sans-serif; font-size:10px; padding:8px 12px; background:var(--lime); color:#000; text-decoration:none; letter-spacing:1.5px; text-align:center; box-shadow:3px 3px 0 var(--pink); pointer-events:auto;">GRAB ⭢</a>
+      </div><div style="display:grid; grid-template-columns:140px 1fr 200px 140px 140px; gap:18px; padding:18px 14px; border-top:1px dashed var(--line); align-items:center; ">
+        <div><div style="font-family:'Anton',sans-serif; font-size:22px; color:var(--pink); letter-spacing:0; line-height:1;">2026.04.05</div><div style="font-family:'JetBrains Mono',monospace; font-size:10px; color:var(--blue); margin-top:4px;">SAT 20:30</div></div>
+        <div><div style="font-family:'Bungee',sans-serif; font-size:13px; color:var(--w); letter-spacing:1px;">3 KILLAS LIVE</div><div style="font-family:'Inter',sans-serif; font-weight:600; font-size:12px; color:var(--dim); margin-top:4px;">DAEGU · 세류 스타지움</div></div>
+        <div style="display:flex; gap:6px; flex-wrap:wrap;"><span style="font-family:'Bungee',sans-serif; font-size:9px; padding:3px 8px; background:#000; border:1px solid var(--blue); color:var(--blue); letter-spacing:1px;">KDI</span><span style="font-family:'Bungee',sans-serif; font-size:9px; padding:3px 8px; background:#000; border:1px solid var(--blue); color:var(--blue); letter-spacing:1px;">JYS</span><span style="font-family:'Bungee',sans-serif; font-size:9px; padding:3px 8px; background:#000; border:1px solid var(--blue); color:var(--blue); letter-spacing:1px;">MYR</span></div>
+        <div style="font-family:'Bungee',sans-serif; font-size:10px; padding:6px 10px; background:rgba(255,43,214,.1); border:1px solid var(--pink); color:var(--pink); letter-spacing:1.5px; text-align:center;">ON SALE</div>
+        <a href="contact.html" data-cur="GRAB" style="font-family:'Bungee',sans-serif; font-size:10px; padding:8px 12px; background:var(--lime); color:#000; text-decoration:none; letter-spacing:1.5px; text-align:center; box-shadow:3px 3px 0 var(--pink); pointer-events:auto;">GRAB ⭢</a>
+      </div><div style="display:grid; grid-template-columns:140px 1fr 200px 140px 140px; gap:18px; padding:18px 14px; border-top:1px dashed var(--line); align-items:center; ">
+        <div><div style="font-family:'Anton',sans-serif; font-size:22px; color:var(--pink); letter-spacing:0; line-height:1;">2026.04.18</div><div style="font-family:'JetBrains Mono',monospace; font-size:10px; color:var(--blue); margin-top:4px;">FRI 21:30</div></div>
+        <div><div style="font-family:'Bungee',sans-serif; font-size:13px; color:var(--w); letter-spacing:1px;">THE FORBIDDEN TOUCH</div><div style="font-family:'Inter',sans-serif; font-weight:600; font-size:12px; color:var(--dim); margin-top:4px;">GWANGJU · GG WAREHOUSE</div></div>
+        <div style="display:flex; gap:6px; flex-wrap:wrap;"><span style="font-family:'Bungee',sans-serif; font-size:9px; padding:3px 8px; background:#000; border:1px solid var(--blue); color:var(--blue); letter-spacing:1px;">JYS</span></div>
+        <div style="font-family:'Bungee',sans-serif; font-size:10px; padding:6px 10px; background:rgba(255,43,214,.1); border:1px solid var(--pink); color:var(--pink); letter-spacing:1.5px; text-align:center;">ON SALE</div>
+        <a href="contact.html" data-cur="GRAB" style="font-family:'Bungee',sans-serif; font-size:10px; padding:8px 12px; background:var(--lime); color:#000; text-decoration:none; letter-spacing:1.5px; text-align:center; box-shadow:3px 3px 0 var(--pink); pointer-events:auto;">GRAB ⭢</a>
+      </div><div style="display:grid; grid-template-columns:140px 1fr 200px 140px 140px; gap:18px; padding:18px 14px; border-top:1px dashed var(--line); align-items:center; opacity:.55;">
+        <div><div style="font-family:'Anton',sans-serif; font-size:22px; color:var(--pink); letter-spacing:0; line-height:1;">2026.05.02</div><div style="font-family:'JetBrains Mono',monospace; font-size:10px; color:var(--blue); margin-top:4px;">SAT 22:00</div></div>
+        <div><div style="font-family:'Bungee',sans-serif; font-size:13px; color:var(--w); letter-spacing:1px;">OVERSEAS NIGHT 01</div><div style="font-family:'Inter',sans-serif; font-weight:600; font-size:12px; color:var(--dim); margin-top:4px;">TOKYO · SHIBUYA WWW X</div></div>
+        <div style="display:flex; gap:6px; flex-wrap:wrap;"><span style="font-family:'Bungee',sans-serif; font-size:9px; padding:3px 8px; background:#000; border:1px solid var(--blue); color:var(--blue); letter-spacing:1px;">KDI</span><span style="font-family:'Bungee',sans-serif; font-size:9px; padding:3px 8px; background:#000; border:1px solid var(--blue); color:var(--blue); letter-spacing:1px;">MYR</span></div>
+        <div style="font-family:'Bungee',sans-serif; font-size:10px; padding:6px 10px; background:#1a1a2a; border:1px solid var(--dim); color:var(--dim); letter-spacing:1.5px; text-align:center;">SOLD OUT</div>
+        <a href="contact.html" data-cur="GRAB" style="font-family:'Bungee',sans-serif; font-size:10px; padding:8px 12px; background:#000; color:var(--dim); text-decoration:none; letter-spacing:1.5px; text-align:center; box-shadow:none; pointer-events:none;">BYE BYE</a>
+      </div><div style="display:grid; grid-template-columns:140px 1fr 200px 140px 140px; gap:18px; padding:18px 14px; border-top:1px dashed var(--line); align-items:center; ">
+        <div><div style="font-family:'Anton',sans-serif; font-size:22px; color:var(--pink); letter-spacing:0; line-height:1;">2026.05.16</div><div style="font-family:'JetBrains Mono',monospace; font-size:10px; color:var(--blue); margin-top:4px;">SAT 21:00</div></div>
+        <div><div style="font-family:'Bungee',sans-serif; font-size:13px; color:var(--w); letter-spacing:1px;">OVERSEAS NIGHT 02</div><div style="font-family:'Inter',sans-serif; font-weight:600; font-size:12px; color:var(--dim); margin-top:4px;">OSAKA · UMEDA CLUB QUATTRO</div></div>
+        <div style="display:flex; gap:6px; flex-wrap:wrap;"><span style="font-family:'Bungee',sans-serif; font-size:9px; padding:3px 8px; background:#000; border:1px solid var(--blue); color:var(--blue); letter-spacing:1px;">KDI</span><span style="font-family:'Bungee',sans-serif; font-size:9px; padding:3px 8px; background:#000; border:1px solid var(--blue); color:var(--blue); letter-spacing:1px;">JYS</span><span style="font-family:'Bungee',sans-serif; font-size:9px; padding:3px 8px; background:#000; border:1px solid var(--blue); color:var(--blue); letter-spacing:1px;">MYR</span></div>
+        <div style="font-family:'Bungee',sans-serif; font-size:10px; padding:6px 10px; background:rgba(255,43,214,.1); border:1px solid var(--pink); color:var(--pink); letter-spacing:1.5px; text-align:center;">ON SALE</div>
+        <a href="contact.html" data-cur="GRAB" style="font-family:'Bungee',sans-serif; font-size:10px; padding:8px 12px; background:var(--lime); color:#000; text-decoration:none; letter-spacing:1.5px; text-align:center; box-shadow:3px 3px 0 var(--pink); pointer-events:auto;">GRAB ⭢</a>
+      </div><div style="display:grid; grid-template-columns:140px 1fr 200px 140px 140px; gap:18px; padding:18px 14px; border-top:1px dashed var(--line); align-items:center; ">
+        <div><div style="font-family:'Anton',sans-serif; font-size:22px; color:var(--pink); letter-spacing:0; line-height:1;">2026.06.07</div><div style="font-family:'JetBrains Mono',monospace; font-size:10px; color:var(--blue); margin-top:4px;">SUN 20:00</div></div>
+        <div><div style="font-family:'Bungee',sans-serif; font-size:13px; color:var(--w); letter-spacing:1px;">HOMECOMING</div><div style="font-family:'Inter',sans-serif; font-weight:600; font-size:12px; color:var(--dim); margin-top:4px;">SEOUL · 블루스퀘어</div></div>
+        <div style="display:flex; gap:6px; flex-wrap:wrap;"><span style="font-family:'Bungee',sans-serif; font-size:9px; padding:3px 8px; background:#000; border:1px solid var(--blue); color:var(--blue); letter-spacing:1px;">KDI</span><span style="font-family:'Bungee',sans-serif; font-size:9px; padding:3px 8px; background:#000; border:1px solid var(--blue); color:var(--blue); letter-spacing:1px;">JYS</span><span style="font-family:'Bungee',sans-serif; font-size:9px; padding:3px 8px; background:#000; border:1px solid var(--blue); color:var(--blue); letter-spacing:1px;">MYR</span></div>
+        <div style="font-family:'Bungee',sans-serif; font-size:10px; padding:6px 10px; background:rgba(199,255,0,.1); border:1px solid var(--lime); color:var(--lime); letter-spacing:1.5px; text-align:center;">FEW LEFT</div>
+        <a href="contact.html" data-cur="GRAB" style="font-family:'Bungee',sans-serif; font-size:10px; padding:8px 12px; background:var(--lime); color:#000; text-decoration:none; letter-spacing:1.5px; text-align:center; box-shadow:3px 3px 0 var(--pink); pointer-events:auto;">GRAB ⭢</a>
+      </div><div style="display:grid; grid-template-columns:140px 1fr 200px 140px 140px; gap:18px; padding:18px 14px; border-top:1px dashed var(--line); align-items:center; ">
+        <div><div style="font-family:'Anton',sans-serif; font-size:22px; color:var(--pink); letter-spacing:0; line-height:1;">2026.07.12</div><div style="font-family:'JetBrains Mono',monospace; font-size:10px; color:var(--blue); margin-top:4px;">SAT 18:00</div></div>
+        <div><div style="font-family:'Bungee',sans-serif; font-size:13px; color:var(--w); letter-spacing:1px;">FESTIVAL</div><div style="font-family:'Inter',sans-serif; font-weight:600; font-size:12px; color:var(--dim); margin-top:4px;">INCHEON · 펜타포트 STAGE B</div></div>
+        <div style="display:flex; gap:6px; flex-wrap:wrap;"><span style="font-family:'Bungee',sans-serif; font-size:9px; padding:3px 8px; background:#000; border:1px solid var(--blue); color:var(--blue); letter-spacing:1px;">KDI</span><span style="font-family:'Bungee',sans-serif; font-size:9px; padding:3px 8px; background:#000; border:1px solid var(--blue); color:var(--blue); letter-spacing:1px;">MYR</span></div>
+        <div style="font-family:'Bungee',sans-serif; font-size:10px; padding:6px 10px; background:rgba(0,229,255,.1); border:1px solid var(--blue); color:var(--blue); letter-spacing:1.5px; text-align:center;">TBA</div>
+        <a href="contact.html" data-cur="GRAB" style="font-family:'Bungee',sans-serif; font-size:10px; padding:8px 12px; background:var(--lime); color:#000; text-decoration:none; letter-spacing:1.5px; text-align:center; box-shadow:3px 3px 0 var(--pink); pointer-events:auto;">NOTIFY</a>
+      </div><div style="display:grid; grid-template-columns:140px 1fr 200px 140px 140px; gap:18px; padding:18px 14px; border-top:1px dashed var(--line); align-items:center; ">
+        <div><div style="font-family:'Anton',sans-serif; font-size:22px; color:var(--pink); letter-spacing:0; line-height:1;">2026.08.23</div><div style="font-family:'JetBrains Mono',monospace; font-size:10px; color:var(--blue); margin-top:4px;">SAT 20:30</div></div>
+        <div><div style="font-family:'Bungee',sans-serif; font-size:13px; color:var(--w); letter-spacing:1px;">MYR SOLO BEAT NIGHT</div><div style="font-family:'Inter',sans-serif; font-weight:600; font-size:12px; color:var(--dim); margin-top:4px;">SEOUL · 홍대 FF</div></div>
+        <div style="display:flex; gap:6px; flex-wrap:wrap;"><span style="font-family:'Bungee',sans-serif; font-size:9px; padding:3px 8px; background:#000; border:1px solid var(--blue); color:var(--blue); letter-spacing:1px;">MYR</span></div>
+        <div style="font-family:'Bungee',sans-serif; font-size:10px; padding:6px 10px; background:rgba(255,43,214,.1); border:1px solid var(--pink); color:var(--pink); letter-spacing:1.5px; text-align:center;">ON SALE</div>
+        <a href="contact.html" data-cur="GRAB" style="font-family:'Bungee',sans-serif; font-size:10px; padding:8px 12px; background:var(--lime); color:#000; text-decoration:none; letter-spacing:1.5px; text-align:center; box-shadow:3px 3px 0 var(--pink); pointer-events:auto;">GRAB ⭢</a>
+      </div><div style="display:grid; grid-template-columns:140px 1fr 200px 140px 140px; gap:18px; padding:18px 14px; border-top:1px dashed var(--line); align-items:center; opacity:.55;">
+        <div><div style="font-family:'Anton',sans-serif; font-size:22px; color:var(--pink); letter-spacing:0; line-height:1;">2026.10.31</div><div style="font-family:'JetBrains Mono',monospace; font-size:10px; color:var(--blue); margin-top:4px;">SAT 23:00</div></div>
+        <div><div style="font-family:'Bungee',sans-serif; font-size:13px; color:var(--w); letter-spacing:1px;">HALLOWEEN · DEMONS RISE</div><div style="font-family:'Inter',sans-serif; font-weight:600; font-size:12px; color:var(--dim); margin-top:4px;">SEOUL · REDLINE WAREHOUSE</div></div>
+        <div style="display:flex; gap:6px; flex-wrap:wrap;"><span style="font-family:'Bungee',sans-serif; font-size:9px; padding:3px 8px; background:#000; border:1px solid var(--blue); color:var(--blue); letter-spacing:1px;">KDI</span><span style="font-family:'Bungee',sans-serif; font-size:9px; padding:3px 8px; background:#000; border:1px solid var(--blue); color:var(--blue); letter-spacing:1px;">JYS</span><span style="font-family:'Bungee',sans-serif; font-size:9px; padding:3px 8px; background:#000; border:1px solid var(--blue); color:var(--blue); letter-spacing:1px;">MYR</span></div>
+        <div style="font-family:'Bungee',sans-serif; font-size:10px; padding:6px 10px; background:#1a1a2a; border:1px solid var(--dim); color:var(--dim); letter-spacing:1.5px; text-align:center;">SOLD OUT</div>
+        <a href="contact.html" data-cur="GRAB" style="font-family:'Bungee',sans-serif; font-size:10px; padding:8px 12px; background:#000; color:var(--dim); text-decoration:none; letter-spacing:1.5px; text-align:center; box-shadow:none; pointer-events:none;">BYE BYE</a>
+      </div>
+  </div>
+  </div>
+  <div class="rv" style="margin-top:60px; padding:24px; background:rgba(0,229,255,.06); border:2px dashed var(--blue);">
+    <div style="font-family:'Bungee',sans-serif; font-size:11px; letter-spacing:2px; color:var(--lime); margin-bottom:10px;">// HOUSE RULE</div>
+    <div style="font-family:'Inter',sans-serif; font-weight:700; font-size:14px; line-height:1.6; color:var(--w); word-break:keep-all;">
+      ★ 입장 시 신분증 검사. ★ 사진 OK, 영상은 첫 곡까지만. ★ 무대 위로 던지지 말 것 (단, 라이터·꽃·돈 제외). ★ 모싱은 좌측, 헤드뱅잉은 우측. ★ 끝나면 조용히 사라질 것 — 우리는 다음 도시로 떠난다.
+    </div>
+  </div>
+</section>
+<footer class="site-footer">
+  <div class="ft-mega">SEE YOU<br/>SOON ★</div>
+  <div class="ft-grid">
+    <div><div class="ft-tag">// LABEL</div><div class="ft-logo">KDI</div><div class="ft-tag-line">creative hip-hop label · est 2024<br/>3 demons · 1 empire</div></div>
+    <div><div class="ft-tag">// EXPLORE</div><div class="ft-links">
+      <a href="index.html">HOME</a><a href="about.html">ABOUT</a><a href="kdi.html">KDI</a>
+      <a href="jys.html">JYS</a><a href="myr.html">MYR</a></div></div>
+    <div><div class="ft-tag">// CONTENTS</div><div class="ft-links">
+      <a href="news.html">NEWS</a><a href="shop.html">SHOP</a><a href="schedule.html">LIVE</a>
+      <a href="contact.html">CONTACT</a></div></div>
+    <div><div class="ft-tag">// SOCIAL</div><div class="ft-links">
+      <a href="#" target="_blank">INSTAGRAM</a>
+      <a href="#" target="_blank">YOUTUBE</a>
+      <a href="#" target="_blank">SOUNDCLOUD</a></div></div>
+  </div>
+  <div class="ft-bottom"><span>© 2026 <span style="color:var(--pink)">KDI</span> · ALL RIGHTS RESERVED</span><span>SEOUL · OMOKCHEON · JOWON · SERYU</span><span>VOL.01 — Y2K EDITION</span></div>
+</footer>
+<div id="player">
+  <div class="vinyl-wrap" onclick="togglePlay()" data-cur="PLAY">
+    <div class="vinyl-disc" id="vinylDisc"></div>
+    <svg class="vinyl-prog" viewBox="0 0 64 64"><circle cx="32" cy="32" r="27"/><circle class="fill" cx="32" cy="32" r="27"/></svg>
+  </div>
+  <div class="pl-info" onclick="togglePlay()">
+    <div class="pl-track" id="plTrack">JEFF HARDY</div>
+    <div class="pl-status" id="plStatus"><span class="blink-dot"></span><span id="plStatusText">PRESS TO PLAY</span></div>
+    <div class="pl-time" id="plTime">00:00 / --:--</div>
+  </div>
+  <div class="pl-controls"><div class="pl-skip" onclick="prevTrack()" data-cur="PREV">◀</div><div class="pl-skip" onclick="nextTrack()" data-cur="NEXT">▶</div></div>
+  <div class="eq"><div class="eq-b off"></div><div class="eq-b off"></div><div class="eq-b off"></div><div class="eq-b off"></div></div>
+</div>
+<script src="v1-shared.js"></script>
+<script>
+/* SCHEDULE 동적 렌더 — data/schedule.json */
+(async function () {
+  const list = document.getElementById('schedule-list');
+  if (!list) return;
+  let data = [];
+  try {
+    const r = await fetch('data/schedule.json', { cache: 'no-store' });
+    if (r.ok) data = await r.json();
+  } catch (_) {}
+  if (!Array.isArray(data) || !data.length) return;
+
+  const ESC = s => String(s == null ? '' : s).replace(/[<>&"']/g, c => ({'<':'&lt;','>':'&gt;','&':'&amp;','"':'&quot;',"'":'&#39;'}[c]));
+  const STATUS = {
+    'SOLD OUT': { bg:'#1a1a2a', border:'var(--dim)', color:'var(--dim)', opacity:.55, btnText:'BYE BYE', btnBg:'#000', btnColor:'var(--dim)', btnShadow:'none', btnDisabled:true },
+    'FEW LEFT': { bg:'rgba(199,255,0,.1)', border:'var(--lime)', color:'var(--lime)', opacity:1, btnText:'GRAB ⭢', btnBg:'var(--lime)', btnColor:'#000', btnShadow:'3px 3px 0 var(--pink)', btnDisabled:false },
+    'ON SALE':  { bg:'rgba(255,43,214,.1)', border:'var(--pink)', color:'var(--pink)', opacity:1, btnText:'GRAB ⭢', btnBg:'var(--lime)', btnColor:'#000', btnShadow:'3px 3px 0 var(--pink)', btnDisabled:false },
+    'TBA':      { bg:'rgba(0,229,255,.1)', border:'var(--blue)', color:'var(--blue)', opacity:1, btnText:'NOTIFY',  btnBg:'var(--lime)', btnColor:'#000', btnShadow:'3px 3px 0 var(--pink)', btnDisabled:false },
+  };
+
+  list.innerHTML = '';
+  const counts = { all: data.length, 'SOLD OUT': 0, 'FEW LEFT': 0, 'ON SALE': 0, 'TBA': 0 };
+
+  data.forEach(item => {
+    const s = STATUS[item.status] || STATUS['ON SALE'];
+    if (counts[item.status] !== undefined) counts[item.status]++;
+    const artists = (item.artists || '').split(',').map(x => x.trim()).filter(Boolean);
+    const artistsHTML = artists.map(a =>
+      `<span style="font-family:'Bungee',sans-serif; font-size:9px; padding:3px 8px; background:#000; border:1px solid var(--blue); color:var(--blue); letter-spacing:1px;">${ESC(a)}</span>`
+    ).join('');
+    const card = document.createElement('div');
+    card.style.cssText = `display:grid; grid-template-columns:140px 1fr 200px 140px 140px; gap:18px; padding:18px 14px; border-top:1px dashed var(--line); align-items:center; opacity:${s.opacity};`;
+    card.innerHTML = `
+      <div><div style="font-family:'Anton',sans-serif; font-size:22px; color:var(--pink); letter-spacing:0; line-height:1;">${ESC(item.date)}</div><div style="font-family:'JetBrains Mono',monospace; font-size:10px; color:var(--blue); margin-top:4px;">${ESC(item.day)} ${ESC(item.time)}</div></div>
+      <div><div style="font-family:'Bungee',sans-serif; font-size:13px; color:var(--w); letter-spacing:1px;">${item.title || ''}</div><div style="font-family:'Inter',sans-serif; font-weight:600; font-size:12px; color:var(--dim); margin-top:4px;">${ESC(item.city)} · ${ESC(item.venue)}</div></div>
+      <div style="display:flex; gap:6px; flex-wrap:wrap;">${artistsHTML}</div>
+      <div style="font-family:'Bungee',sans-serif; font-size:10px; padding:6px 10px; background:${s.bg}; border:1px solid ${s.border}; color:${s.color}; letter-spacing:1.5px; text-align:center;">${ESC(item.status)}</div>
+      <a href="contact.html" data-cur="GRAB" style="font-family:'Bungee',sans-serif; font-size:10px; padding:8px 12px; background:${s.btnBg}; color:${s.btnColor}; text-decoration:none; letter-spacing:1.5px; text-align:center; box-shadow:${s.btnShadow}; pointer-events:${s.btnDisabled ? 'none' : 'auto'};">${s.btnText}</a>
+    `;
+    list.appendChild(card);
+  });
+
+  const upcoming = (counts['ON SALE'] || 0) + (counts['FEW LEFT'] || 0) + (counts['TBA'] || 0);
+  const set = (sel, txt) => { const el = document.querySelector(sel); if (el) el.textContent = txt; };
+  set('.stat-all', `★ ALL ${String(counts.all).padStart(2,'0')}`);
+  set('.stat-soldout', `SOLD OUT ${String(counts['SOLD OUT']).padStart(2,'0')}`);
+  set('.stat-fewleft', `FEW LEFT ${String(counts['FEW LEFT']).padStart(2,'0')}`);
+  set('.stat-onsale', `UPCOMING ${String(upcoming).padStart(2,'0')}`);
+})();
+</script>
+</body></html>
