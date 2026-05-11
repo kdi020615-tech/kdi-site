@@ -316,22 +316,6 @@ if (hintFace) {
   });
 }
 
-// ============================
-// 이메일 아이콘: 호버 → 말풍선, 클릭 → 복사
-// ============================
-const emailBtn = document.querySelector('.email-btn');
-if (emailBtn) {
-  emailBtn.addEventListener('click', async (e) => {
-    popElement(emailBtn);
-    burst(e.clientX, e.clientY, { count: 8, distMax: 80 });
-    try {
-      await navigator.clipboard.writeText(EMAIL);
-      showToast('📧 ' + EMAIL + ' (복사됨)');
-    } catch {
-      showToast(EMAIL);
-    }
-  });
-}
 
 // ============================
 // 캐릭터 모션: idle 부유 + 마우스 Y 끄덕임 (영상 본체는 항상 재생)
