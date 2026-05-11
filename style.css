@@ -14,17 +14,7 @@ html, body {
   overflow: hidden;
   font-family: "DM Mono", monospace;
   color: var(--text);
-  background: #d8e4f5;
-}
-
-.bg-video {
-  position: fixed;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  z-index: 0;
-  pointer-events: none;
+  background: #d8e4f5 url("assets/static/background.png") center/cover no-repeat fixed;
 }
 
 #sky {
