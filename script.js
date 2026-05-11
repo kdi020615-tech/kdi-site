@@ -202,7 +202,7 @@ function buildOrbits() {
     vid.loop = true;
     vid.autoplay = true;
     vid.playsInline = true;
-    vid.preload = 'auto';
+    vid.preload = 'metadata';
     vid.className = 'orbit-item';
     vid.style.setProperty('--size', `${size}px`);
     vid.style.animationDelay = `${(i % 5) * 0.4}s`;
@@ -242,16 +242,6 @@ addEventListener('resize', () => {
 // 얼굴: 호버시 영상재생 + 클릭시 각 아티스트 페이지로
 // ============================
 const FACE_LINK = { KDI: 'kdi.html', JYS: 'jys.html', MYR: 'myr.html' };
-const EMAIL = 'kimdoil2002@gmail.com';
-const toast = document.querySelector('.toast');
-let toastTimer;
-
-function showToast(message) {
-  toast.textContent = message;
-  toast.classList.add('show');
-  clearTimeout(toastTimer);
-  toastTimer = setTimeout(() => toast.classList.remove('show'), 2000);
-}
 
 const stacks = document.querySelectorAll('.face-stack');
 const stackData = stacks.length ? Array.from(stacks).map((stack) => {

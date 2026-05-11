@@ -24,3 +24,6 @@ nukki-tool/uploads/
 
 # 비밀키 포함
 .mcp.json
+
+# 최적화 작업 시 원본 백업 (로컬 전용)
+_opt_backup/
