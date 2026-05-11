@@ -45,16 +45,6 @@
   // REVEAL
   const obs=new IntersectionObserver(es=>es.forEach(e=>{ if(e.isIntersecting) e.target.classList.add('on'); }),{threshold:.12});
   document.querySelectorAll('.rv').forEach(el=>obs.observe(el));
-  // PAGE OUT
-  document.querySelectorAll('a[href]').forEach(a=>{
-    const h=a.getAttribute('href');
-    if(!h||h==='#'||h.startsWith('#')||h.startsWith('mailto')||h.startsWith('javascript')||h.startsWith('http')) return;
-    a.addEventListener('click',e=>{
-      e.preventDefault();
-      document.body.classList.add('page-out');
-      setTimeout(()=>location.href=h,500);
-    });
-  });
   // MARQUEE SCROLL VELOCITY
   const marqs=document.querySelectorAll('.mq-inner');
   let lastY=window.scrollY, vel=0;
@@ -66,43 +56,4 @@
     vel*=0.9;
   },80);
 
-  // PLAYER
-  const audio=document.getElementById('audio');
-  if(audio){
-    const playlist=[
-      {src:'main-bgm.mp3', title:'JEFF HARDY'},
-      {src:'kdi-track2.mp3', title:'KDI FLOW'},
-      {src:'kdi-track4.mp3', title:'BOSS'}
-    ];
-    let curT=0, playing=false;
-    function setPlay(on){
-      playing=on;
-      const txt=document.getElementById('plStatusText');
-      if(txt) txt.textContent=on?'NOW PLAYING':'PAUSED';
-      const d=document.getElementById('vinylDisc');
-      if(d) d.classList.toggle('spinning', on);
-      document.querySelectorAll('.eq-b').forEach(b=>b.classList.toggle('off',!on));
-    }
-    function loadTrack(i){ curT=i; const wp=playing; audio.src=playlist[i].src;
-      const t=document.getElementById('plTrack'); if(t) t.textContent=playlist[i].title;
-      if(wp) audio.play().then(()=>setPlay(true)).catch(()=>{}); }
-    function nextTrack(){loadTrack((curT+1)%playlist.length);}
-    function prevTrack(){loadTrack((curT-1+playlist.length)%playlist.length);}
-    function togglePlay(){
-      if(!audio.src) audio.src=playlist[0].src;
-      if(playing){audio.pause(); setPlay(false);}
-      else audio.play().then(()=>setPlay(true)).catch(()=>setPlay(false));
-    }
-    window.togglePlay=togglePlay; window.nextTrack=nextTrack; window.prevTrack=prevTrack;
-    audio.addEventListener('ended',()=>nextTrack());
-    audio.addEventListener('timeupdate',()=>{
-      const fill=document.querySelector('.vinyl-prog .fill');
-      if(fill && audio.duration) fill.style.strokeDashoffset=String(170*(1-audio.currentTime/audio.duration));
-      const tEl=document.getElementById('plTime');
-      if(tEl){
-        const fmt=s=>isFinite(s)?`${String(Math.floor(s/60)).padStart(2,'0')}:${String(Math.floor(s%60)).padStart(2,'0')}`:'--:--';
-        tEl.textContent=`${fmt(audio.currentTime)} / ${fmt(audio.duration)}`;
-      }
-    });
-  }
 })();

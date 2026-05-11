@@ -1,0 +1,433 @@
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --sky-1: #b8d4f5;
+  --sky-2: #e8d4ff;
+  --sky-3: #ffd4ec;
+  --text: #2a2150;
+  --pink: #ff6bd6;
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  font-family: "DM Mono", monospace;
+  color: var(--text);
+  background: #d8e4f5;
+}
+
+.bg-video {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 0;
+  pointer-events: none;
+}
+
+#sky {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.stage {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+}
+
+/* 클릭 효과: 짧은 팝 + 파티클 스파클 */
+@keyframes pop {
+  0%   { transform: scale(1); }
+  40%  { transform: scale(1.18); }
+  70%  { transform: scale(0.96); }
+  100% { transform: scale(1); }
+}
+
+.click-pop { animation: pop 0.35s cubic-bezier(.34,1.56,.64,1); }
+
+.title.click-pop { animation: pop-title 0.45s cubic-bezier(.34,1.56,.64,1); }
+@keyframes pop-title {
+  0%   { transform: translateX(-50%) scale(1) rotate(0); }
+  40%  { transform: translateX(-50%) scale(1.12) rotate(-3deg); }
+  70%  { transform: translateX(-50%) scale(0.97) rotate(2deg); }
+  100% { transform: translateX(-50%) scale(1) rotate(0); }
+}
+
+.spark {
+  position: fixed;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9999;
+  will-change: transform, opacity;
+}
+
+.ripple {
+  position: fixed;
+  border: 2px solid #ff6bd6;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9998;
+  will-change: transform, opacity;
+}
+
+/* 풍선 타이틀 */
+.title {
+  position: absolute;
+  top: 4vh;
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(38vw, 480px);
+  height: auto;
+  pointer-events: auto;
+  cursor: pointer;
+  animation: float-title 5s ease-in-out infinite;
+  filter: drop-shadow(0 8px 28px rgba(255, 100, 200, 0.35));
+  transition: filter 0.2s ease;
+}
+
+.title:hover {
+  filter: drop-shadow(0 10px 32px rgba(255, 60, 200, 0.55));
+}
+
+@keyframes float-title {
+  0%, 100% { transform: translateX(-50%) translateY(0) rotate(-1.5deg); }
+  50%      { transform: translateX(-50%) translateY(-10px) rotate(1.5deg); }
+}
+
+/* 가운데 클러스터 + orbit 시스템 */
+.orbit-system {
+  position: absolute;
+  top: 54%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 0;
+  height: 0;
+}
+
+.faces {
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform: translate(-50%, -50%);
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  z-index: 5;
+}
+
+/* 알파 webm 1장만 깐 stack */
+.face-stack {
+  position: relative;
+  cursor: pointer;
+  will-change: transform;
+  filter: drop-shadow(0 14px 36px rgba(255, 100, 200, 0.28));
+}
+
+.face-stack.face-main { width: 220px; height: 280px; z-index: 6; }
+.face-stack.face-side { width: 150px; height: 200px; margin-top: 32px; }
+
+.face-video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  pointer-events: none;
+  display: block;
+  background: transparent;
+  opacity: 1;
+}
+
+/* orbit (오브젝트 빙빙) */
+.orbit {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 0;
+  pointer-events: none;
+}
+
+@keyframes drift {
+  0%, 100% { transform: translate(0, 0) rotate(0deg); }
+  50%      { transform: translate(12px, -10px) rotate(3deg); }
+}
+
+.orbit-radius {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.orbit-item {
+  display: block;
+  width: var(--size, 64px);
+  height: auto;
+  filter: drop-shadow(0 4px 14px rgba(180, 120, 220, 0.35));
+  animation: bob 3s ease-in-out infinite;
+  transition: filter 0.2s ease, transform 0.2s ease;
+}
+
+.orbit-link:hover .orbit-item {
+  filter: drop-shadow(0 6px 18px rgba(255, 100, 200, 0.55)) brightness(1.08);
+  transform: scale(1.08);
+}
+
+/* 링크 오브젝트 호버 시 라벨 말풍선 */
+.orbit-link::after {
+  content: attr(data-label);
+  position: absolute;
+  top: -90px;
+  left: 0;
+  transform: translate(-50%, 4px);
+  background: white;
+  color: var(--text);
+  border: 2px solid var(--text);
+  padding: 5px 12px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  border-radius: 8px;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.18s ease, transform 0.18s ease;
+  z-index: 50;
+}
+
+.orbit-link:hover::after {
+  opacity: 1;
+  transform: translate(-50%, 0);
+}
+
+/* 타이틀 클릭 가능 */
+.title {
+  pointer-events: auto;
+}
+
+/* "눌러주세요" 안내 말풍선 — 호버 시에만 등장 */
+.hint {
+  position: absolute;
+  background: white;
+  border: 2px solid var(--text);
+  padding: 6px 14px;
+  font-size: 12px;
+  font-weight: 500;
+  font-family: "DM Mono", monospace;
+  border-radius: 10px;
+  z-index: 12;
+  pointer-events: none;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+  opacity: 0;
+  transition: opacity 0.22s ease;
+}
+.hint.show {
+  opacity: 1;
+  animation: hint-bounce 1.2s ease-in-out infinite;
+}
+
+.hint::after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 0;
+  border: 6px solid transparent;
+}
+.hint::before {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 0;
+  border: 4px solid transparent;
+  z-index: 1;
+}
+
+/* 타이틀 안내 (타이틀 바로 아래 가운데, 화살표는 위쪽으로) */
+.hint.hint-title {
+  top: calc(4vh + 110px);
+  left: 50%;
+  transform: translateX(-50%) rotate(-3deg);
+  --rot: -3deg;
+}
+.hint.hint-title::after  { top: -12px; left: calc(50% - 6px); border-bottom-color: var(--text); }
+.hint.hint-title::before { top: -8px;  left: calc(50% - 4px); border-bottom-color: white; }
+
+/* 얼굴 안내 (얼굴 아래쪽 가운데, 화살표는 위쪽) */
+.hint.hint-face {
+  top: calc(54% + 180px);
+  left: 50%;
+  transform: translateX(-50%) rotate(4deg);
+  --rot: 4deg;
+}
+.hint.hint-face::after  { top: -12px; left: calc(50% - 6px); border-bottom-color: var(--text); }
+.hint.hint-face::before { top: -8px;  left: calc(50% - 4px); border-bottom-color: white; }
+
+@keyframes hint-bounce {
+  0%, 100% { transform: translateX(-50%) translateY(0)  rotate(var(--rot, 0deg)); }
+  50%      { transform: translateX(-50%) translateY(-6px) rotate(var(--rot, 0deg)); }
+}
+
+@media (max-width: 720px) {
+  .hint.hint-title { top: calc(4vh + 80px); }
+  .hint.hint-face  { top: calc(54% + 140px); }
+}
+
+/* 이메일 버튼 (우하단 고정) */
+.email-btn {
+  position: fixed;
+  bottom: 22px;
+  right: 22px;
+  width: 44px;
+  height: 44px;
+  background: white;
+  border: 2px solid var(--text);
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text);
+  z-index: 100;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.email-btn:hover {
+  transform: translateY(-2px) scale(1.05);
+  box-shadow: 0 6px 18px rgba(255, 100, 200, 0.4);
+}
+
+.email-btn:active { transform: scale(0.94); }
+
+.email-bubble {
+  position: absolute;
+  bottom: calc(100% + 10px);
+  right: 0;
+  background: white;
+  border: 2px solid var(--text);
+  padding: 6px 12px;
+  font-size: 12px;
+  font-weight: 500;
+  font-family: "DM Mono", monospace;
+  border-radius: 8px;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(6px);
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.email-btn:hover .email-bubble {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.email-bubble::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  right: 14px;
+  border: 6px solid transparent;
+  border-top-color: var(--text);
+}
+
+.email-bubble::before {
+  content: '';
+  position: absolute;
+  top: 100%;
+  right: 16px;
+  margin-top: -3px;
+  border: 4px solid transparent;
+  border-top-color: white;
+  z-index: 1;
+}
+
+@keyframes bob {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-8px); }
+}
+
+/* CLICK ME 말풍선 */
+.click-me {
+  position: absolute;
+  top: calc(54% - 130px);
+  left: calc(50% + 130px);
+  background: white;
+  border: 2px solid var(--text);
+  padding: 6px 14px;
+  font-size: 12px;
+  font-weight: 500;
+  border-radius: 8px;
+  z-index: 10;
+  animation: bounce 1.6s ease-in-out infinite;
+  pointer-events: none;
+  letter-spacing: 0.05em;
+}
+
+.click-me::after {
+  content: '';
+  position: absolute;
+  bottom: -8px;
+  left: 14px;
+  width: 0;
+  height: 0;
+  border: 6px solid transparent;
+  border-top-color: var(--text);
+}
+
+.click-me::before {
+  content: '';
+  position: absolute;
+  bottom: -5px;
+  left: 16px;
+  width: 0;
+  height: 0;
+  border: 4px solid transparent;
+  border-top-color: white;
+  z-index: 1;
+}
+
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-5px); }
+}
+
+/* 토스트 */
+.toast {
+  position: fixed;
+  bottom: 70px;
+  left: 50%;
+  transform: translateX(-50%) translateY(20px);
+  background: rgba(255, 255, 255, 0.96);
+  border: 2px solid var(--text);
+  padding: 10px 22px;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 500;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s ease, transform 0.25s ease;
+  z-index: 200;
+}
+
+.toast.show {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+@media (max-width: 720px) {
+  .face-stack.face-main { width: 160px; height: 200px; }
+  .face-stack.face-side { width: 110px; height: 150px; }
+  .title    { width: 60vw; }
+  .click-me { left: calc(50% + 80px); top: calc(54% - 100px); }
+}

@@ -17,3 +17,10 @@ DESIGN.md
 
 # 영상 원본
 *_orig.mp4
+
+# 누끼 도구 작업물·캐시
+nukki-tool/outputs/
+nukki-tool/uploads/
+
+# 비밀키 포함
+.mcp.json

@@ -11,12 +11,11 @@
 <script src="mobile-gate.js"></script></head><body>
 <div class="bg-stars"></div>
 <div class="cur"></div><div class="cur-ring"></div><div class="cur-label">★</div>
-<audio id="audio" loop preload="metadata"><source src="main-bgm.mp3" type="audio/mpeg"/></audio>
 <nav class="site-nav">
-  <a href="index.html" class="nav-logo">KDI★</a>
+  <a href="home.html" class="nav-logo">KDI★</a>
   <div class="nav-time"><span class="dot"></span><span id="navClock">KR · 00:00:00</span></div>
   <ul class="nav-links">
-    <li><a href="index.html">HOME</a></li>
+    <li><a href="home.html">HOME</a></li>
     <li><a href="artist.html">ARTIST</a></li><li><a href="about.html">ABOUT</a></li>
     <li><a href="news.html">NEWS</a></li>
     <li><a href="shop.html">SHOP</a></li>
@@ -26,7 +25,7 @@
   <div class="hamburger" id="hb"><span></span><span></span><span></span></div>
 </nav>
 <div class="mobile-menu" id="mm">
-  <a href="index.html">HOME</a><a href="artist.html">ARTIST</a><a href="about.html">ABOUT</a><a href="news.html">NEWS</a>
+  <a href="home.html">HOME</a><a href="artist.html">ARTIST</a><a href="about.html">ABOUT</a><a href="news.html">NEWS</a>
   <a href="shop.html">SHOP</a><a href="schedule.html">LIVE</a><a href="contact.html">CONTACT</a>
 </div>
 <header class="page-head">
@@ -109,7 +108,7 @@
   <div class="ft-grid">
     <div><div class="ft-tag">// LABEL</div><div class="ft-logo">KDI</div><div class="ft-tag-line">creative hip-hop label · est 2024<br/>3 demons · 1 empire</div></div>
     <div><div class="ft-tag">// EXPLORE</div><div class="ft-links">
-      <a href="index.html">HOME</a><a href="about.html">ABOUT</a><a href="kdi.html">KDI</a>
+      <a href="home.html">HOME</a><a href="about.html">ABOUT</a><a href="kdi.html">KDI</a>
       <a href="jys.html">JYS</a><a href="myr.html">MYR</a></div></div>
     <div><div class="ft-tag">// CONTENTS</div><div class="ft-links">
       <a href="news.html">NEWS</a><a href="shop.html">SHOP</a><a href="schedule.html">LIVE</a>
@@ -121,19 +120,6 @@
   </div>
   <div class="ft-bottom"><span>© 2026 <span style="color:var(--pink)">KDI</span> · ALL RIGHTS RESERVED</span><span>SEOUL · OMOKCHEON · JOWON · SERYU</span><span>VOL.01 — Y2K EDITION</span></div>
 </footer>
-<div id="player">
-  <div class="vinyl-wrap" onclick="togglePlay()" data-cur="PLAY">
-    <div class="vinyl-disc" id="vinylDisc"></div>
-    <svg class="vinyl-prog" viewBox="0 0 64 64"><circle cx="32" cy="32" r="27"/><circle class="fill" cx="32" cy="32" r="27"/></svg>
-  </div>
-  <div class="pl-info" onclick="togglePlay()">
-    <div class="pl-track" id="plTrack">JEFF HARDY</div>
-    <div class="pl-status" id="plStatus"><span class="blink-dot"></span><span id="plStatusText">PRESS TO PLAY</span></div>
-    <div class="pl-time" id="plTime">00:00 / --:--</div>
-  </div>
-  <div class="pl-controls"><div class="pl-skip" onclick="prevTrack()" data-cur="PREV">◀</div><div class="pl-skip" onclick="nextTrack()" data-cur="NEXT">▶</div></div>
-  <div class="eq"><div class="eq-b off"></div><div class="eq-b off"></div><div class="eq-b off"></div><div class="eq-b off"></div></div>
-</div>
 <script src="v1-shared.js"></script>
 <script>
 /* CONTACT 동적 렌더 — data/contact.json */
@@ -187,4 +173,5 @@
   root.innerHTML = html;
 })();
 </script>
+<script src="bgm.js"></script>
 </body></html>
